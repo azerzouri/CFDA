@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>TRG_Database</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{fd665a60-ba53-47cb-a393-4da5f25ea9fa}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql140DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>TRG_Database</RootNamespace>
+    <AssemblyName>TRG_Database</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <IncludeSchemaNameInFileName>True</IncludeSchemaNameInFileName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="Scripts" />
+    <Folder Include="Objects" />
+    <Folder Include="Administration" />
+    <Folder Include="Scripts\Pre-Deployment" />
+    <Folder Include="Scripts\Post-Deployment" />
+    <Folder Include="Administration\Storage" />
+    <Folder Include="Administration\Service Broker" />
+    <Folder Include="Administration\Security" />
+    <Folder Include="Administration\Database Triggers" />
+    <Folder Include="Administration\Assemblies" />
+    <Folder Include="Administration\Security\Schemas" />
+    <Folder Include="Administration\Security\Roles" />
+    <Folder Include="Objects\dbo" />
+    <Folder Include="Objects\dbo\Views" />
+    <Folder Include="Objects\dbo\Tables" />
+    <Folder Include="Objects\dbo\Synonyms" />
+    <Folder Include="Objects\dbo\Programmability" />
+    <Folder Include="Objects\dbo\Views\Triggers" />
+    <Folder Include="Objects\dbo\Views\Indexes" />
+    <Folder Include="Objects\dbo\Tables\Triggers" />
+    <Folder Include="Objects\dbo\Tables\Indexes" />
+    <Folder Include="Objects\dbo\Tables\Foreign Keys" />
+    <Folder Include="Objects\dbo\Programmability\Types" />
+    <Folder Include="Objects\dbo\Programmability\Stored Procedures" />
+    <Folder Include="Objects\dbo\Programmability\Sequences" />
+    <Folder Include="Objects\dbo\Programmability\Functions" />
+    <Folder Include="Objects\dm" />
+    <Folder Include="Objects\stg" />
+    <Folder Include="Objects\raw" />
+    <Folder Include="Objects\wrk" />
+    <Folder Include="Objects\dm\Programmability" />
+    <Folder Include="Objects\dm\Programmability\Functions" />
+    <Folder Include="Objects\dm\Programmability\Sequences" />
+    <Folder Include="Objects\dm\Programmability\Stored Procedures" />
+    <Folder Include="Objects\dm\Programmability\Types" />
+    <Folder Include="Objects\dm\Synonyms" />
+    <Folder Include="Objects\dm\Tables" />
+    <Folder Include="Objects\dm\Tables\Foreign Keys" />
+    <Folder Include="Objects\dm\Tables\Indexes" />
+    <Folder Include="Objects\dm\Tables\Triggers" />
+    <Folder Include="Objects\dm\Views" />
+    <Folder Include="Objects\dm\Views\Indexes" />
+    <Folder Include="Objects\dm\Views\Triggers" />
+    <Folder Include="Objects\wrk\Views" />
+    <Folder Include="Objects\wrk\Views\Indexes" />
+    <Folder Include="Objects\wrk\Views\Triggers" />
+    <Folder Include="Objects\wrk\Programmability" />
+    <Folder Include="Objects\wrk\Programmability\Functions" />
+    <Folder Include="Objects\wrk\Programmability\Sequences" />
+    <Folder Include="Objects\wrk\Programmability\Stored Procedures" />
+    <Folder Include="Objects\wrk\Programmability\Types" />
+    <Folder Include="Objects\wrk\Synonyms" />
+    <Folder Include="Objects\wrk\Tables" />
+    <Folder Include="Objects\wrk\Tables\Foreign Keys" />
+    <Folder Include="Objects\wrk\Tables\Indexes" />
+    <Folder Include="Objects\wrk\Tables\Triggers" />
+    <Folder Include="Objects\raw\Views" />
+    <Folder Include="Objects\raw\Views\Indexes" />
+    <Folder Include="Objects\raw\Views\Triggers" />
+    <Folder Include="Objects\raw\Programmability" />
+    <Folder Include="Objects\raw\Programmability\Functions" />
+    <Folder Include="Objects\raw\Programmability\Sequences" />
+    <Folder Include="Objects\raw\Programmability\Stored Procedures" />
+    <Folder Include="Objects\raw\Programmability\Types" />
+    <Folder Include="Objects\raw\Synonyms" />
+    <Folder Include="Objects\raw\Tables" />
+    <Folder Include="Objects\raw\Tables\Foreign Keys" />
+    <Folder Include="Objects\raw\Tables\Indexes" />
+    <Folder Include="Objects\raw\Tables\Triggers" />
+    <Folder Include="Objects\stg\Views" />
+    <Folder Include="Objects\stg\Views\Indexes" />
+    <Folder Include="Objects\stg\Views\Triggers" />
+    <Folder Include="Objects\stg\Programmability" />
+    <Folder Include="Objects\stg\Programmability\Functions" />
+    <Folder Include="Objects\stg\Programmability\Sequences" />
+    <Folder Include="Objects\stg\Programmability\Stored Procedures" />
+    <Folder Include="Objects\stg\Programmability\Types" />
+    <Folder Include="Objects\stg\Synonyms" />
+    <Folder Include="Objects\stg\Tables" />
+    <Folder Include="Objects\stg\Tables\Foreign Keys" />
+    <Folder Include="Objects\stg\Tables\Indexes" />
+    <Folder Include="Objects\stg\Tables\Triggers" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Scripts\Pre-Deployment\Script.PreDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Administration\Security\Schemas\dm.sql" />
+    <Build Include="Administration\Security\Schemas\raw.sql" />
+    <Build Include="Administration\Security\Schemas\stg.sql" />
+    <Build Include="Administration\Security\Schemas\wrk.sql" />
+  </ItemGroup>
+</Project>
