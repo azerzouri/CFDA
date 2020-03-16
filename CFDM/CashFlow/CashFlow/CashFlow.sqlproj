@@ -152,5 +152,6 @@
     <Build Include="Administration\Security\Schemas\raw.sql" />
     <Build Include="Administration\Security\Schemas\stg.sql" />
     <Build Include="Administration\Security\Schemas\wrk.sql" />
+    <Build Include="Objects\wrk\wrk.tmpScripts.sql" />
   </ItemGroup>
 </Project>
