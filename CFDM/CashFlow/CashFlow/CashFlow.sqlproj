@@ -153,5 +153,6 @@
     <Build Include="Administration\Security\Schemas\stg.sql" />
     <Build Include="Administration\Security\Schemas\wrk.sql" />
     <Build Include="Objects\wrk\Tables\wrk.tmpScripts.sql" />
+    <Build Include="Objects\wrk\Programmability\wrk.ups_Drop_Create_ForeignKeys.sql" />
   </ItemGroup>
 </Project>
