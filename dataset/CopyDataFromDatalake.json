@@ -1,0 +1,27 @@
+{
+	"name": "CopyDataFromDatalake",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Data Lake Storage",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "3. Payment Verification Indemnity PTD 06302018.xlsx",
+				"folderPath": "raw/Asbestos/Archive",
+				"fileSystem": "trg"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"type": "String"
+			}
+		]
+	}
+}
