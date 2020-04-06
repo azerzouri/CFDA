@@ -154,5 +154,17 @@
     <Build Include="Administration\Security\Schemas\wrk.sql" />
     <Build Include="Objects\wrk\Tables\wrk.tmpScripts.sql" />
     <Build Include="Objects\wrk\Programmability\wrk.ups_Drop_Create_ForeignKeys.sql" />
+    <Build Include="Objects\dm\Tables\dm.DimAdjuster.sql" />
+    <Build Include="Objects\dm\Tables\dm.DimClaim.sql" />
+    <Build Include="Objects\dm\Tables\dm.DimDate.sql" />
+    <Build Include="Objects\dm\Tables\dm.DimExposure.sql" />
+    <Build Include="Objects\dm\Tables\dm.DimNotifications.sql" />
+    <Build Include="Objects\dm\Tables\dm.DimPolicy.sql" />
+    <Build Include="Objects\dm\Tables\dm.DimPolicyCoverage.sql" />
+    <Build Include="Objects\dm\Tables\dm.DimReinsurance.sql" />
+    <Build Include="Objects\dm\Tables\dm.DimWorkmatter.sql" />
+    <Build Include="Objects\dm\Tables\dm.FactActuals.sql" />
+    <Build Include="Objects\dm\Tables\dm.FactCashFlow.sql" />
+    <Build Include="Objects\dm\Tables\Foreign Keys\CreateDMForeignKeys.sql" />
   </ItemGroup>
 </Project>
