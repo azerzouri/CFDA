@@ -1,8 +1,8 @@
 /* 
- * TABLE: dbo.DimClaim 
+ * TABLE: dm.DimClaim 
  */
 
-CREATE TABLE dbo.DimClaim(
+CREATE TABLE dm.DimClaim(
     claim_SK            int            NOT NULL,
     claimNo             varchar(50)    NULL,
     actuarialSegment    varchar(50)    NULL,
@@ -14,9 +14,10 @@ CREATE TABLE dbo.DimClaim(
     upd_Proc_ID         int            NULL,
     is_Deleted          bit            DEFAULT 0 NULL,
     is_Active           bit            DEFAULT 0 NULL,
-    CONSTRAINT PK_DimExposure_1 PRIMARY KEY CLUSTERED (claim_SK)
+    CONSTRAINT PK_DimClaim PRIMARY KEY CLUSTERED (claim_SK)
 )
 go
+
 
 
 

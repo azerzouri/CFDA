@@ -5,8 +5,8 @@
 CREATE TABLE dm.DimNotifications(
     notification_SK    int              IDENTITY(1,1),
     workMatterNo       varchar(50)      NOT NULL,
-    Comments           varchar(4000)    NULL,
-    Confidence         varchar(50)      NULL,
+    comments           varchar(4000)    NULL,
+    confidence         varchar(50)      NULL,
     Status             varchar(50)      NULL,
     audit_Insert_Dt    datetime         DEFAULT (getdate()) NULL,
     audit_Update_Dt    datetime         DEFAULT (getdate()) NULL,
@@ -17,6 +17,7 @@ CREATE TABLE dm.DimNotifications(
     CONSTRAINT PK_DimNotifications PRIMARY KEY CLUSTERED (notification_SK)
 )
 go
+
 
 
 

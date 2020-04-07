@@ -1,8 +1,8 @@
 /* 
- * TABLE: dbo.FactActuals 
+ * TABLE: dm.FactActuals 
  */
 
-CREATE TABLE dbo.FactActuals(
+CREATE TABLE dm.FactActuals(
     factActuals_SK                int               IDENTITY(0,1),
     policy_SK                     int               NOT NULL,
     policyEffectiveDate_SK        int               NOT NULL,
@@ -41,9 +41,10 @@ CREATE TABLE dbo.FactActuals(
     upd_Proc_ID                   int               NULL,
     is_Deleted                    bit               DEFAULT 0 NULL,
     is_Active                     bit               DEFAULT 0 NULL,
-    CONSTRAINT PK PRIMARY KEY CLUSTERED (factActuals_SK)
+    CONSTRAINT PK_FactActuals PRIMARY KEY CLUSTERED (factActuals_SK)
 )
 go
+
 
 
 

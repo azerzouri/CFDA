@@ -41,9 +41,10 @@ CREATE TABLE dm.FactCashFlow(
     upd_Proc_ID                            int               NULL,
     is_Deleted                             bit               DEFAULT 0 NULL,
     is_Active                              bit               DEFAULT 0 NULL,
-    CONSTRAINT PK PRIMARY KEY CLUSTERED (factCashFlow_SK)
+    CONSTRAINT PK_FactCashFlow PRIMARY KEY CLUSTERED (factCashFlow_SK)
 )
 go
+
 
 
 
