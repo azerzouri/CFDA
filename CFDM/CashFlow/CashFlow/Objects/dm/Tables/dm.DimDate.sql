@@ -33,10 +33,10 @@ CREATE TABLE dm.DimDate(
     Upd_Proc_ID           int         NULL,
     Is_Deleted            bit         NULL,
     Is_Active             bit         NULL,
-    factCashFlow_SK       int         NOT NULL,
     CONSTRAINT PK_DimDate PRIMARY KEY CLUSTERED (Date_SK)
 )
 go
+
 
 
 
