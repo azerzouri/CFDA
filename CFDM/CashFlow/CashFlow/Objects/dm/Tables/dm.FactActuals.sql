@@ -3,7 +3,7 @@
  */
 
 CREATE TABLE dm.FactActuals(
-    factActuals_SK                int               IDENTITY(0,1),
+    factActualsID                 int               IDENTITY(0,1),
     policy_SK                     int               NOT NULL,
     policyEffectiveDate_SK        int               NOT NULL,
     policyExpirationDate_SK       int               NOT NULL,
@@ -33,18 +33,17 @@ CREATE TABLE dm.FactActuals(
     recoverySubrogationLoss       decimal(14, 2)    NULL,
     totalCase                     decimal(14, 2)    NULL,
     totalPaid                     char(10)          NULL,
-    totalPaidExpense              decimal(14, 2)    NULL,
-    totalPaidLoss                 decimal(14, 2)    NULL,
+    totalPaidDefExpense           decimal(14, 2)    NULL,
+    totalPaidLossExInLimits       decimal(14, 2)    NULL,
     audit_Insert_Dt               datetime          DEFAULT (getdate()) NULL,
     audit_Update_Dt               datetime          DEFAULT (getdate()) NULL,
     ins_Proc_ID                   int               NULL,
     upd_Proc_ID                   int               NULL,
     is_Deleted                    bit               DEFAULT 0 NULL,
     is_Active                     bit               DEFAULT 0 NULL,
-    CONSTRAINT PK_FactActuals PRIMARY KEY CLUSTERED (factActuals_SK)
+    CONSTRAINT PK_FactActuals PRIMARY KEY CLUSTERED (factActualsID)
 )
 go
-
 
 
 
