@@ -12,6 +12,11 @@ go
  * TABLE: dm.FactActuals 
  */
 
+ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimPolicy60 
+    FOREIGN KEY (policy_SK)
+    REFERENCES dm.DimPolicy(policy_SK)
+go
+
 ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimPolicyCoverage61 
     FOREIGN KEY (policyCoverage_SK)
     REFERENCES dm.DimPolicyCoverage(policyCoverage_SK)
@@ -87,20 +92,10 @@ ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimDate75
     REFERENCES dm.DimDate(Date_SK)
 go
 
-ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimPolicy60 
-    FOREIGN KEY (policy_SK)
-    REFERENCES dm.DimPolicy(policy_SK)
-go
-
 
 /* 
  * TABLE: dm.FactCashFlow 
  */
-
-ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimClaim76 
-    FOREIGN KEY (claim_SK)
-    REFERENCES dm.DimClaim(claim_SK)
-go
 
 ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimDate1 
     FOREIGN KEY (valuationDate_SK)
@@ -190,6 +185,11 @@ go
 ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimDate59 
     FOREIGN KEY (workmatterReopenDate_SK)
     REFERENCES dm.DimDate(Date_SK)
+go
+
+ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimClaim76 
+    FOREIGN KEY (claim_SK)
+    REFERENCES dm.DimClaim(claim_SK)
 go
 
 
