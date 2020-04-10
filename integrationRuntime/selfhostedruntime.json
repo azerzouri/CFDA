@@ -1,0 +1,12 @@
+{
+	"name": "selfhostedruntime",
+	"properties": {
+		"type": "SelfHosted",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/51fe9faf-fef7-4bb1-aeae-91295aa43581/resourcegroups/rg_NPRD-DEV/providers/Microsoft.DataFactory/factories/e2nprddf01/integrationruntimes/selfhostedruntime",
+				"authorizationType": "Rbac"
+			}
+		}
+	}
+}
