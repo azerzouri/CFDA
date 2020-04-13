@@ -145,7 +145,7 @@
     <PreDeploy Include="Scripts\Pre-Deployment\Script.PreDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment.sql" />
+    <None Include="Scripts\Post-Deployment\Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Administration\Security\Schemas\dm.sql" />
@@ -166,5 +166,8 @@
     <Build Include="Objects\dm\Tables\dm.FactActuals.sql" />
     <Build Include="Objects\dm\Tables\dm.FactCashFlow.sql" />
     <Build Include="Objects\dm\Tables\Foreign Keys\CreateDMForeignKeys.sql" />
+    <Build Include="Objects\stg\Tables\stg.Date.sql" />
+    <Build Include="Objects\stg\Programmability\Stored Procedures\stg.usp_loadDate.sql" />
+    <None Include="Scripts\Post-Deployment\Script.loadStgDateTable.sql" />
   </ItemGroup>
 </Project>
