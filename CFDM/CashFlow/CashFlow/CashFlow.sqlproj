@@ -145,7 +145,7 @@
     <PreDeploy Include="Scripts\Pre-Deployment\Script.PreDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Scripts\Post-Deployment\Script.PostDeployment.sql" />
+    <PostDeploy Include="Scripts\Post-Deployment\Script.PostDeployment.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Administration\Security\Schemas\dm.sql" />
