@@ -2,7 +2,7 @@
  * TABLE: dm.DimDate 
  */
 
-ALTER TABLE dm.DimDate ADD CONSTRAINT RefFactCashFlow77 
+ALTER TABLE dm.DimDate ADD CONSTRAINT RefFactCashFlow78 
     FOREIGN KEY (factCashflowID)
     REFERENCES dm.FactCashFlow(factCashflowID)
 go
