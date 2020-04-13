@@ -9,4 +9,4 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
-:r .\Script.loadStgDateTable.sql.sql
+:r .\Script.loadStgDateTable.sql
