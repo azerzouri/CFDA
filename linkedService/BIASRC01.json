@@ -1,0 +1,23 @@
+{
+	"name": "BIASRC01",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"parameters": {
+			"db": {
+				"type": "String",
+				"defaultValue": "prod_rs_ods"
+			}
+		},
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=True;data source=BIASRC01;initial catalog=@{linkedService().db}",
+			"userName": "trg\\rvith",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4ODVkZmI4OS04MDQ5LTRmN2ItYTYzMS0zZWE1ZTVhMjhkOTciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "selfhostedruntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
