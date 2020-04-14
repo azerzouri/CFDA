@@ -21,104 +21,13 @@
 						"queryTimeout": "02:00:00"
 					},
 					"sink": {
-						"type": "SqlMISink"
+						"type": "SqlMISink",
+						"tableOption": {
+							"value": "tablename",
+							"type": "Expression"
+						}
 					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "Work_Matter_No",
-									"type": "String"
-								},
-								"sink": {
-									"name": "workmatternumber",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "WM_Description",
-									"type": "String"
-								},
-								"sink": {
-									"name": "workmatterDescription",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "WM_Type_Desc",
-									"type": "String"
-								},
-								"sink": {
-									"name": "workmatterTypeDescription",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "DESCRIPTION",
-									"type": "String"
-								},
-								"sink": {
-									"name": "workmatterStatus",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "Special_Tracking_Group_Cd",
-									"type": "String"
-								},
-								"sink": {
-									"name": "specialtrackinggroup",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "Account",
-									"type": "String"
-								},
-								"sink": {
-									"name": "account",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
-									"name": "CreateTime",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "workmatterOpenDate",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "ReOpenDate",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "workmatterreopendate",
-									"type": "DateTime"
-								}
-							},
-							{
-								"source": {
-									"name": "CloseDate",
-									"type": "DateTime"
-								},
-								"sink": {
-									"name": "workmattercloseddate",
-									"type": "DateTime"
-								}
-							}
-						]
-					}
+					"enableStaging": false
 				},
 				"inputs": [
 					{
@@ -128,12 +37,18 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "CashflowPass",
+						"referenceName": "stgworkmatter",
 						"type": "DatasetReference"
 					}
 				]
 			}
 		],
+		"parameters": {
+			"tablename": {
+				"type": "String",
+				"defaultValue": "[stg].[Workmatter]"
+			}
+		},
 		"annotations": []
 	}
 }

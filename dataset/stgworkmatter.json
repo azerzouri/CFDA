@@ -1,5 +1,5 @@
 {
-	"name": "CashflowPass",
+	"name": "stgworkmatter",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "cfPaas",
@@ -53,6 +53,10 @@
 				"name": "Insert_Date",
 				"type": "date"
 			}
-		]
+		],
+		"typeProperties": {
+			"schema": "stg",
+			"table": "Workmatter"
+		}
 	}
 }
