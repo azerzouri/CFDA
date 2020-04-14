@@ -1,12 +1,3 @@
-/* 
- * TABLE: dm.DimDate 
- */
-
-ALTER TABLE dm.DimDate ADD CONSTRAINT RefFactCashFlow78 
-    FOREIGN KEY (factCashflowID)
-    REFERENCES dm.FactCashFlow(factCashflowID)
-go
-
 
 /* 
  * TABLE: dm.FactActuals 
@@ -178,7 +169,7 @@ ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimDate52
 go
 
 ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimDate57 
-    FOREIGN KEY (workmatter_ClosedDate_SK)
+    FOREIGN KEY (workmatterClosedDate_SK)
     REFERENCES dm.DimDate(Date_SK)
 go
 
