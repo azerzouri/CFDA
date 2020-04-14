@@ -132,6 +132,87 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "stg_policy",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select distinct Policy_No,Policy_Effective_Dt,Policy_Expiration_Dt,Portfolio_Cd\nFROM [Prod_RS_ODS].[pol].[Policy_Period]\n",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlMISink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Policy_No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Policy_No",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Portfolio_Cd",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Portfolio_Cd",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Policy_Effective_Dt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Policy_Effective_Dt",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Policy_Expiration_Dt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Policy_Expiration_Dt",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "BIASRC01",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stgpolicy",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"parameters": {
