@@ -1,0 +1,35 @@
+{
+	"name": "stg_workmatter",
+	"properties": {
+		"activities": [
+			{
+				"name": "stg_workmatter",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select distinct [Work_Matter_No],\nWM_Description,\nSpecial_Tracking_Group_Cd,\nc.CreateTime,\nReOpenDate,\nCloseDate,\nCOALESCE(c2.Name,(c2.FirstName+' '+c2.LastName)) AS Account,\nLKP.WM_Type_Desc,\nCS.DESCRIPTION\nFROM [PROD_RS_ODS].[clm].[Work_Matter] W\njoin [PROD_ClaimCenter].[dbo].[cc_claim] C on w.Work_Matter_No=c.ClaimNumber\nJOIN PROD_ClaimCenter.dbo.cc_claimcontact AS cc ON cc.ClaimID = c.ID AND cc.Retired = 0\nJOIN PROD_ClaimCenter.dbo.cc_claimcontactrole AS ccr ON ccr.ClaimContactID = cc.ID AND ccr.Role = 3 AND ccr.Retired = 0\nJOIN PROD_ClaimCenter.dbo.cc_contact AS c2 ON c2.ID = cc.ContactID AND c2.Retired = 0\njoin [PROD_RS_ODS].[ref].[clm_Work_Matter_Type_Lkp] LKP on LKP.WM_Type_ID=W.WM_Type_ID\njoin PROD_ClaimCenter.dbo.cctl_claimstate AS CS ON C.State = CS.id     \nwhere Sys_RowEndDt='9999-12-31 00:00:00.000'\nand  (c.Retired = 0 OR c.Retired IS NULL) \nAND LEFT(c.ClaimNumber,2) <> 'TW'",
+						"queryTimeout": "02:00:00"
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "BIASRC01",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

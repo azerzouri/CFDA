@@ -1,0 +1,12 @@
+{
+	"name": "BIASRC01",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "BIASRC01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	}
+}
