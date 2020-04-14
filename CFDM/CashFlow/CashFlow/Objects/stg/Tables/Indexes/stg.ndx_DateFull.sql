@@ -1,0 +1,1 @@
+﻿CREATE UNIQUE INDEX ndx_Date_DateFull ON stg.Date(DateFull)

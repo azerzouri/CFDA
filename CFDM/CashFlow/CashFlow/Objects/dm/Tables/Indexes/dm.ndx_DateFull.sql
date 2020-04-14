@@ -1,0 +1,1 @@
+﻿CREATE UNIQUE INDEX ndx_DimDate_DateFull ON dm.DimDate(DateFull)
