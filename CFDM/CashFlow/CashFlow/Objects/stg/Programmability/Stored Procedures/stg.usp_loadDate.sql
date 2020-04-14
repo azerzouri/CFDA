@@ -4,15 +4,15 @@ AS
 
 /*
 Procedure Name:  stg.usp_loadDate
-Purpose: To load Claimant data from the raw schema to staging structure
+Purpose: To load dates from the  staging to Datamart structure
 Called by: loaded ones, can be called by any process
 Calls: none
-Database: Asbestos_DM (DEV, QA and PRD)
-Date: 09/24/2019
-Author: Aziz
-Change Log:
+Database: Cashflow_DM (DEV, QA and PRD)
+Date: 04/14/2020
+Author: Aziz Z
+Change Log: 
 Date		By		Reason			
-test
+validation
 ************************************************************************************************************
 exec stg.usp_loadDate
 ************************************************************************************************************
