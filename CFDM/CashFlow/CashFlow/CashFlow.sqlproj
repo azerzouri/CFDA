@@ -173,5 +173,7 @@
     <Build Include="Objects\stg\Tables\Indexes\stg.ndx_DateFull.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_DateFull.sql" />
     <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimTruncateTable.sql" />
+    <Build Include="Objects\stg\Tables\stg.Policy.sql" />
+    <Build Include="Objects\stg\Tables\stg.Workmatter.sql" />
   </ItemGroup>
 </Project>
