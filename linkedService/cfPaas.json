@@ -1,0 +1,16 @@
+{
+	"name": "cfPaas",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlMI",
+		"typeProperties": {
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=e2nprdsql01.3aeed8d8043d.database.windows.net;initial catalog=CashFlow_DM_DEV;user id=service.cashflow",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIwMjc5ZDA5Yy1hMWE5LTRmNTQtODJhMS0zNjhhNDI2NjJmMGUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "selfhostedruntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

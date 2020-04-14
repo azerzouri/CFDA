@@ -1,0 +1,62 @@
+{
+	"name": "stgworkmatter",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "cfPaas",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [
+			{
+				"name": "workMatter_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "workmatternumber",
+				"type": "varchar"
+			},
+			{
+				"name": "workmatterDescription",
+				"type": "varchar"
+			},
+			{
+				"name": "workmatterTypeDescription",
+				"type": "varchar"
+			},
+			{
+				"name": "workmatterStatus",
+				"type": "varchar"
+			},
+			{
+				"name": "specialtrackinggroup",
+				"type": "varchar"
+			},
+			{
+				"name": "account",
+				"type": "varchar"
+			},
+			{
+				"name": "workmatterOpenDate",
+				"type": "date"
+			},
+			{
+				"name": "workmatterreopendate",
+				"type": "date"
+			},
+			{
+				"name": "workmattercloseddate",
+				"type": "date"
+			},
+			{
+				"name": "Insert_Date",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "stg",
+			"table": "Workmatter"
+		}
+	}
+}
