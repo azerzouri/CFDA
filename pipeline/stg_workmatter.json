@@ -29,15 +29,6 @@
 						"mappings": [
 							{
 								"source": {
-									"name": ""
-								},
-								"sink": {
-									"name": "workMatter_ID",
-									"type": "Int32"
-								}
-							},
-							{
-								"source": {
 									"name": "Work_Matter_No",
 									"type": "String"
 								},
@@ -123,12 +114,6 @@
 								},
 								"sink": {
 									"name": "workmattercloseddate",
-									"type": "DateTime"
-								}
-							},
-							{
-								"sink": {
-									"name": "Insert_Date",
 									"type": "DateTime"
 								}
 							}
