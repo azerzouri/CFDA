@@ -1,0 +1,42 @@
+{
+	"name": "stgpolicy",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "cfPaas",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [
+			{
+				"name": "policy_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Policy_No",
+				"type": "varchar"
+			},
+			{
+				"name": "Portfolio_Cd",
+				"type": "varchar"
+			},
+			{
+				"name": "Policy_Effective_Dt",
+				"type": "date"
+			},
+			{
+				"name": "Policy_Expiration_Dt",
+				"type": "date"
+			},
+			{
+				"name": "Insert_Date",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "stg",
+			"table": "Policy"
+		}
+	}
+}
