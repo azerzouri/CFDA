@@ -30,7 +30,7 @@ SET @sql=''
 
 SET @sql=(SELECT ' Truncate Table '+ @Database+ '.' + @Schema+ '.' + table_name  + char(13) + char(10)
 FROM INFORMATION_SCHEMA.TABLES
-WHERE TABLE_SCHEMA =@schema  
+WHERE TABLE_SCHEMA =@schema   and TABLE_NAME <> 'DimDate'
 FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)') 
 --select @sql
 EXEC(@sql)
