@@ -53,10 +53,6 @@
 				"name": "Insert_Date",
 				"type": "date"
 			}
-		],
-		"typeProperties": {
-			"schema": "stg",
-			"table": "Workmatter"
-		}
+		]
 	}
 }
