@@ -191,7 +191,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "Policy_Effective_Dt",
+									"name": "PolicyEffectiveDate",
 									"type": "DateTime"
 								}
 							},
@@ -201,7 +201,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "Policy_Expiration_Dt",
+									"name": "PolicyExpirationDate",
 									"type": "DateTime"
 								}
 							}
