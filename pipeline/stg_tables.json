@@ -63,7 +63,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "Exp_Open_Dt",
+									"name": "exposureOpenDate",
 									"type": "DateTime"
 								}
 							},
@@ -73,7 +73,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "Exp_Close_Dte",
+									"name": "exposurecloseDate",
 									"type": "DateTime"
 								}
 							},
@@ -83,7 +83,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "Exp_ReOpen_Dt",
+									"name": "exposureReOpenDate",
 									"type": "DateTime"
 								}
 							}
