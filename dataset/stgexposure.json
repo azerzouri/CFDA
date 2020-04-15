@@ -1,0 +1,52 @@
+{
+	"name": "stgexposure",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "cfPaas",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [
+			{
+				"name": "exposure_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "exposure_no",
+				"type": "varchar"
+			},
+			{
+				"name": "exposureStatus",
+				"type": "varchar"
+			},
+			{
+				"name": "insuredName",
+				"type": "varchar"
+			},
+			{
+				"name": "Exp_Open_Dt",
+				"type": "date"
+			},
+			{
+				"name": "Exp_Close_Dte",
+				"type": "date"
+			},
+			{
+				"name": "Exp_ReOpen_Dt",
+				"type": "date"
+			},
+			{
+				"name": "Insert_Date",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "stg",
+			"table": "exposure"
+		}
+	}
+}
