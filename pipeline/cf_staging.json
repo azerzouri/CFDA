@@ -376,82 +376,112 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "ClmExpID",
+									"name": "ClaimCenterID",
 									"type": "String"
 								},
 								"sink": {
-									"name": "claim_exposure_no",
+									"name": "claimCenterID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "AssociateName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "associateName",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "CCClaimNumber",
+									"name": "AdjustedName",
 									"type": "String"
 								},
 								"sink": {
-									"name": "claim_number",
+									"name": "adjustedName",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "exposureNo",
+									"name": "ManagerName",
 									"type": "String"
 								},
 								"sink": {
-									"name": "exposure_no",
+									"name": "managerName",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "Exp_Status",
+									"name": "GroupManagerName",
 									"type": "String"
 								},
 								"sink": {
-									"name": "exposureStatus",
+									"name": "groupManagerName",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "Insured_Nm",
+									"name": "Department",
 									"type": "String"
 								},
 								"sink": {
-									"name": "insuredName",
+									"name": "department",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "Exp_Open_Dt",
+									"name": "EmailAddress",
+									"type": "String"
+								},
+								"sink": {
+									"name": "emailAddress",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UserName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "userName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EffectiveDate",
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "exposureOpenDate",
+									"name": "effectiveDate",
 									"type": "DateTime"
 								}
 							},
 							{
 								"source": {
-									"name": "Exp_Close_Dt",
+									"name": "ExpirationDate",
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "exposurecloseDate",
+									"name": "expirationDate",
 									"type": "DateTime"
 								}
 							},
 							{
 								"source": {
-									"name": "Exp_ReOpen_Dt",
-									"type": "DateTime"
+									"name": "WorkMatterNo",
+									"type": "String"
 								},
 								"sink": {
-									"name": "exposureReOpenDate",
-									"type": "DateTime"
+									"name": "workmatternumber",
+									"type": "String"
 								}
 							}
 						]
@@ -465,7 +495,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "stgexposure",
+						"referenceName": "stgadjuster",
 						"type": "DatasetReference"
 					}
 				]
