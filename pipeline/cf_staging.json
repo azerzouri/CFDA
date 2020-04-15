@@ -243,7 +243,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "\n\nSELECT\n\n       distinct RTRIM(c.CCClaimNumber) + '-' + e.trg_ExposureNumber AS ExpID,\n       es.DESCRIPTION AS Exp_Status,\n   CAST(e.CloseDate AS DATE) AS Exp_Close_Dt,\n   CAST(e.CreateTime AS date) AS Exp_Open_Dt,\n    CAST(e.ReOpenDate AS date) AS Exp_ReOpen_Dt ,\ncp.InsuredName  AS Insured_Nm\nFROM [Prod_ClaimCenter].dbo.cc_exposure e                    \nJOIN [Prod_ClaimCenter].dbo.ccx_trg_Claim c ON e.trg_Claim = c.ID                    \nJOIN [Prod_ClaimCenter].dbo.cc_claim w ON e.ClaimID = w.ID                    \nJOIN [Prod_ClaimCenter].dbo.cctl_exposurestate AS es ON es.ID = e.State                    \nJOIN [Prod_ClaimCenter].dbo.cctl_claimstate AS cs ON cs.ID = w.State    \nLEFT JOIN [Prod_ClaimCenter].dbo.ccx_trg_ChildPolicy cp ON cp.ID = c.trg_ChildPolicy\n",
+						"sqlReaderQuery": "\n\n\n\nSELECT\n\n       distinct RTRIM(c.CCClaimNumber) + '-' + e.trg_ExposureNumber AS ClmExpID,\n\t   c.CCClaimNumber,\n\t e.trg_ExposureNumber as exposureNo,\n       es.DESCRIPTION AS Exp_Status,\n   CAST(e.CloseDate AS DATE) AS Exp_Close_Dt,\n   CAST(e.CreateTime AS date) AS Exp_Open_Dt,\n    CAST(e.ReOpenDate AS date) AS Exp_ReOpen_Dt ,\ncp.InsuredName AS Insured_Nm\nFROM [Prod_ClaimCenter].dbo.cc_exposure e                    \nJOIN [Prod_ClaimCenter].dbo.ccx_trg_Claim c ON e.trg_Claim = c.ID                    \nJOIN [Prod_ClaimCenter].dbo.cc_claim w ON e.ClaimID = w.ID                    \nJOIN [Prod_ClaimCenter].dbo.cctl_exposurestate AS es ON es.ID = e.State                    \nJOIN [Prod_ClaimCenter].dbo.cctl_claimstate AS cs ON cs.ID = w.State    \nLEFT JOIN [Prod_ClaimCenter].dbo.ccx_trg_ChildPolicy cp ON cp.ID = c.trg_ChildPolicy\n\n\n\n\n\n",
 						"queryTimeout": "02:00:00"
 					},
 					"sink": {
@@ -255,7 +255,27 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "ExpID",
+									"name": "ClmExpID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claim_exposure_no",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CCClaimNumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claim_number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "exposureNo",
 									"type": "String"
 								},
 								"sink": {
@@ -289,7 +309,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "Exp_Open_Dt",
+									"name": "exposureOpenDate",
 									"type": "DateTime"
 								}
 							},
@@ -299,7 +319,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "Exp_Close_Dte",
+									"name": "exposurecloseDate",
 									"type": "DateTime"
 								}
 							},
@@ -309,7 +329,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "Exp_ReOpen_Dt",
+									"name": "exposureReOpenDate",
 									"type": "DateTime"
 								}
 							}
