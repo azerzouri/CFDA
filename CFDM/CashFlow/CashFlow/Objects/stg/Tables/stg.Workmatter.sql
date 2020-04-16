@@ -1,14 +1,22 @@
-﻿CREATE TABLE stg.Workmatter(
+/* 
+ * TABLE: stg.Workmatter 
+ */
+
+CREATE TABLE stg.Workmatter(
     workMatter_ID                int             IDENTITY(1,1),
-    workmatternumber             varchar(64)     NOT NULL,
-    workmatterDescription        varchar(512)    NULL,
-    workmatterTypeDescription    varchar(64)     NULL,
-    workmatterStatus             varchar(64)     NULL,
-    specialtrackinggroup         varchar(64)     NULL,
+    workMatterNumber             varchar(64)     NOT NULL,
+    workMatterDescription        varchar(512)    NULL,
+    workMatterTypeDescription    varchar(64)     NULL,
+    workMatterStatus             varchar(64)     NULL,
+    specialTrackingGroup         varchar(64)     NULL,
     account                      varchar(64)     NULL,
-    workmatterOpenDate           date            NULL,
-    workmatterreopendate         date            NULL,
-    workmattercloseddate         date            NULL,
+    workMatterOpenDate           date            NULL,
+    workMatterReOpenDate         date            NULL,
+    workMatterClosedDate         date            NULL,
     Insert_Date                  datetime        DEFAULT getdate() NOT NULL,
-    CONSTRAINT PK_Workmatter PRIMARY KEY CLUSTERED (workMatter_ID)
+    CONSTRAINT PK_Workmatter PRIMARY KEY NONCLUSTERED (workMatter_ID)
 )
+go
+
+
+

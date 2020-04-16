@@ -506,6 +506,124 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "stg_notification",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "stg_adjuster",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": " select distinct [WorkMatter],Status,Comments,[Confidence],[RWCLoss]\n      ,[RWCDefExp]\n      ,[RWCCovDJ]\n  FROM [Prod_CashFlow].[data].[Notifications]\n\n\n\nSELECT\n\n       distinct RTRIM(c.CCClaimNumber) + '-' + e.trg_ExposureNumber AS ClmExpID,\n\t   c.CCClaimNumber,\n\t e.trg_ExposureNumber as exposureNo,\n       es.DESCRIPTION AS Exp_Status,\n   CAST(e.CloseDate AS DATE) AS Exp_Close_Dt,\n   CAST(e.CreateTime AS date) AS Exp_Open_Dt,\n    CAST(e.ReOpenDate AS date) AS Exp_ReOpen_Dt ,\ncp.InsuredName AS Insured_Nm\nFROM [Prod_ClaimCenter].dbo.cc_exposure e                    \nJOIN [Prod_ClaimCenter].dbo.ccx_trg_Claim c ON e.trg_Claim = c.ID                    \nJOIN [Prod_ClaimCenter].dbo.cc_claim w ON e.ClaimID = w.ID                    \nJOIN [Prod_ClaimCenter].dbo.cctl_exposurestate AS es ON es.ID = e.State                    \nJOIN [Prod_ClaimCenter].dbo.cctl_claimstate AS cs ON cs.ID = w.State    \nLEFT JOIN [Prod_ClaimCenter].dbo.ccx_trg_ChildPolicy cp ON cp.ID = c.trg_ChildPolicy\n\n\n\n\n\n",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlMISink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "WorkMatter",
+									"type": "String"
+								},
+								"sink": {
+									"name": "workmatternumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Status",
+									"type": "String"
+								},
+								"sink": {
+									"name": "status",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Comments",
+									"type": "String"
+								},
+								"sink": {
+									"name": "comments",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Confidence",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Confidence",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RWCLoss",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "RWCLoss",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "RWCDefExp",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "RWCDefExp",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "RWCCovDJ",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "RWCCovDJ",
+									"type": "Decimal"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "BIASRC01",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stgnotification",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"annotations": []
