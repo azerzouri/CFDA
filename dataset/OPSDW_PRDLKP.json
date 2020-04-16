@@ -1,0 +1,12 @@
+{
+	"name": "OPSDW_PRDLKP",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "OPSDW_PRDLKP",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	}
+}

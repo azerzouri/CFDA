@@ -191,7 +191,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "Policy_Effective_Dt",
+									"name": "PolicyEffectiveDate",
 									"type": "DateTime"
 								}
 							},
@@ -201,7 +201,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "Policy_Expiration_Dt",
+									"name": "PolicyExpirationDate",
 									"type": "DateTime"
 								}
 							}
@@ -243,7 +243,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "\n\nSELECT\n\n       distinct RTRIM(c.CCClaimNumber) + '-' + e.trg_ExposureNumber AS ExpID,\n       es.DESCRIPTION AS Exp_Status,\n   CAST(e.CloseDate AS DATE) AS Exp_Close_Dt,\n   CAST(e.CreateTime AS date) AS Exp_Open_Dt,\n    CAST(e.ReOpenDate AS date) AS Exp_ReOpen_Dt ,\ncp.InsuredName  AS Insured_Nm\nFROM [Prod_ClaimCenter].dbo.cc_exposure e                    \nJOIN [Prod_ClaimCenter].dbo.ccx_trg_Claim c ON e.trg_Claim = c.ID                    \nJOIN [Prod_ClaimCenter].dbo.cc_claim w ON e.ClaimID = w.ID                    \nJOIN [Prod_ClaimCenter].dbo.cctl_exposurestate AS es ON es.ID = e.State                    \nJOIN [Prod_ClaimCenter].dbo.cctl_claimstate AS cs ON cs.ID = w.State    \nLEFT JOIN [Prod_ClaimCenter].dbo.ccx_trg_ChildPolicy cp ON cp.ID = c.trg_ChildPolicy\n",
+						"sqlReaderQuery": "\n\n\n\nSELECT\n\n       distinct RTRIM(c.CCClaimNumber) + '-' + e.trg_ExposureNumber AS ClmExpID,\n\t   c.CCClaimNumber,\n\t e.trg_ExposureNumber as exposureNo,\n       es.DESCRIPTION AS Exp_Status,\n   CAST(e.CloseDate AS DATE) AS Exp_Close_Dt,\n   CAST(e.CreateTime AS date) AS Exp_Open_Dt,\n    CAST(e.ReOpenDate AS date) AS Exp_ReOpen_Dt ,\ncp.InsuredName AS Insured_Nm\nFROM [Prod_ClaimCenter].dbo.cc_exposure e                    \nJOIN [Prod_ClaimCenter].dbo.ccx_trg_Claim c ON e.trg_Claim = c.ID                    \nJOIN [Prod_ClaimCenter].dbo.cc_claim w ON e.ClaimID = w.ID                    \nJOIN [Prod_ClaimCenter].dbo.cctl_exposurestate AS es ON es.ID = e.State                    \nJOIN [Prod_ClaimCenter].dbo.cctl_claimstate AS cs ON cs.ID = w.State    \nLEFT JOIN [Prod_ClaimCenter].dbo.ccx_trg_ChildPolicy cp ON cp.ID = c.trg_ChildPolicy\n\n\n\n\n\n",
 						"queryTimeout": "02:00:00"
 					},
 					"sink": {
@@ -255,7 +255,27 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "ExpID",
+									"name": "ClmExpID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claim_exposure_no",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CCClaimNumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claim_number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "exposureNo",
 									"type": "String"
 								},
 								"sink": {
@@ -289,7 +309,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "Exp_Open_Dt",
+									"name": "exposureOpenDate",
 									"type": "DateTime"
 								}
 							},
@@ -299,7 +319,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "Exp_Close_Dte",
+									"name": "exposurecloseDate",
 									"type": "DateTime"
 								}
 							},
@@ -309,7 +329,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "Exp_ReOpen_Dt",
+									"name": "exposureReOpenDate",
 									"type": "DateTime"
 								}
 							}
@@ -325,6 +345,164 @@
 				"outputs": [
 					{
 						"referenceName": "stgexposure",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "stg_adjuster",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "stg_exposure",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "----Please use this queryin the DFto load the adjuster / wm Data from OPSDW\nSELECT\n    distinct [ClaimCenterID],\n    [AssociateName],\n    [AdjustedName],\n    [ManagerName],\n    [GroupManagerName],\n    T.[Department],\n    [EmailAddress],\n    [UserName],\n    [EffectiveDate],\n    [ExpirationDate],\n    cc.ClaimNumber AS WorkMatterNo\n\n    \nFROM\n    [Prod_Lookup].[dbo].[vw_AssociateManager_Reporting_Test] T\n    left join PROD_ClaimCenter.dbo.cc_claim AS cc on T.ClaimCenterID = cc.AssignedUserID\n  \n    LEFT JOIN PROD_ClaimCenter.dbo.cctl_state AS cs ON cc.trg_state = cs.id\n    LEFT JOIN PROD_ClaimCenter.dbo.cc_claimcontact AS claimc ON claimc.ClaimID = cc.ID\n    JOIN PROD_ClaimCenter.dbo.cc_claimcontactrole AS ccr ON ccr.ClaimContactID = claimc.ID\n    AND ccr.role = '3'\n    LEFT JOIN PROD_ClaimCenter.dbo.cctl_claimstate AS cc2 ON cc.State = cc2.id\n    LEFT JOIN PROD_ClaimCenter.dbo.cctl_trg_specialtrackinggroups AS cts ON trg_SpecialTrackingGroup = cts.ID\n    LEFT JOIN PROD_ClaimCenter.dbo.cctl_trg_workmattertype AS ctw ON cc.trg_WorkMatterType = ctw.ID --Joins to get Assigned User Information \n    LEFT JOIN PROD_ClaimCenter.dbo.cc_user AS cu ON cc.AssignedUserID = cu.id\n    LEFT JOIN PROD_ClaimCenter.dbo.cc_contact AS cc3 ON cc3.ID = cu.ContactID --Joins to get Assigned Unit Manager Information       \n    LEFT JOIN PROD_ClaimCenter.dbo.cc_group AS cg ON AssignedGroupID = cg.ID\n    LEFT JOIN PROD_ClaimCenter.dbo.cc_user AS cu2 ON cu2.ID = cg.SupervisorID\n    LEFT JOIN PROD_ClaimCenter.dbo.cc_contact AS cc4 ON cc4.id = cu2.ContactID\n\n\n\n\nSELECT\n\n       distinct RTRIM(c.CCClaimNumber) + '-' + e.trg_ExposureNumber AS ClmExpID,\n\t   c.CCClaimNumber,\n\t e.trg_ExposureNumber as exposureNo,\n       es.DESCRIPTION AS Exp_Status,\n   CAST(e.CloseDate AS DATE) AS Exp_Close_Dt,\n   CAST(e.CreateTime AS date) AS Exp_Open_Dt,\n    CAST(e.ReOpenDate AS date) AS Exp_ReOpen_Dt ,\ncp.InsuredName AS Insured_Nm\nFROM [Prod_ClaimCenter].dbo.cc_exposure e                    \nJOIN [Prod_ClaimCenter].dbo.ccx_trg_Claim c ON e.trg_Claim = c.ID                    \nJOIN [Prod_ClaimCenter].dbo.cc_claim w ON e.ClaimID = w.ID                    \nJOIN [Prod_ClaimCenter].dbo.cctl_exposurestate AS es ON es.ID = e.State                    \nJOIN [Prod_ClaimCenter].dbo.cctl_claimstate AS cs ON cs.ID = w.State    \nLEFT JOIN [Prod_ClaimCenter].dbo.ccx_trg_ChildPolicy cp ON cp.ID = c.trg_ChildPolicy\n\n\n\n\n\n",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlMISink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ClaimCenterID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claimCenterID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "AssociateName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "associateName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AdjustedName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "adjustedName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ManagerName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "managerName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "GroupManagerName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "groupManagerName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Department",
+									"type": "String"
+								},
+								"sink": {
+									"name": "department",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EmailAddress",
+									"type": "String"
+								},
+								"sink": {
+									"name": "emailAddress",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UserName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "userName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EffectiveDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "effectiveDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ExpirationDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "expirationDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "WorkMatterNo",
+									"type": "String"
+								},
+								"sink": {
+									"name": "workmatternumber",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OPSDW_PRDLKP",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stgadjuster",
 						"type": "DatasetReference"
 					}
 				]
