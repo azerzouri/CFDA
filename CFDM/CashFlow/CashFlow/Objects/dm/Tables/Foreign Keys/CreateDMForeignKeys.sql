@@ -69,17 +69,17 @@ ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimClaim72
 go
 
 ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimDate73 
-    FOREIGN KEY (workmatterOpenDate_SK)
+    FOREIGN KEY (workMatterOpenDate_SK)
     REFERENCES dm.DimDate(Date_SK)
 go
 
 ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimDate74 
-    FOREIGN KEY (workmatterClosedDate_SK)
+    FOREIGN KEY (workMatterClosedDate_SK)
     REFERENCES dm.DimDate(Date_SK)
 go
 
 ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimDate75 
-    FOREIGN KEY (workmatterReopenDate_SK)
+    FOREIGN KEY (workMatterReopenDate_SK)
     REFERENCES dm.DimDate(Date_SK)
 go
 

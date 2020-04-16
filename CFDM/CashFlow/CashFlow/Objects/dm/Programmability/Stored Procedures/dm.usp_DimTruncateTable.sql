@@ -19,8 +19,10 @@ exec [dm].[usp_DimTruncateTable]
 
 
 BEGIN TRY
-
-exec [wrk].[ups_Drop_Create_ForeignKeys]	@execStep = 'DROP'
+if(@schemaName = 'dm')
+BEGIN
+	exec [wrk].[ups_Drop_Create_ForeignKeys]	@execStep = 'DROP'
+END
 
 DECLARE @sql varchar(max)
 DECLARE @Database varchar(50)
