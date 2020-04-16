@@ -175,5 +175,8 @@
     <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimTruncateTable.sql" />
     <Build Include="Objects\stg\Tables\stg.Policy.sql" />
     <Build Include="Objects\stg\Tables\stg.Workmatter.sql" />
+    <Build Include="Objects\stg\Tables\stg.Adjuster.sql" />
+    <Build Include="Objects\stg\Tables\stg.Exposure.sql" />
+    <Build Include="Objects\stg\Tables\stg.Notification.sql" />
   </ItemGroup>
 </Project>
