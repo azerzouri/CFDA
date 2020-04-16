@@ -1,0 +1,62 @@
+{
+	"name": "stgnotification",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "cfPaas",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [
+			{
+				"name": "notification_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "workmatternumber",
+				"type": "varchar"
+			},
+			{
+				"name": "status",
+				"type": "varchar"
+			},
+			{
+				"name": "comments",
+				"type": "varchar"
+			},
+			{
+				"name": "Confidence",
+				"type": "varchar"
+			},
+			{
+				"name": "RWCLoss",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "RWCDefExp",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "RWCCovDJ",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "Insert_Date",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "stg",
+			"table": "Notification"
+		}
+	}
+}

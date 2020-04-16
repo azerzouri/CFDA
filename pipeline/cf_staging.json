@@ -1,0 +1,631 @@
+{
+	"name": "cf_staging",
+	"properties": {
+		"activities": [
+			{
+				"name": "stg_workmatter",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select distinct [Work_Matter_No],\nWM_Description,\nSpecial_Tracking_Group_Cd,\nc.CreateTime,\nReOpenDate,\nCloseDate,\nCOALESCE(c2.Name,(c2.FirstName+' '+c2.LastName)) AS Account,\nLKP.WM_Type_Desc,\nCS.DESCRIPTION\nFROM [PROD_RS_ODS].[clm].[Work_Matter] W\njoin [PROD_ClaimCenter].[dbo].[cc_claim] C on w.Work_Matter_No=c.ClaimNumber\nJOIN PROD_ClaimCenter.dbo.cc_claimcontact AS cc ON cc.ClaimID = c.ID AND cc.Retired = 0\nJOIN PROD_ClaimCenter.dbo.cc_claimcontactrole AS ccr ON ccr.ClaimContactID = cc.ID AND ccr.Role = 3 AND ccr.Retired = 0\nJOIN PROD_ClaimCenter.dbo.cc_contact AS c2 ON c2.ID = cc.ContactID AND c2.Retired = 0\njoin [PROD_RS_ODS].[ref].[clm_Work_Matter_Type_Lkp] LKP on LKP.WM_Type_ID=W.WM_Type_ID\njoin PROD_ClaimCenter.dbo.cctl_claimstate AS CS ON C.State = CS.id     \nwhere Sys_RowEndDt='9999-12-31 00:00:00.000'\nand  (c.Retired = 0 OR c.Retired IS NULL) \nAND LEFT(c.ClaimNumber,2) <> 'TW'",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlMISink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Work_Matter_No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "workmatternumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WM_Description",
+									"type": "String"
+								},
+								"sink": {
+									"name": "workmatterDescription",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WM_Type_Desc",
+									"type": "String"
+								},
+								"sink": {
+									"name": "workmatterTypeDescription",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "DESCRIPTION",
+									"type": "String"
+								},
+								"sink": {
+									"name": "workmatterStatus",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Special_Tracking_Group_Cd",
+									"type": "String"
+								},
+								"sink": {
+									"name": "specialtrackinggroup",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Account",
+									"type": "String"
+								},
+								"sink": {
+									"name": "account",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CreateTime",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "workmatterOpenDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ReOpenDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "workmatterreopendate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CloseDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "workmattercloseddate",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "BIASRC01",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stgworkmatter",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "stg_policy",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "stg_workmatter",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select distinct Policy_No,Policy_Effective_Dt,Policy_Expiration_Dt,Portfolio_Cd\nFROM [Prod_RS_ODS].[pol].[Policy_Period]\n",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlMISink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Policy_No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Policy_No",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Portfolio_Cd",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Portfolio_Cd",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Policy_Effective_Dt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "PolicyEffectiveDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Policy_Expiration_Dt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "PolicyExpirationDate",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "BIASRC01",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stgpolicy",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "stg_exposure",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "stg_policy",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "\n\n\n\nSELECT\n\n       distinct RTRIM(c.CCClaimNumber) + '-' + e.trg_ExposureNumber AS ClmExpID,\n\t   c.CCClaimNumber,\n\t e.trg_ExposureNumber as exposureNo,\n       es.DESCRIPTION AS Exp_Status,\n   CAST(e.CloseDate AS DATE) AS Exp_Close_Dt,\n   CAST(e.CreateTime AS date) AS Exp_Open_Dt,\n    CAST(e.ReOpenDate AS date) AS Exp_ReOpen_Dt ,\ncp.InsuredName AS Insured_Nm\nFROM [Prod_ClaimCenter].dbo.cc_exposure e                    \nJOIN [Prod_ClaimCenter].dbo.ccx_trg_Claim c ON e.trg_Claim = c.ID                    \nJOIN [Prod_ClaimCenter].dbo.cc_claim w ON e.ClaimID = w.ID                    \nJOIN [Prod_ClaimCenter].dbo.cctl_exposurestate AS es ON es.ID = e.State                    \nJOIN [Prod_ClaimCenter].dbo.cctl_claimstate AS cs ON cs.ID = w.State    \nLEFT JOIN [Prod_ClaimCenter].dbo.ccx_trg_ChildPolicy cp ON cp.ID = c.trg_ChildPolicy\n\n\n\n\n\n",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlMISink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ClmExpID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claim_exposure_no",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CCClaimNumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claim_number",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "exposureNo",
+									"type": "String"
+								},
+								"sink": {
+									"name": "exposure_no",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Exp_Status",
+									"type": "String"
+								},
+								"sink": {
+									"name": "exposureStatus",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Insured_Nm",
+									"type": "String"
+								},
+								"sink": {
+									"name": "insuredName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Exp_Open_Dt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "exposureOpenDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Exp_Close_Dt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "exposurecloseDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Exp_ReOpen_Dt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "exposureReOpenDate",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "BIASRC01",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stgexposure",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "stg_adjuster",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "stg_exposure",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "----Please use this queryin the DFto load the adjuster / wm Data from OPSDW\nSELECT\n    distinct [ClaimCenterID],\n    [AssociateName],\n    [AdjustedName],\n    [ManagerName],\n    [GroupManagerName],\n    T.[Department],\n    [EmailAddress],\n    [UserName],\n    [EffectiveDate],\n    [ExpirationDate],\n    cc.ClaimNumber AS WorkMatterNo\n\n    \nFROM\n    [Prod_Lookup].[dbo].[vw_AssociateManager_Reporting_Test] T\n    left join PROD_ClaimCenter.dbo.cc_claim AS cc on T.ClaimCenterID = cc.AssignedUserID\n  \n    LEFT JOIN PROD_ClaimCenter.dbo.cctl_state AS cs ON cc.trg_state = cs.id\n    LEFT JOIN PROD_ClaimCenter.dbo.cc_claimcontact AS claimc ON claimc.ClaimID = cc.ID\n    JOIN PROD_ClaimCenter.dbo.cc_claimcontactrole AS ccr ON ccr.ClaimContactID = claimc.ID\n    AND ccr.role = '3'\n    LEFT JOIN PROD_ClaimCenter.dbo.cctl_claimstate AS cc2 ON cc.State = cc2.id\n    LEFT JOIN PROD_ClaimCenter.dbo.cctl_trg_specialtrackinggroups AS cts ON trg_SpecialTrackingGroup = cts.ID\n    LEFT JOIN PROD_ClaimCenter.dbo.cctl_trg_workmattertype AS ctw ON cc.trg_WorkMatterType = ctw.ID --Joins to get Assigned User Information \n    LEFT JOIN PROD_ClaimCenter.dbo.cc_user AS cu ON cc.AssignedUserID = cu.id\n    LEFT JOIN PROD_ClaimCenter.dbo.cc_contact AS cc3 ON cc3.ID = cu.ContactID --Joins to get Assigned Unit Manager Information       \n    LEFT JOIN PROD_ClaimCenter.dbo.cc_group AS cg ON AssignedGroupID = cg.ID\n    LEFT JOIN PROD_ClaimCenter.dbo.cc_user AS cu2 ON cu2.ID = cg.SupervisorID\n    LEFT JOIN PROD_ClaimCenter.dbo.cc_contact AS cc4 ON cc4.id = cu2.ContactID\n\n\n\n\nSELECT\n\n       distinct RTRIM(c.CCClaimNumber) + '-' + e.trg_ExposureNumber AS ClmExpID,\n\t   c.CCClaimNumber,\n\t e.trg_ExposureNumber as exposureNo,\n       es.DESCRIPTION AS Exp_Status,\n   CAST(e.CloseDate AS DATE) AS Exp_Close_Dt,\n   CAST(e.CreateTime AS date) AS Exp_Open_Dt,\n    CAST(e.ReOpenDate AS date) AS Exp_ReOpen_Dt ,\ncp.InsuredName AS Insured_Nm\nFROM [Prod_ClaimCenter].dbo.cc_exposure e                    \nJOIN [Prod_ClaimCenter].dbo.ccx_trg_Claim c ON e.trg_Claim = c.ID                    \nJOIN [Prod_ClaimCenter].dbo.cc_claim w ON e.ClaimID = w.ID                    \nJOIN [Prod_ClaimCenter].dbo.cctl_exposurestate AS es ON es.ID = e.State                    \nJOIN [Prod_ClaimCenter].dbo.cctl_claimstate AS cs ON cs.ID = w.State    \nLEFT JOIN [Prod_ClaimCenter].dbo.ccx_trg_ChildPolicy cp ON cp.ID = c.trg_ChildPolicy\n\n\n\n\n\n",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlMISink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ClaimCenterID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claimCenterID",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"name": "AssociateName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "associateName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "AdjustedName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "adjustedName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ManagerName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "managerName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "GroupManagerName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "groupManagerName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Department",
+									"type": "String"
+								},
+								"sink": {
+									"name": "department",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EmailAddress",
+									"type": "String"
+								},
+								"sink": {
+									"name": "emailAddress",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "UserName",
+									"type": "String"
+								},
+								"sink": {
+									"name": "userName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "EffectiveDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "effectiveDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ExpirationDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "expirationDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "WorkMatterNo",
+									"type": "String"
+								},
+								"sink": {
+									"name": "workmatternumber",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "OPSDW_PRDLKP",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stgadjuster",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "stg_notification",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "stg_adjuster",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": " select distinct [WorkMatter],Status,Comments,[Confidence],[RWCLoss]\n      ,[RWCDefExp]\n      ,[RWCCovDJ]\n  FROM [Prod_CashFlow].[data].[Notifications]\n\n\n\nSELECT\n\n       distinct RTRIM(c.CCClaimNumber) + '-' + e.trg_ExposureNumber AS ClmExpID,\n\t   c.CCClaimNumber,\n\t e.trg_ExposureNumber as exposureNo,\n       es.DESCRIPTION AS Exp_Status,\n   CAST(e.CloseDate AS DATE) AS Exp_Close_Dt,\n   CAST(e.CreateTime AS date) AS Exp_Open_Dt,\n    CAST(e.ReOpenDate AS date) AS Exp_ReOpen_Dt ,\ncp.InsuredName AS Insured_Nm\nFROM [Prod_ClaimCenter].dbo.cc_exposure e                    \nJOIN [Prod_ClaimCenter].dbo.ccx_trg_Claim c ON e.trg_Claim = c.ID                    \nJOIN [Prod_ClaimCenter].dbo.cc_claim w ON e.ClaimID = w.ID                    \nJOIN [Prod_ClaimCenter].dbo.cctl_exposurestate AS es ON es.ID = e.State                    \nJOIN [Prod_ClaimCenter].dbo.cctl_claimstate AS cs ON cs.ID = w.State    \nLEFT JOIN [Prod_ClaimCenter].dbo.ccx_trg_ChildPolicy cp ON cp.ID = c.trg_ChildPolicy\n\n\n\n\n\n",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlMISink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "WorkMatter",
+									"type": "String"
+								},
+								"sink": {
+									"name": "workmatternumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Status",
+									"type": "String"
+								},
+								"sink": {
+									"name": "status",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Comments",
+									"type": "String"
+								},
+								"sink": {
+									"name": "comments",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Confidence",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Confidence",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "RWCLoss",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "RWCLoss",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "RWCDefExp",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "RWCDefExp",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "RWCCovDJ",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "RWCCovDJ",
+									"type": "Decimal"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "BIASRC01",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stgnotification",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

@@ -1,0 +1,115 @@
+{
+	"name": "stg_tables",
+	"properties": {
+		"activities": [
+			{
+				"name": "stg_exposure",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "\n\nSELECT\n\n       distinct RTRIM(c.CCClaimNumber) + '-' + e.trg_ExposureNumber AS ExpID,\n       es.DESCRIPTION AS Exp_Status,\n   CAST(e.CloseDate AS DATE) AS Exp_Close_Dt,\n   CAST(e.CreateTime AS date) AS Exp_Open_Dt,\n    CAST(e.ReOpenDate AS date) AS Exp_ReOpen_Dt ,\ncp.InsuredName  AS Insured_Nm\nFROM [Prod_ClaimCenter].dbo.cc_exposure e                    \nJOIN [Prod_ClaimCenter].dbo.ccx_trg_Claim c ON e.trg_Claim = c.ID                    \nJOIN [Prod_ClaimCenter].dbo.cc_claim w ON e.ClaimID = w.ID                    \nJOIN [Prod_ClaimCenter].dbo.cctl_exposurestate AS es ON es.ID = e.State                    \nJOIN [Prod_ClaimCenter].dbo.cctl_claimstate AS cs ON cs.ID = w.State    \nLEFT JOIN [Prod_ClaimCenter].dbo.ccx_trg_ChildPolicy cp ON cp.ID = c.trg_ChildPolicy\n",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlMISink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ExpID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "exposure_no",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Exp_Status",
+									"type": "String"
+								},
+								"sink": {
+									"name": "exposureStatus",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Insured_Nm",
+									"type": "String"
+								},
+								"sink": {
+									"name": "insuredName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Exp_Open_Dt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "exposureOpenDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Exp_Close_Dt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "exposurecloseDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Exp_ReOpen_Dt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "exposureReOpenDate",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "BIASRC01",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stgexposure",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"tablename": {
+				"type": "String",
+				"defaultValue": "[stg].[Workmatter]"
+			}
+		},
+		"annotations": []
+	}
+}
