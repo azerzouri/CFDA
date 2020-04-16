@@ -259,7 +259,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "claim_exposure_no",
+									"name": "claim_Exposure_No",
 									"type": "String"
 								}
 							},
@@ -269,7 +269,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "claim_number",
+									"name": "claimNumber",
 									"type": "String"
 								}
 							},
@@ -279,7 +279,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "exposure_no",
+									"name": "exposure_No",
 									"type": "String"
 								}
 							},
@@ -319,7 +319,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "exposurecloseDate",
+									"name": "exposureCloseDate",
 									"type": "DateTime"
 								}
 							},
