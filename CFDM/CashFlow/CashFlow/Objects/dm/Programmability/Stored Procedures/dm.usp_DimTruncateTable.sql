@@ -13,7 +13,11 @@ Change Log:
 Date		By		Reason			
 validation
 ************************************************************************************************************
-exec [dm].[usp_DimTruncateTable]
+for dm schema:
+exec [dm].[usp_DimTruncateTable] @schemaName ='dm'
+
+For Stg schema:
+exec [dm].[usp_DimTruncateTable] @schemaName ='stg'
 ************************************************************************************************************
 */
 
@@ -50,4 +54,4 @@ END TRY
 		VALUES 	(0,0, SUSER_SNAME(), ERROR_NUMBER(),ERROR_STATE(), ERROR_SEVERITY(),
 		 ERROR_LINE(), ERROR_PROCEDURE(), ERROR_MESSAGE(), GETDATE());
 
-	END CATCH;
+END CATCH;
