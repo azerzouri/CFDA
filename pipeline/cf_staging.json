@@ -624,6 +624,237 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "stg_factactuals",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "\nSELECT RTRIM(C.Claim_No) + '-' + RTRIM(e.Exposure_No) AS claim_Exposure_NO, \nC.Claim_No,\ne.Exposure_No,\nWM.Work_Matter_No,\nFT.Portfolio_Cd, \nPP.Policy_No, \nPP.Policy_Effective_Dt,\nFT.Valuation_Dt,\nCOALESCE(SUM(FT.Paid_Loss),0) AS Paid_Loss,\nCOALESCE(SUM(FT.Paid_Adjusting_Expense_InLimits),0) AS Paid_Expense_InLimits,\nCOALESCE(SUM(FT.Paid_Coverage_DJ_Expense),0) AS Paid_Coverage_DJ_Expense,\nCOALESCE(SUM(FT.Paid_Adjusting_Expense) ,0) AS Paid_Adjusting_Expense ,\nCOALESCE(SUM(FT.Recovery_Salavage) ,0) AS Recovery_Salavage ,\nCOALESCE(SUM(FT.Recovery_Subrogation_Loss) ,0) AS Recovery_Subrogation_Loss ,\nCOALESCE(SUM(FT.Recovery_Deductible_Loss) ,0) AS Recovery_Deductible_Loss ,\nCOALESCE(SUM(FT.Recovery_Subrogation_Expense) ,0) AS Recovery_Subrogation_Expense ,\nCOALESCE(SUM(FT.case_Loss),0) as caseloss,\nCOALESCE(SUM(FT.case_Adjusting_expense),0) as case_Adjusting_expense,\nCOALESCE(SUM(FT.Case_coverage_dj_expense),0) as Case_coverage_dj_expense\nFROM PROD_RS_ODS.clm.Exposure AS e \nJOIN PROD_RS_ODS.clm.Claim AS C ON e.Claim_Id = C.Claim_ID AND c.Sys_RowEndDt = '12/31/9999'\nJOIN PROD_RS_ODS.clm.Incident AS I ON e.Incident_Id = i.Incident_Id AND i.Sys_RowEndDt = '12/31/9999'\nJOIN PROD_RS_ODS.clm.Work_Matter AS WM ON I.WM_Id = WM.WM_ID AND wm.Sys_RowEndDt = '12/31/9999'\nJOIN PROD_RS_ODS.dbo.Dw_Max_Policy_Version AS PV ON e.Policy_Period_ID = PV.Policy_Period_Id\nJOIN PROD_RS_ODS.pol.Policy_Period AS PP ON PV.Policy_Period_ID = PP.Policy_Period_Id AND PV.PolicyVersion = PP.PolicyVersion\nJOIN PROD_RS_ODS.pol.Policy_Coverage_Line AS PCL ON e.Policy_Coverage_Line_ID = pcl.Coverage_Line_Id AND PV.PolicyVersion = PCL.PolicyVersion\nJOIN PROD_RS_ODS.pol.RiskUnit AS RU ON PCL.Risk_Unit_Id = RU.Risk_Unit_ID AND PV.PolicyVersion = RU.PolicyVersion\nLEFT JOIN PROD_RS_ODS.trn.Financial_Transaction AS FT ON E.Exposure_ID = FT.Exposure_Id\nWHERE e.sys_rowenddt = '12/31/9999' AND FT.Transaction_Source_Cd = 'Claim Center' \nGROUP BY RTRIM(C.Claim_No) + '-' + RTRIM(e.Exposure_No),C.Claim_No,\ne.Exposure_No,\nWM.Work_Matter_No, FT.Portfolio_Cd, PP.Policy_No, PP.Policy_Effective_Dt,FT.Valuation_Dt\n\n\n\n\n",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlMISink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "claim_Exposure_NO",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claim_Exposure_No",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Claim_No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claimNumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Exposure_No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "exposure_No",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Work_Matter_No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "workmatternumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Portfolio_Cd",
+									"type": "String"
+								},
+								"sink": {
+									"name": "portfolio_Cd",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Policy_No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "policy_No",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Policy_Effective_Dt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "policyEffectiveDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Valuation_Dt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "valuationdate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Paid_Loss",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "paidLoss",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "Paid_Expense_InLimits",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "paidexpenseinlimits",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "Paid_Coverage_DJ_Expense",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "paidCoverageDJExpense",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "Paid_Adjusting_Expense",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "paidAdjustingExpense",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "Recovery_Salavage",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "recoverySalvage",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "Recovery_Subrogation_Loss",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "recoverySubrogationLoss",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "Recovery_Deductible_Loss",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "recoveryDeductibleLoss",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "Recovery_Subrogation_Expense",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "recoverySubrogationExpense",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "caseloss",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "caseLoss",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "case_Adjusting_expense",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "caseAdjustingExpense",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "Case_coverage_dj_expense",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "caseCoverageDJExpense",
+									"type": "Decimal"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "BIASRC01",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stgfactactuals",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"annotations": []
