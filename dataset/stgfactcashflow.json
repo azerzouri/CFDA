@@ -1,0 +1,62 @@
+{
+	"name": "stgfactcashflow",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "cfPaas",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [
+			{
+				"name": "factcashflow_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "claim_Exposure_No",
+				"type": "varchar"
+			},
+			{
+				"name": "workmatternumber",
+				"type": "varchar"
+			},
+			{
+				"name": "cashflowentryperiod",
+				"type": "date"
+			},
+			{
+				"name": "cashflowProjectionsfor",
+				"type": "date"
+			},
+			{
+				"name": "projectedPaidLossExInLimits",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "projectedPaidCoverageDJExpense",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "projectedTotalPaidDefExpense",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "Insert_Date",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "stg",
+			"table": "FactCashflow"
+		}
+	}
+}
