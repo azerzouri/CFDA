@@ -1,0 +1,51 @@
+{
+	"name": "BIDEVDM01",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "BIDEVDM01",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "WorkMatterNo",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Exposure_No",
+				"type": "nvarchar"
+			},
+			{
+				"name": "Cashflowentryperiod",
+				"type": "date"
+			},
+			{
+				"name": "CFProjectionsfor",
+				"type": "date"
+			},
+			{
+				"name": "Loss",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 10
+			},
+			{
+				"name": "DefExp",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 10
+			},
+			{
+				"name": "CovDJ",
+				"type": "decimal",
+				"precision": 18,
+				"scale": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "CFDATANEW"
+		}
+	}
+}
