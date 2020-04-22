@@ -213,5 +213,7 @@
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_workMatterClosedDate_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_workMatterReopenDate_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_claim_SK.sql" />
+    <Build Include="Objects\stg\Tables\stg.FactActuals.sql" />
+    <Build Include="Objects\stg\Tables\stg.FactCashflow.sql" />
   </ItemGroup>
 </Project>

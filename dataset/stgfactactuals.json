@@ -1,0 +1,126 @@
+{
+	"name": "stgfactactuals",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "cfPaas",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [
+			{
+				"name": "factactuals_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "claim_Exposure_No",
+				"type": "varchar"
+			},
+			{
+				"name": "claimNumber",
+				"type": "varchar"
+			},
+			{
+				"name": "exposure_No",
+				"type": "varchar"
+			},
+			{
+				"name": "workmatternumber",
+				"type": "varchar"
+			},
+			{
+				"name": "portfolio_Cd",
+				"type": "varchar"
+			},
+			{
+				"name": "policy_No",
+				"type": "varchar"
+			},
+			{
+				"name": "policyEffectiveDate",
+				"type": "date"
+			},
+			{
+				"name": "valuationdate",
+				"type": "date"
+			},
+			{
+				"name": "paidLoss",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "paidexpenseinlimits",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "paidCoverageDJExpense",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "paidAdjustingExpense",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "recoverySalvage",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "recoverySubrogationLoss",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "recoveryDeductibleLoss",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "recoverySubrogationExpense",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "caseLoss",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "caseAdjustingExpense",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "caseCoverageDJExpense",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "Insert_Date",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "stg",
+			"table": "FactActuals"
+		}
+	}
+}

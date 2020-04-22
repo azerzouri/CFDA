@@ -1,0 +1,119 @@
+{
+	"name": "stagingcashflow",
+	"properties": {
+		"activities": [
+			{
+				"name": "stgfactcashflow",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select * \n  FROM [CashFlowPOC].[dbo].[CFDATANEW]\n\nSELECT\n\n       distinct RTRIM(c.CCClaimNumber) + '-' + e.trg_ExposureNumber AS ExpID,\n       es.DESCRIPTION AS Exp_Status,\n   CAST(e.CloseDate AS DATE) AS Exp_Close_Dt,\n   CAST(e.CreateTime AS date) AS Exp_Open_Dt,\n    CAST(e.ReOpenDate AS date) AS Exp_ReOpen_Dt ,\ncp.InsuredName  AS Insured_Nm\nFROM [Prod_ClaimCenter].dbo.cc_exposure e                    \nJOIN [Prod_ClaimCenter].dbo.ccx_trg_Claim c ON e.trg_Claim = c.ID                    \nJOIN [Prod_ClaimCenter].dbo.cc_claim w ON e.ClaimID = w.ID                    \nJOIN [Prod_ClaimCenter].dbo.cctl_exposurestate AS es ON es.ID = e.State                    \nJOIN [Prod_ClaimCenter].dbo.cctl_claimstate AS cs ON cs.ID = w.State    \nLEFT JOIN [Prod_ClaimCenter].dbo.ccx_trg_ChildPolicy cp ON cp.ID = c.trg_ChildPolicy\n",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlMISink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Exposure_No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claim_Exposure_No",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WorkMatterNo",
+									"type": "String"
+								},
+								"sink": {
+									"name": "workmatternumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Cashflowentryperiod",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "cashflowentryperiod",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "CFProjectionsfor",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "cashflowProjectionsfor",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Loss",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "projectedPaidLossExInLimits",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "CovDJ",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "projectedPaidCoverageDJExpense",
+									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "DefExp",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "projectedTotalPaidDefExpense",
+									"type": "Decimal"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "BIDEVDM01",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stgfactcashflow",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
