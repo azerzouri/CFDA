@@ -34,10 +34,25 @@ SELECT @Database = DB_NAME();
 DECLARE @Schema varchar(50)= @schemaName
 SET @sql=''
 
-SET @sql=(SELECT ' Truncate Table '+ @Database+ '.' + @Schema+ '.' + table_name  + char(13) + char(10)
-FROM INFORMATION_SCHEMA.TABLES
-WHERE TABLE_SCHEMA =@schema   and TABLE_NAME <> 'DimDate'
-FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)') 
+IF (@Schema = 'stg')
+BEGIN
+	SET @sql=(SELECT ' Truncate Table '+ @Database+ '.' + @Schema+ '.' + table_name  + char(13) + char(10)
+	FROM INFORMATION_SCHEMA.TABLES
+	WHERE 
+	TABLE_SCHEMA =@schema   
+	AND TABLE_NAME <> 'Date'
+	AND TABLE_NAME <> 'FactCashflow' 
+	FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)') 
+END 
+ELSE
+BEGIN
+	SET @sql=(SELECT ' Truncate Table '+ @Database+ '.' + @Schema+ '.' + table_name  + char(13) + char(10)
+	FROM INFORMATION_SCHEMA.TABLES
+	WHERE 
+	TABLE_SCHEMA =@schema   
+	AND TABLE_NAME <> 'DimDate'
+	FOR XML PATH(''), TYPE).value('.', 'NVARCHAR(MAX)') 
+END
 --select @sql
 EXEC(@sql)
 

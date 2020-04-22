@@ -1,8 +1,8 @@
 ﻿CREATE TABLE stg.FactCashflow(
-    factcashflow_ID                   int               IDENTITY(1,1),
+    factCashflow_ID                   int               IDENTITY(1,1),
     claim_Exposure_No                 varchar(64)       NOT NULL,
     workmatternumber                  varchar(64)       NOT NULL,
-    cashflowentryperiod               date              NULL,
+    cashFlowEntryPeriod               date              NULL,
     cashflowProjectionsfor            date              NULL,
     projectedPaidLossExInLimits       decimal(14, 2)    NULL,
     projectedPaidCoverageDJExpense    decimal(14, 2)    NULL,
