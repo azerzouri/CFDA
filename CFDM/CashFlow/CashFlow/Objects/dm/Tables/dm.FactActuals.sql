@@ -7,7 +7,6 @@ CREATE TABLE dm.FactActuals(
     policy_SK                     int               NOT NULL,
     policyEffectiveDate_SK        int               NOT NULL,
     policyExpirationDate_SK       int               NOT NULL,
-    policyCoverage_SK             int               NOT NULL,
     reinsurane_SK                 int               NOT NULL,
     adjuster_SK                   int               NOT NULL,
     claim_SK                      int               NOT NULL,

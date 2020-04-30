@@ -8,10 +8,6 @@ ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimPolicy60
     REFERENCES dm.DimPolicy(policy_SK)
 go
 
-ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimPolicyCoverage61 
-    FOREIGN KEY (policyCoverage_SK)
-    REFERENCES dm.DimPolicyCoverage(policyCoverage_SK)
-go
 
 ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimDate62 
     FOREIGN KEY (valuationDate_SK)
@@ -96,11 +92,6 @@ go
 ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimWorkmatter2 
     FOREIGN KEY (workMatter_SK)
     REFERENCES dm.DimWorkmatter(workMatter_SK)
-go
-
-ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimPolicyCoverage4 
-    FOREIGN KEY (policyCoverage_SK)
-    REFERENCES dm.DimPolicyCoverage(policyCoverage_SK)
 go
 
 ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimPolicy5 

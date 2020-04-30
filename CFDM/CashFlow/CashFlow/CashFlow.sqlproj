@@ -160,7 +160,6 @@
     <Build Include="Objects\dm\Tables\dm.DimExposure.sql" />
     <Build Include="Objects\dm\Tables\dm.DimNotifications.sql" />
     <Build Include="Objects\dm\Tables\dm.DimPolicy.sql" />
-    <Build Include="Objects\dm\Tables\dm.DimPolicyCoverage.sql" />
     <Build Include="Objects\dm\Tables\dm.DimReinsurance.sql" />
     <Build Include="Objects\dm\Tables\dm.DimWorkmatter.sql" />
     <Build Include="Objects\dm\Tables\dm.FactActuals.sql" />
@@ -181,7 +180,6 @@
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_policy_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_policyEffectiveDate_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_policyExpirationDate_SK.sql" />
-    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_policyCoverage_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_reinsurane_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_adjuster_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_claim_SK.sql" />
@@ -196,7 +194,6 @@
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_valuationDate_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_valuationDate_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_workMatter_SK.sql" />
-    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_policyCoverage_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_policy_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_reinsurane_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_notification_SK.sql" />
