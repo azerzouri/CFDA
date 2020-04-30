@@ -1,0 +1,21 @@
+{
+	"name": "MIGODSE2E03",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AsbestosKeyVault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "MIGODSE2E03"
+			}
+		},
+		"connectVia": {
+			"referenceName": "selfhostedruntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
