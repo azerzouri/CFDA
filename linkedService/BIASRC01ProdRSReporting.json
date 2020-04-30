@@ -1,0 +1,21 @@
+{
+	"name": "BIASRC01ProdRSReporting",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AsbestosKeyVault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "BIASRC01ProdRSReporting"
+			}
+		},
+		"connectVia": {
+			"referenceName": "selfhostedruntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

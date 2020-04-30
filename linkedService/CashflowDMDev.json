@@ -1,0 +1,17 @@
+{
+	"name": "CashflowDMDev",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlMI",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AsbestosKeyVault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "CashflowDMDev"
+			}
+		}
+	}
+}

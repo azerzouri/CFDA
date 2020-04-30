@@ -1,0 +1,21 @@
+{
+	"name": "BIASRC01ProdCashFlow",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "AsbestosKeyVault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "BIASRC01ProdCashFlow"
+			}
+		},
+		"connectVia": {
+			"referenceName": "selfhostedruntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
