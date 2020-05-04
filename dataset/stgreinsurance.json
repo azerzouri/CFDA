@@ -1,0 +1,103 @@
+{
+	"name": "stgreinsurance",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CashflowPaas",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "reinsurance_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "claimNumber",
+				"type": "varchar"
+			},
+			{
+				"name": "exposure_No",
+				"type": "varchar"
+			},
+			{
+				"name": "sapiensReinsurerID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "sapiensBrokerID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "sapiensPoolID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "sectionReferenceNumber",
+				"type": "varchar"
+			},
+			{
+				"name": "retentionInd",
+				"type": "varchar"
+			},
+			{
+				"name": "entrydate",
+				"type": "date"
+			},
+			{
+				"name": "creditProvisionPercent",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "reinsurerName",
+				"type": "varchar"
+			},
+			{
+				"name": "pool_Name",
+				"type": "varchar"
+			},
+			{
+				"name": "brokerName",
+				"type": "varchar"
+			},
+			{
+				"name": "relatedClaimNumber",
+				"type": "varchar"
+			},
+			{
+				"name": "projectedCededTotalPaidLossExInLimits",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "projectedCededTotalPaidDefExpense",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "projectedCededPaidCoverageDJExpense",
+				"type": "decimal",
+				"precision": 14,
+				"scale": 2
+			},
+			{
+				"name": "Insert_Date",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "stg",
+			"table": "Reinsurance"
+		}
+	}
+}
