@@ -2,7 +2,7 @@
 	"name": "reinsurance",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "MIGODSE2E03",
+			"referenceName": "dwdev_ODS",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
