@@ -1,0 +1,89 @@
+{
+	"name": "stgclaim",
+	"properties": {
+		"activities": [
+			{
+				"name": "stg_claim",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlMISource",
+						"sqlReaderQuery": "/****** Script for SelectTopNRows command from SSMS  ******/\nSELECT [ClaimNo]\n      ,[ActSeg],\n\t  NULL as [fairfaxSegment],\n\t  Null as [claimSegment]\n  FROM [CashFlow_DM_DEV].[stg].[tmpClaimNoActSeg]"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ClaimNo",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claimNumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ActSeg",
+									"type": "String"
+								},
+								"sink": {
+									"name": "actuarialSegment",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "fairfaxSegment",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "fairfaxSegment",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "claimSegment",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "claimSegment",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "claimtemptable",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stgclaim",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
