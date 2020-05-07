@@ -1,0 +1,25 @@
+{
+	"name": "claimtemptable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CashflowDMDev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [
+			{
+				"name": "ClaimNo",
+				"type": "varchar"
+			},
+			{
+				"name": "ActSeg",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "stg",
+			"table": "tmpClaimNoActSeg"
+		}
+	}
+}
