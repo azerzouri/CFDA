@@ -2,7 +2,7 @@
 	"name": "claimtemptable",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "CashflowDMDev",
+			"referenceName": "cfPaas",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
