@@ -16,10 +16,12 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "SqlMISource"
+						"type": "SqlMISource",
+						"sqlReaderQuery": "/****** Script for SelectTopNRows command from SSMS  ******/\nSELECT [ClaimNo]\n      ,[ActSeg],\n\t  NULL as [fairfaxSegment],\n\t  Null as [claimSegment]\n  FROM [CashFlow_DM_DEV].[stg].[tmpClaimNoActSeg]"
 					},
 					"sink": {
-						"type": "AzureSqlSink"
+						"type": "AzureSqlSink",
+						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
 					"translator": {
@@ -42,6 +44,26 @@
 								},
 								"sink": {
 									"name": "actuarialSegment",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "fairfaxSegment",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "fairfaxSegment",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "claimSegment",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "claimSegment",
 									"type": "String"
 								}
 							}
