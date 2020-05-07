@@ -62,12 +62,6 @@
 				]
 			}
 		],
-		"parameters": {
-			"tablename": {
-				"type": "String",
-				"defaultValue": "[stg].[Workmatter]"
-			}
-		},
 		"annotations": []
 	}
 }
