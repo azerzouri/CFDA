@@ -2,7 +2,7 @@
 	"name": "stgworkmatter",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "cfPaas",
+			"referenceName": "CashflowDMDev",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
