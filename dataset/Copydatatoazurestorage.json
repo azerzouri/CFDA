@@ -1,10 +1,6 @@
 {
 	"name": "Copydatatoazurestorage",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "Azureblobstorage",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
