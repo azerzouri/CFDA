@@ -1,0 +1,73 @@
+{
+	"name": "stgreinsurance1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CashflowDMDev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [
+			{
+				"name": "adjuster_ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "claimCenterID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "associateName",
+				"type": "varchar"
+			},
+			{
+				"name": "adjustedName",
+				"type": "varchar"
+			},
+			{
+				"name": "managerName",
+				"type": "varchar"
+			},
+			{
+				"name": "groupManagerName",
+				"type": "varchar"
+			},
+			{
+				"name": "department",
+				"type": "varchar"
+			},
+			{
+				"name": "emailAddress",
+				"type": "varchar"
+			},
+			{
+				"name": "userName",
+				"type": "varchar"
+			},
+			{
+				"name": "effectiveDate",
+				"type": "date"
+			},
+			{
+				"name": "expirationDate",
+				"type": "date"
+			},
+			{
+				"name": "workmatternumber",
+				"type": "varchar"
+			},
+			{
+				"name": "Insert_Date",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "stg",
+			"table": "Reinsurance"
+		}
+	}
+}
