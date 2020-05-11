@@ -2,7 +2,7 @@
 	"name": "stgfactactuals",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "cfPaas",
+			"referenceName": "CashflowDMDev",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
@@ -119,7 +119,7 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "stg",
+			"schema": "dm",
 			"table": "FactActuals"
 		}
 	}

@@ -20,8 +20,7 @@
 						"sqlReaderQuery": "/****** Script for SelectTopNRows command from SSMS  ******/\nSELECT [ClaimNo]\n      ,[ActSeg],\n\t  NULL as [fairfaxSegment],\n\t  Null as [claimSegment]\n  FROM [CashFlow_DM_DEV].[stg].[tmpClaimNoActSeg]"
 					},
 					"sink": {
-						"type": "AzureSqlSink",
-						"disableMetricsCollection": false
+						"type": "SqlMISink"
 					},
 					"enableStaging": false,
 					"translator": {

@@ -2,7 +2,7 @@
 	"name": "stgadjuster",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "cfPaas",
+			"referenceName": "CashflowDMDev",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
