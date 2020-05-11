@@ -2,31 +2,60 @@
 	"name": "stgclaim",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "CashflowPaas",
+			"referenceName": "CashflowDMDev",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
-		"type": "AzureSqlTable",
+		"type": "AzureSqlMITable",
 		"schema": [
 			{
-				"name": "claim_ID",
+				"name": "adjuster_ID",
 				"type": "int",
 				"precision": 10
 			},
 			{
-				"name": "claimNumber",
+				"name": "claimCenterID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "associateName",
 				"type": "varchar"
 			},
 			{
-				"name": "actuarialSegment",
+				"name": "adjustedName",
 				"type": "varchar"
 			},
 			{
-				"name": "fairfaxSegment",
+				"name": "managerName",
 				"type": "varchar"
 			},
 			{
-				"name": "claimSegment",
+				"name": "groupManagerName",
+				"type": "varchar"
+			},
+			{
+				"name": "department",
+				"type": "varchar"
+			},
+			{
+				"name": "emailAddress",
+				"type": "varchar"
+			},
+			{
+				"name": "userName",
+				"type": "varchar"
+			},
+			{
+				"name": "effectiveDate",
+				"type": "date"
+			},
+			{
+				"name": "expirationDate",
+				"type": "date"
+			},
+			{
+				"name": "workmatternumber",
 				"type": "varchar"
 			},
 			{
