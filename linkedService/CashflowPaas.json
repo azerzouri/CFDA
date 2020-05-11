@@ -5,8 +5,8 @@
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=e2nprdsql01.3aeed8d8043d.database.windows.net;initial catalog=CashFlow_DM_DEV;user id=service.cashflow",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJkZGQxM2IyMi05OTFkLTRmN2EtYjlkZi01MmMwZGY5ZjgyMDciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=e2nprdsql01.3aeed8d8043d.database.windows.net;initial catalog=CashFlow_DM_DEV;user id=service.cashflow.dev",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI4ZjVkNjI3YS1kMWU1LTQzM2YtYTcwYS00NDUwOWRlYThiMDAiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "selfhostedruntime",
