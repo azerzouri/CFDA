@@ -1,5 +1,5 @@
 {
-	"name": "stgreinsurance1",
+	"name": "stgreinsurance",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "CashflowDMDev",
