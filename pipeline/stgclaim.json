@@ -77,7 +77,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "stgclaim1",
+						"referenceName": "stgclaim",
 						"type": "DatasetReference"
 					}
 				]
