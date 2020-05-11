@@ -198,7 +198,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "stgreinsurance1",
+						"referenceName": "stgreinsurance",
 						"type": "DatasetReference"
 					}
 				]
