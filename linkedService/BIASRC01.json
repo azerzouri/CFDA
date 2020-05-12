@@ -2,10 +2,6 @@
 	"name": "BIASRC01",
 	"properties": {
 		"parameters": {
-			"db": {
-				"type": "String",
-				"defaultValue": "prod_rs_ods"
-			},
 			"secret_name": {
 				"type": "string",
 				"defaultValue": "BIASRC01prodrs"
