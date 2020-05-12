@@ -3,7 +3,10 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "BIASRC01",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"secret_name": "BIASRC01prodrs"
+			}
 		},
 		"annotations": [],
 		"type": "SqlServerTable",
