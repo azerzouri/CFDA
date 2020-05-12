@@ -12,6 +12,10 @@
 				},
 				"secretName": "CashflowDMDev"
 			}
+		},
+		"connectVia": {
+			"referenceName": "selfhostedruntime",
+			"type": "IntegrationRuntimeReference"
 		}
 	}
 }
