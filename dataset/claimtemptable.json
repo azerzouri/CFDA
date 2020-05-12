@@ -19,7 +19,7 @@
 		],
 		"typeProperties": {
 			"schema": "stg",
-			"table": "tmpClaimNoActSeg"
+			"table": "claimSegmentation"
 		}
 	}
 }
