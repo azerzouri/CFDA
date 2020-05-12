@@ -384,7 +384,7 @@
 							{
 								"source": {
 									"name": "ClaimCenterID",
-									"type": "String"
+									"type": "Int64"
 								},
 								"sink": {
 									"name": "claimCenterID",
@@ -424,7 +424,7 @@
 							{
 								"source": {
 									"name": "GroupManagerName",
-									"type": "String"
+									"type": "Int32"
 								},
 								"sink": {
 									"name": "groupManagerName",
