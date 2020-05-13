@@ -1,0 +1,88 @@
+{
+	"name": "stgclaim",
+	"properties": {
+		"activities": [
+			{
+				"name": "stg_claim",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlMISource",
+						"sqlReaderQuery": " select distinct [ClaimNumber],\n  [ActuarialSegment],\n  [FairfaxSegment],\n  [ClaimsSegment]  \n  FROM [CashFlow_DM_DEV].[stg].[claimSegmentation]\n"
+					},
+					"sink": {
+						"type": "SqlMISink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ClaimNumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claimNumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ActuarialSegment",
+									"type": "String"
+								},
+								"sink": {
+									"name": "actuarialSegment",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FairfaxSegment",
+									"type": "String"
+								},
+								"sink": {
+									"name": "fairfaxSegment",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ClaimsSegment",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claimSegment",
+									"type": "String"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "claimtemptable",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stgclaim",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

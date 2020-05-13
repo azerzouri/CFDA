@@ -2,91 +2,61 @@
 	"name": "stgreinsurance",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "CashflowPaas",
+			"referenceName": "CashflowDMDev",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
-		"type": "AzureSqlTable",
+		"type": "AzureSqlMITable",
 		"schema": [
 			{
-				"name": "reinsurance_ID",
+				"name": "adjuster_ID",
 				"type": "int",
 				"precision": 10
 			},
 			{
-				"name": "claimNumber",
-				"type": "varchar"
-			},
-			{
-				"name": "exposure_No",
-				"type": "varchar"
-			},
-			{
-				"name": "sapiensReinsurerID",
+				"name": "claimCenterID",
 				"type": "int",
 				"precision": 10
 			},
 			{
-				"name": "sapiensBrokerID",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "sapiensPoolID",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "sectionReferenceNumber",
+				"name": "associateName",
 				"type": "varchar"
 			},
 			{
-				"name": "retentionInd",
+				"name": "adjustedName",
 				"type": "varchar"
 			},
 			{
-				"name": "entrydate",
+				"name": "managerName",
+				"type": "varchar"
+			},
+			{
+				"name": "groupManagerName",
+				"type": "varchar"
+			},
+			{
+				"name": "department",
+				"type": "varchar"
+			},
+			{
+				"name": "emailAddress",
+				"type": "varchar"
+			},
+			{
+				"name": "userName",
+				"type": "varchar"
+			},
+			{
+				"name": "effectiveDate",
 				"type": "date"
 			},
 			{
-				"name": "creditProvisionPercent",
-				"type": "decimal",
-				"precision": 14,
-				"scale": 2
+				"name": "expirationDate",
+				"type": "date"
 			},
 			{
-				"name": "reinsurerName",
+				"name": "workmatternumber",
 				"type": "varchar"
-			},
-			{
-				"name": "pool_Name",
-				"type": "varchar"
-			},
-			{
-				"name": "brokerName",
-				"type": "varchar"
-			},
-			{
-				"name": "relatedClaimNumber",
-				"type": "varchar"
-			},
-			{
-				"name": "projectedCededTotalPaidLossExInLimits",
-				"type": "decimal",
-				"precision": 14,
-				"scale": 2
-			},
-			{
-				"name": "projectedCededTotalPaidDefExpense",
-				"type": "decimal",
-				"precision": 14,
-				"scale": 2
-			},
-			{
-				"name": "projectedCededPaidCoverageDJExpense",
-				"type": "decimal",
-				"precision": 14,
-				"scale": 2
 			},
 			{
 				"name": "Insert_Date",
