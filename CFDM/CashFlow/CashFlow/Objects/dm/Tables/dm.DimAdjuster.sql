@@ -8,7 +8,7 @@ CREATE TABLE dm.DimAdjuster(
     adjusterTRGUname    varchar(64)    NULL,
     managerName         varchar(64)    NULL,
     groupManagerName    varchar(64)    NULL,
-    department          varchar(59)    NULL,
+    department          varchar(512)    NULL,
     audit_Insert_Dt     datetime       DEFAULT GetDate() NULL,
     audit_Update_Dt     datetime       DEFAULT GetDate() NULL,
     ins_Proc_ID         int            NULL,
