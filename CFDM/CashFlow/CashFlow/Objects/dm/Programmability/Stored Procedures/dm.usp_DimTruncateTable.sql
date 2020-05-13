@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dm].[usp_DimTruncateTable] (@schemaName varchar(50)='dm')
+﻿CREATE PROCEDURE [dm].[usp_DimTruncateTable] (@schemaName varchar(64)='dm')
 
 AS
 /*
@@ -29,9 +29,9 @@ BEGIN
 END
 
 DECLARE @sql varchar(max)
-DECLARE @Database varchar(50)
+DECLARE @Database varchar(64)
 SELECT @Database = DB_NAME();     
-DECLARE @Schema varchar(50)= @schemaName
+DECLARE @Schema varchar(64)= @schemaName
 SET @sql=''
 
 IF (@Schema = 'stg')

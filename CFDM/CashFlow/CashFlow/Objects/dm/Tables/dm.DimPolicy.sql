@@ -4,7 +4,7 @@
 
 CREATE TABLE dm.DimPolicy(
     policy_SK          int            IDENTITY(0,1),
-    policyNumber       varchar(50)    NULL,
+    policyNumber       varchar(64)    NULL,
     portfolioCode      varchar(20)    NULL,
     audit_Insert_Dt    datetime       DEFAULT GetDate() NULL,
     audit_Update_Dt    datetime       DEFAULT GetDate() NULL,

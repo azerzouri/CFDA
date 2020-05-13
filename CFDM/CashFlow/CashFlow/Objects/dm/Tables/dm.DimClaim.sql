@@ -4,10 +4,10 @@
 
 CREATE TABLE dm.DimClaim(
     claim_SK            int            NOT NULL,
-    claimNo             varchar(50)    NULL,
-    actuarialSegment    varchar(50)    NULL,
-    fairfaxSegment      varchar(50)    NULL,
-    claimSegment        varchar(50)    NULL,
+    claimNo             varchar(64)    NULL,
+    actuarialSegment    varchar(64)    NULL,
+    fairfaxSegment      varchar(64)    NULL,
+    claimSegment        varchar(64)    NULL,
     audit_Insert_Dt     datetime       DEFAULT GetDate() NULL,
     audit_Update_Dt     datetime       DEFAULT GetDate() NULL,
     ins_Proc_ID         int            NULL,
