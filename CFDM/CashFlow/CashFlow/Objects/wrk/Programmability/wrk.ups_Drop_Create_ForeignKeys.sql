@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [wrk].[ups_Drop_Create_ForeignKeys]
-	@execStep VARCHAR(50) = NULL --expects 'DROP' or 'CREATE' as value
+	@execStep varchar(64) = NULL --expects 'DROP' or 'CREATE' as value
 AS
 /*
 Procedure Name:  [wrk].[ups_Drop_Create_ForeignKeys]
