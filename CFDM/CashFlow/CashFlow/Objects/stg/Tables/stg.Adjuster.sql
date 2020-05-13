@@ -9,7 +9,7 @@ CREATE TABLE stg.Adjuster(
     adjustedName        varchar(64)    NULL,
     managerName         varchar(64)    NULL,
     groupManagerName    varchar(64)    NULL,
-    department          varchar(64)    NULL,
+    department          varchar(512)    NULL,
     emailAddress        varchar(64)    NULL,
     userName            varchar(64)    NULL,
     effectiveDate       date           NULL,
