@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlMISource",
-						"sqlReaderQuery": "/****** Script for SelectTopNRows command from SSMS  ******/\nSELECT [ClaimNo]\n      ,[ActSeg],\n\t  NULL as [fairfaxSegment],\n\t  Null as [claimSegment]\n  FROM [CashFlow_DM_DEV].[stg].[tmpClaimNoActSeg]"
+						"sqlReaderQuery": " select distinct [ClaimNumber],\n  [ActuarialSegment],\n  [FairfaxSegment],\n  [ClaimsSegment]  \n  FROM [CashFlow_DM_DEV].[stg].[claimSegmentation]\n"
 					},
 					"sink": {
 						"type": "SqlMISink"
@@ -28,7 +28,7 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "ClaimNo",
+									"name": "ClaimNumber",
 									"type": "String"
 								},
 								"sink": {
@@ -38,7 +38,7 @@
 							},
 							{
 								"source": {
-									"name": "ActSeg",
+									"name": "ActuarialSegment",
 									"type": "String"
 								},
 								"sink": {
@@ -48,8 +48,8 @@
 							},
 							{
 								"source": {
-									"name": "fairfaxSegment",
-									"type": "Int32"
+									"name": "FairfaxSegment",
+									"type": "String"
 								},
 								"sink": {
 									"name": "fairfaxSegment",
@@ -58,8 +58,8 @@
 							},
 							{
 								"source": {
-									"name": "claimSegment",
-									"type": "Int32"
+									"name": "ClaimsSegment",
+									"type": "String"
 								},
 								"sink": {
 									"name": "claimSegment",

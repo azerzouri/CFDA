@@ -119,7 +119,7 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "dm",
+			"schema": "stg",
 			"table": "FactActuals"
 		}
 	}

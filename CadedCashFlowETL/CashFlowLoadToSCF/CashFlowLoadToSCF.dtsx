@@ -12,8 +12,8 @@
   DTS:ObjectName="CashFlowLoadToSCF"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="165"
-  DTS:VersionGUID="{13DD663D-3076-45AD-9EDA-123E67D031FB}">
+  DTS:VersionBuild="172"
+  DTS:VersionGUID="{44FAA18F-85CD-4829-9C7C-1E4332D81B7A}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -201,7 +201,7 @@
     <DTS:PackageParameter
       DTS:CreationName=""
       DTS:DataType="8"
-      DTS:Description="Full path of the template file"
+      DTS:Description="Full path of the template csv file"
       DTS:DTSID="{CA4A57FB-6C54-46D2-94E5-3F3945706807}"
       DTS:ObjectName="CashFlowTemplateFilePath">
       <DTS:Property
@@ -437,7 +437,7 @@
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
               SQLTask:Connection="{A796CDF2-1FD2-4005-A16A-6AD2D2006EA7}"
-              SQLTask:SqlStatementSource="&#xA;;WITH &#xA; cteClaimFeed AS (--claims that have exact match in claim feed&#xA;   SELECT scf.SCFID,&#xA;          scf.Policy_No,&#xA;          scf.Policy_Eff_Dt,&#xA;          scf.Portfolio_Cd,&#xA;          scf.Product_Cd,&#xA;          scf.NAIC_Cd,&#xA;          scf.Risk_Unit_ID,&#xA;          scf.Policy_Period_ID,&#xA;          scf.PolicyVersion,&#xA;          scf.Policy_Coverage_Line_ID,&#xA;          scf.Sapiens_Claim_No,&#xA;          scf.Sapiens_Prior_Claim_No,&#xA;          scf.Related_Claim_No,&#xA;          scf.Exposure_No,&#xA;          scf.Transaction_ID,&#xA;          scf.Transaction_Cd,&#xA;          CFEC.Amount,&#xA;          scf.Transaction_Dt,&#xA;          scf.Loss_Dt,&#xA;          scf.Claim_Report_Dt,&#xA;          scf.WorkMatter_No,&#xA;          scf.WM_Type_Cd,&#xA;          scf.Account_Name,&#xA;          scf.WorkMatter_Desc,&#xA;          scf.WorkMatter_Status_Cd,&#xA;          scf.WM_Special_Tracking_Group_Desc,&#xA;          scf.WorkMatter_Open_Dt,&#xA;          scf.WorkMatter_Close_Dt,&#xA;          scf.WorkMatter_Reopen_Dt,&#xA;          scf.Claimant_Name,&#xA;          scf.Claim_Status_Cd,&#xA;          scf.Claim_Open_Dt,&#xA;          scf.Claim_Close_Dt,&#xA;          scf.Claim_Reopen_Dt,&#xA;          scf.Accident_State_Cd,&#xA;          scf.Nature_of_Injury_cd,&#xA;          scf.Part_Of_Body_Cd,&#xA;          scf.Type_Of_Loss_Cd,&#xA;          scf.Manual_Session_Ind,&#xA;          scf.Migration_Ind,&#xA;          scf.CAT_Cd,&#xA;          scf.Sys_Create_Dt&#xA;   FROM rein.CashFlowEntryConform CFEC&#xA;       JOIN rein.Sapiens_CLaim_Feed scf&#xA;           ON scf.Sapiens_Claim_No = CFEC.Claim_No&#xA;              AND scf.Exposure_No = CFEC.Exposure_No&#xA;              AND scf.Transaction_Cd = CFEC.Transaction_Cd&#xA; WHERE CFEC.ProcessedStatusID=0&#xA;      AND  CFEC.BatchStatusID=0&#xA;      AND   CFEC.Amount &lt;&gt; 0&#xA;   UNION&#xA;   --claims that do not match by Trans_Code but exists in claim feed for other Trans_Codes&#xA;   SELECT NULL SCFID,&#xA;          scf.Policy_No,&#xA;          scf.Policy_Eff_Dt,&#xA;          scf.Portfolio_Cd,&#xA;          scf.Product_Cd,&#xA;          scf.NAIC_Cd,&#xA;          scf.Risk_Unit_ID,&#xA;          scf.Policy_Period_ID,&#xA;          scf.PolicyVersion,&#xA;          scf.Policy_Coverage_Line_ID,&#xA;          scf.Sapiens_Claim_No,&#xA;          scf.Sapiens_Prior_Claim_No,&#xA;          scf.Related_Claim_No,&#xA;          scf.Exposure_No,&#xA;          scf.Transaction_ID,&#xA;          CFEC.Transaction_Cd,&#xA;          CFEC.Amount,&#xA;          scf.Transaction_Dt,&#xA;          scf.Loss_Dt,&#xA;          scf.Claim_Report_Dt,&#xA;          scf.WorkMatter_No,&#xA;          scf.WM_Type_Cd,&#xA;          scf.Account_Name,&#xA;          scf.WorkMatter_Desc,&#xA;          scf.WorkMatter_Status_Cd,&#xA;          scf.WM_Special_Tracking_Group_Desc,&#xA;          scf.WorkMatter_Open_Dt,&#xA;          scf.WorkMatter_Close_Dt,&#xA;          scf.WorkMatter_Reopen_Dt,&#xA;          scf.Claimant_Name,&#xA;          scf.Claim_Status_Cd,&#xA;          scf.Claim_Open_Dt,&#xA;          scf.Claim_Close_Dt,&#xA;          scf.Claim_Reopen_Dt,&#xA;          scf.Accident_State_Cd,&#xA;          scf.Nature_of_Injury_cd,&#xA;          scf.Part_Of_Body_Cd,&#xA;          scf.Type_Of_Loss_Cd,&#xA;          scf.Manual_Session_Ind,&#xA;          scf.Migration_Ind,&#xA;          scf.CAT_Cd,&#xA;          scf.Sys_Create_Dt&#xA;   FROM rein.CashFlowEntryConform CFEC&#xA;       LEFT JOIN&#xA;       (&#xA;           SELECT ROW_NUMBER() OVER (PARTITION BY Sapiens_Claim_No,&#xA;                                                  Exposure_No&#xA;                                     ORDER BY Transaction_ID DESC&#xA;                                    ) AS MaxRowNo,&#xA;                  *&#xA;           FROM rein.Sapiens_CLaim_Feed&#xA;       ) scf&#xA;           ON scf.Sapiens_Claim_No = CFEC.Claim_No&#xA;              AND scf.Exposure_No = CFEC.Exposure_No&#xA;       LEFT JOIN rein.Sapiens_CLaim_Feed scf_nomatch&#xA;           ON scf_nomatch.Sapiens_Claim_No = CFEC.Claim_No&#xA;              AND scf_nomatch.Exposure_No = CFEC.Exposure_No&#xA;              AND CFEC.Transaction_Cd = scf_nomatch.Transaction_Cd&#xA;   WHERE scf_nomatch.SCFID IS NULL&#xA;         AND  CFEC.ProcessedStatusID=0&#xA;        AND   CFEC.BatchStatusID=0&#xA;        AND   CFEC.Amount &lt;&gt; 0&#xA;        AND scf.MaxRowNo = 1&#xA;)&#xA;MERGE INTO&#xA;rein.Sapiens_CLaim_Feed t &#xA;USING cteClaimFeed s&#xA;ON &#x9;t.SCFID=s.SCFID&#xA;WHEN NOT MATCHED BY TARGET THEN&#xA;&#x9;INSERT (&#xA;&#x9;&#x9;&#x9; Policy_No&#xA;&#x9;&#x9;&#x9;,Policy_Eff_Dt&#xA;&#x9;&#x9;&#x9;,Portfolio_Cd&#xA;&#x9;&#x9;&#x9;,Product_Cd&#xA;&#x9;&#x9;&#x9;,NAIC_Cd&#xA;&#x9;&#x9;&#x9;,Risk_Unit_ID&#xA;&#x9;&#x9;&#x9;,Policy_Period_ID&#xA;&#x9;&#x9;&#x9;,PolicyVersion&#xA;&#x9;&#x9;&#x9;,Policy_Coverage_Line_ID&#xA;&#x9;&#x9;&#x9;,Sapiens_Claim_No&#xA;&#x9;&#x9;&#x9;,Sapiens_Prior_Claim_No&#xA;&#x9;&#x9;&#x9;,Related_Claim_No&#xA;&#x9;&#x9;&#x9;,Exposure_No&#xA;&#x9;&#x9;&#x9;,Transaction_ID&#xA;&#x9;&#x9;&#x9;,Transaction_Cd&#xA;&#x9;&#x9;&#x9;,Transaction_Amnt&#xA;&#x9;&#x9;&#x9;,Transaction_Dt&#xA;&#x9;&#x9;&#x9;,Loss_Dt&#xA;&#x9;&#x9;&#x9;,Claim_Report_Dt&#xA;&#x9;&#x9;&#x9;,WorkMatter_No&#xA;&#x9;&#x9;&#x9;,WM_Type_Cd&#xA;&#x9;&#x9;&#x9;,Account_Name&#xA;&#x9;&#x9;&#x9;,WorkMatter_Desc&#xA;&#x9;&#x9;&#x9;,WorkMatter_Status_Cd&#xA;&#x9;&#x9;&#x9;,WM_Special_Tracking_Group_Desc&#xA;&#x9;&#x9;&#x9;,WorkMatter_Open_Dt&#xA;&#x9;&#x9;&#x9;,WorkMatter_Close_Dt&#xA;&#x9;&#x9;&#x9;,WorkMatter_Reopen_Dt&#xA;&#x9;&#x9;&#x9;,Claimant_Name&#xA;&#x9;&#x9;&#x9;,Claim_Status_Cd&#xA;&#x9;&#x9;&#x9;,Claim_Open_Dt&#xA;&#x9;&#x9;&#x9;,Claim_Close_Dt&#xA;&#x9;&#x9;&#x9;,Claim_Reopen_Dt&#xA;&#x9;&#x9;&#x9;,Accident_State_Cd&#xA;&#x9;&#x9;&#x9;,Nature_of_Injury_cd&#xA;&#x9;&#x9;&#x9;,Part_Of_Body_Cd&#xA;&#x9;&#x9;&#x9;,Type_Of_Loss_Cd&#xA;&#x9;&#x9;&#x9;,Manual_Session_Ind&#xA;&#x9;&#x9;&#x9;,Migration_Ind&#xA;&#x9;&#x9;&#x9;,CAT_Cd&#xA;&#x9;&#x9;&#x9;,Sys_Create_Dt&#xA;&#x9;&#x9;   )&#xA;&#x9;VALUES&#xA;&#x9;   (&#x9; Policy_No&#xA;&#x9;&#x9;&#x9;,s.Policy_Eff_Dt&#xA;&#x9;&#x9;&#x9;,s.Portfolio_Cd&#xA;&#x9;&#x9;&#x9;,s.Product_Cd&#xA;&#x9;&#x9;&#x9;,s.NAIC_Cd&#xA;&#x9;&#x9;&#x9;,s.Risk_Unit_ID&#xA;&#x9;&#x9;&#x9;,s.Policy_Period_ID&#xA;&#x9;&#x9;&#x9;,s.PolicyVersion&#xA;&#x9;&#x9;&#x9;,s.Policy_Coverage_Line_ID&#xA;&#x9;&#x9;&#x9;,s.Sapiens_Claim_No&#xA;&#x9;&#x9;&#x9;,s.Sapiens_Prior_Claim_No&#xA;&#x9;&#x9;&#x9;,s.Related_Claim_No&#xA;&#x9;&#x9;&#x9;,s.Exposure_No&#xA;&#x9;&#x9;&#x9;,s.Transaction_ID&#xA;&#x9;&#x9;&#x9;,s.Transaction_Cd&#xA;&#x9;&#x9;&#x9;,s.Amount&#xA;&#x9;&#x9;&#x9;,s.Transaction_Dt&#xA;&#x9;&#x9;&#x9;,s.Loss_Dt&#xA;&#x9;&#x9;&#x9;,s.Claim_Report_Dt&#xA;&#x9;&#x9;&#x9;,s.WorkMatter_No&#xA;&#x9;&#x9;&#x9;,s.WM_Type_Cd&#xA;&#x9;&#x9;&#x9;,s.Account_Name&#xA;&#x9;&#x9;&#x9;,s.WorkMatter_Desc&#xA;&#x9;&#x9;&#x9;,s.WorkMatter_Status_Cd&#xA;&#x9;&#x9;&#x9;,s.WM_Special_Tracking_Group_Desc&#xA;&#x9;&#x9;&#x9;,s.WorkMatter_Open_Dt&#xA;&#x9;&#x9;&#x9;,s.WorkMatter_Close_Dt&#xA;&#x9;&#x9;&#x9;,s.WorkMatter_Reopen_Dt&#xA;&#x9;&#x9;&#x9;,s.Claimant_Name&#xA;&#x9;&#x9;&#x9;,s.Claim_Status_Cd&#xA;&#x9;&#x9;&#x9;,s.Claim_Open_Dt&#xA;&#x9;&#x9;&#x9;,s.Claim_Close_Dt&#xA;&#x9;&#x9;&#x9;,s.Claim_Reopen_Dt&#xA;&#x9;&#x9;&#x9;,s.Accident_State_Cd&#xA;&#x9;&#x9;&#x9;,s.Nature_of_Injury_cd&#xA;&#x9;&#x9;&#x9;,s.Part_Of_Body_Cd&#xA;&#x9;&#x9;&#x9;,s.Type_Of_Loss_Cd&#xA;&#x9;&#x9;&#x9;,s.Manual_Session_Ind&#xA;&#x9;&#x9;&#x9;,s.Migration_Ind&#xA;&#x9;&#x9;&#x9;,s.CAT_Cd&#xA;&#x9;&#x9;&#x9;,GETDATE()&#xA;&#x9;    )&#xA;WHEN MATCHED THEN&#xA;UPDATE SET&#xA;&#x9;    t.Transaction_Amnt=s.Amount,&#xA;&#x9;    t.Sys_Create_Dt=GETDATE()&#xA;WHEN NOT MATCHED BY SOURCE THEN&#x9;&#xA;DELETE; &#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              SQLTask:SqlStatementSource="&#xA;;WITH &#xA; cteClaimFeed AS (--claims that have exact match in claim feed&#xA;   SELECT scf.SCFID,&#xA;          scf.Policy_No,&#xA;          scf.Policy_Eff_Dt,&#xA;          scf.Portfolio_Cd,&#xA;          scf.Product_Cd,&#xA;          scf.NAIC_Cd,&#xA;          scf.Risk_Unit_ID,&#xA;          scf.Policy_Period_ID,&#xA;          scf.PolicyVersion,&#xA;          scf.Policy_Coverage_Line_ID,&#xA;          scf.Sapiens_Claim_No,&#xA;          scf.Sapiens_Prior_Claim_No,&#xA;          scf.Related_Claim_No,&#xA;          scf.Exposure_No,&#xA;          --scf.Transaction_ID,&#xA;          scf.Transaction_Cd,&#xA;          CFEC.Amount,&#xA;          scf.Transaction_Dt,&#xA;          scf.Loss_Dt,&#xA;          scf.Claim_Report_Dt,&#xA;          scf.WorkMatter_No,&#xA;          scf.WM_Type_Cd,&#xA;          scf.Account_Name,&#xA;          scf.WorkMatter_Desc,&#xA;          scf.WorkMatter_Status_Cd,&#xA;          scf.WM_Special_Tracking_Group_Desc,&#xA;          scf.WorkMatter_Open_Dt,&#xA;          scf.WorkMatter_Close_Dt,&#xA;          scf.WorkMatter_Reopen_Dt,&#xA;          scf.Claimant_Name,&#xA;          scf.Claim_Status_Cd,&#xA;          scf.Claim_Open_Dt,&#xA;          scf.Claim_Close_Dt,&#xA;          scf.Claim_Reopen_Dt,&#xA;          scf.Accident_State_Cd,&#xA;          scf.Nature_of_Injury_cd,&#xA;          scf.Part_Of_Body_Cd,&#xA;          scf.Type_Of_Loss_Cd,&#xA;          scf.Manual_Session_Ind,&#xA;          scf.Migration_Ind,&#xA;          scf.CAT_Cd,&#xA;          scf.Sys_Create_Dt&#xA;   FROM rein.CashFlowEntryConform CFEC&#xA;       JOIN rein.Sapiens_CLaim_Feed scf&#xA;           ON scf.Sapiens_Claim_No = CFEC.Claim_No&#xA;              AND scf.Exposure_No = CFEC.Exposure_No&#xA;              AND scf.Transaction_Cd = CFEC.Transaction_Cd&#xA; WHERE CFEC.ProcessedStatusID=0&#xA;      AND  CFEC.BatchStatusID=0&#xA;      AND   CFEC.Amount &lt;&gt; 0&#xA;   UNION&#xA;   --claims that do not match by Trans_Code but exists in claim feed for other Trans_Codes&#xA;   SELECT NULL SCFID,&#xA;          scf.Policy_No,&#xA;          scf.Policy_Eff_Dt,&#xA;          scf.Portfolio_Cd,&#xA;          scf.Product_Cd,&#xA;          scf.NAIC_Cd,&#xA;          scf.Risk_Unit_ID,&#xA;          scf.Policy_Period_ID,&#xA;          scf.PolicyVersion,&#xA;          scf.Policy_Coverage_Line_ID,&#xA;          scf.Sapiens_Claim_No,&#xA;          scf.Sapiens_Prior_Claim_No,&#xA;          scf.Related_Claim_No,&#xA;          scf.Exposure_No,&#xA;         -- scf.Transaction_ID,&#xA;          CFEC.Transaction_Cd,&#xA;          CFEC.Amount,&#xA;          scf.Transaction_Dt,&#xA;          scf.Loss_Dt,&#xA;          scf.Claim_Report_Dt,&#xA;          scf.WorkMatter_No,&#xA;          scf.WM_Type_Cd,&#xA;          scf.Account_Name,&#xA;          scf.WorkMatter_Desc,&#xA;          scf.WorkMatter_Status_Cd,&#xA;          scf.WM_Special_Tracking_Group_Desc,&#xA;          scf.WorkMatter_Open_Dt,&#xA;          scf.WorkMatter_Close_Dt,&#xA;          scf.WorkMatter_Reopen_Dt,&#xA;          scf.Claimant_Name,&#xA;          scf.Claim_Status_Cd,&#xA;          scf.Claim_Open_Dt,&#xA;          scf.Claim_Close_Dt,&#xA;          scf.Claim_Reopen_Dt,&#xA;          scf.Accident_State_Cd,&#xA;          scf.Nature_of_Injury_cd,&#xA;          scf.Part_Of_Body_Cd,&#xA;          scf.Type_Of_Loss_Cd,&#xA;          scf.Manual_Session_Ind,&#xA;          scf.Migration_Ind,&#xA;          scf.CAT_Cd,&#xA;          scf.Sys_Create_Dt&#xA;   FROM rein.CashFlowEntryConform CFEC&#xA;       LEFT JOIN&#xA;       (&#xA;           SELECT ROW_NUMBER() OVER (PARTITION BY Sapiens_Claim_No,&#xA;                                                  Exposure_No&#xA;                                     ORDER BY Transaction_ID DESC&#xA;                                    ) AS MaxRowNo,&#xA;                  *&#xA;           FROM rein.Sapiens_CLaim_Feed&#xA;       ) scf&#xA;           ON scf.Sapiens_Claim_No = CFEC.Claim_No&#xA;              AND scf.Exposure_No = CFEC.Exposure_No&#xA;       LEFT JOIN rein.Sapiens_CLaim_Feed scf_nomatch&#xA;           ON scf_nomatch.Sapiens_Claim_No = CFEC.Claim_No&#xA;              AND scf_nomatch.Exposure_No = CFEC.Exposure_No&#xA;              AND CFEC.Transaction_Cd = scf_nomatch.Transaction_Cd&#xA;   WHERE scf_nomatch.SCFID IS NULL&#xA;         AND  CFEC.ProcessedStatusID=0&#xA;        AND   CFEC.BatchStatusID=0&#xA;        AND   CFEC.Amount &lt;&gt; 0&#xA;        AND scf.MaxRowNo = 1&#xA;)&#xA;MERGE INTO&#xA;rein.Sapiens_CLaim_Feed t &#xA;USING (SELECT ROW_NUMBER() OVER(ORDER BY cteClaimFeed.SCFID) AS Transaction_ID,* FROM cteClaimFeed) s&#xA;ON &#x9;t.SCFID=s.SCFID&#xA;WHEN NOT MATCHED BY TARGET THEN&#xA;&#x9;INSERT (&#xA;&#x9;&#x9;&#x9; Policy_No&#xA;&#x9;&#x9;&#x9;,Policy_Eff_Dt&#xA;&#x9;&#x9;&#x9;,Portfolio_Cd&#xA;&#x9;&#x9;&#x9;,Product_Cd&#xA;&#x9;&#x9;&#x9;,NAIC_Cd&#xA;&#x9;&#x9;&#x9;,Risk_Unit_ID&#xA;&#x9;&#x9;&#x9;,Policy_Period_ID&#xA;&#x9;&#x9;&#x9;,PolicyVersion&#xA;&#x9;&#x9;&#x9;,Policy_Coverage_Line_ID&#xA;&#x9;&#x9;&#x9;,Sapiens_Claim_No&#xA;&#x9;&#x9;&#x9;,Sapiens_Prior_Claim_No&#xA;&#x9;&#x9;&#x9;,Related_Claim_No&#xA;&#x9;&#x9;&#x9;,Exposure_No&#xA;&#x9;&#x9;&#x9;,Transaction_ID&#xA;&#x9;&#x9;&#x9;,Transaction_Cd&#xA;&#x9;&#x9;&#x9;,Transaction_Amnt&#xA;&#x9;&#x9;&#x9;,Transaction_Dt&#xA;&#x9;&#x9;&#x9;,Loss_Dt&#xA;&#x9;&#x9;&#x9;,Claim_Report_Dt&#xA;&#x9;&#x9;&#x9;,WorkMatter_No&#xA;&#x9;&#x9;&#x9;,WM_Type_Cd&#xA;&#x9;&#x9;&#x9;,Account_Name&#xA;&#x9;&#x9;&#x9;,WorkMatter_Desc&#xA;&#x9;&#x9;&#x9;,WorkMatter_Status_Cd&#xA;&#x9;&#x9;&#x9;,WM_Special_Tracking_Group_Desc&#xA;&#x9;&#x9;&#x9;,WorkMatter_Open_Dt&#xA;&#x9;&#x9;&#x9;,WorkMatter_Close_Dt&#xA;&#x9;&#x9;&#x9;,WorkMatter_Reopen_Dt&#xA;&#x9;&#x9;&#x9;,Claimant_Name&#xA;&#x9;&#x9;&#x9;,Claim_Status_Cd&#xA;&#x9;&#x9;&#x9;,Claim_Open_Dt&#xA;&#x9;&#x9;&#x9;,Claim_Close_Dt&#xA;&#x9;&#x9;&#x9;,Claim_Reopen_Dt&#xA;&#x9;&#x9;&#x9;,Accident_State_Cd&#xA;&#x9;&#x9;&#x9;,Nature_of_Injury_cd&#xA;&#x9;&#x9;&#x9;,Part_Of_Body_Cd&#xA;&#x9;&#x9;&#x9;,Type_Of_Loss_Cd&#xA;&#x9;&#x9;&#x9;,Manual_Session_Ind&#xA;&#x9;&#x9;&#x9;,Migration_Ind&#xA;&#x9;&#x9;&#x9;,CAT_Cd&#xA;&#x9;&#x9;&#x9;,Sys_Create_Dt&#xA;&#x9;&#x9;   )&#xA;&#x9;VALUES&#xA;&#x9;   (&#x9; Policy_No&#xA;&#x9;&#x9;&#x9;,s.Policy_Eff_Dt&#xA;&#x9;&#x9;&#x9;,s.Portfolio_Cd&#xA;&#x9;&#x9;&#x9;,s.Product_Cd&#xA;&#x9;&#x9;&#x9;,s.NAIC_Cd&#xA;&#x9;&#x9;&#x9;,s.Risk_Unit_ID&#xA;&#x9;&#x9;&#x9;,s.Policy_Period_ID&#xA;&#x9;&#x9;&#x9;,s.PolicyVersion&#xA;&#x9;&#x9;&#x9;,s.Policy_Coverage_Line_ID&#xA;&#x9;&#x9;&#x9;,s.Sapiens_Claim_No&#xA;&#x9;&#x9;&#x9;,s.Sapiens_Prior_Claim_No&#xA;&#x9;&#x9;&#x9;,s.Related_Claim_No&#xA;&#x9;&#x9;&#x9;,s.Exposure_No&#xA;&#x9;&#x9;&#x9;,s.Transaction_ID&#xA;&#x9;&#x9;&#x9;,s.Transaction_Cd&#xA;&#x9;&#x9;&#x9;,s.Amount&#xA;&#x9;&#x9;&#x9;,s.Transaction_Dt&#xA;&#x9;&#x9;&#x9;,s.Loss_Dt&#xA;&#x9;&#x9;&#x9;,s.Claim_Report_Dt&#xA;&#x9;&#x9;&#x9;,s.WorkMatter_No&#xA;&#x9;&#x9;&#x9;,s.WM_Type_Cd&#xA;&#x9;&#x9;&#x9;,s.Account_Name&#xA;&#x9;&#x9;&#x9;,s.WorkMatter_Desc&#xA;&#x9;&#x9;&#x9;,s.WorkMatter_Status_Cd&#xA;&#x9;&#x9;&#x9;,s.WM_Special_Tracking_Group_Desc&#xA;&#x9;&#x9;&#x9;,s.WorkMatter_Open_Dt&#xA;&#x9;&#x9;&#x9;,s.WorkMatter_Close_Dt&#xA;&#x9;&#x9;&#x9;,s.WorkMatter_Reopen_Dt&#xA;&#x9;&#x9;&#x9;,s.Claimant_Name&#xA;&#x9;&#x9;&#x9;,s.Claim_Status_Cd&#xA;&#x9;&#x9;&#x9;,s.Claim_Open_Dt&#xA;&#x9;&#x9;&#x9;,s.Claim_Close_Dt&#xA;&#x9;&#x9;&#x9;,s.Claim_Reopen_Dt&#xA;&#x9;&#x9;&#x9;,s.Accident_State_Cd&#xA;&#x9;&#x9;&#x9;,s.Nature_of_Injury_cd&#xA;&#x9;&#x9;&#x9;,s.Part_Of_Body_Cd&#xA;&#x9;&#x9;&#x9;,s.Type_Of_Loss_Cd&#xA;&#x9;&#x9;&#x9;,s.Manual_Session_Ind&#xA;&#x9;&#x9;&#x9;,s.Migration_Ind&#xA;&#x9;&#x9;&#x9;,s.CAT_Cd&#xA;&#x9;&#x9;&#x9;,GETDATE()&#xA;&#x9;    )&#xA;WHEN MATCHED THEN&#xA;UPDATE SET&#xA;&#x9;    t.Transaction_Amnt=s.Amount,&#xA;&#x9;    t.Sys_Create_Dt=GETDATE()&#xA;WHEN NOT MATCHED BY SOURCE THEN&#x9;&#xA;DELETE; &#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -2335,6 +2335,36 @@ WHERE   (
               ReadOnlyVariables="$Package::CashFlowTemplateFilePath"
               ReadWriteVariables="User::FileExists">
               <ProjectItem
+                Name="Properties\AssemblyInfo.cs"
+                Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_b2ccadf6482d49509f46148bb5c9cb6f")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_b2ccadf6482d49509f46148bb5c9cb6f")]
+[assembly: AssemblyCopyright("Copyright @  2020")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+              <ProjectItem
                 Name="Properties\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
 <root>
@@ -2454,34 +2484,14 @@ WHERE   (
   </resheader>
 </root>]]></ProjectItem>
               <ProjectItem
-                Name="Properties\Settings.Designer.cs"
-                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
-// <auto-generated>
-//     This code was generated by a tool.
-//
-//     Changes to this file may cause incorrect behavior and will be lost if
-//     the code is regenerated.
-// </auto-generated>
-//------------------------------------------------------------------------------
-
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_b2ccadf6482d49509f46148bb5c9cb6f.Properties.Settings.get_Default():ST_b2ccadf6482d49509f46148bb5c9cb6f.Properties.Sett" +
-    "ings")]
-
-namespace ST_b2ccadf6482d49509f46148bb5c9cb6f.Properties {
-    
-    
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
-        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-        private static Settings defaultInstance = new Settings();
-        
-        public static Settings Default {
-            get {
-                return defaultInstance;
-            }
-        }
-    }
-}]]></ProjectItem>
+                Name="Properties\Settings.settings"
+                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="ScriptMain.cs"
                 Encoding="UTF8"><![CDATA[#region Help:  Introduction to the script task
@@ -2614,6 +2624,55 @@ namespace ST_b2ccadf6482d49509f46148bb5c9cb6f
 	}
 }]]></ProjectItem>
               <ProjectItem
+                Name="Project"
+                Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:CodeName>ST_b2ccadf6482d49509f46148bb5c9cb6f</msb:CodeName>
+		<msb:Language>msBuild</msb:Language>
+		<msb:DisplayName>ST_b2ccadf6482d49509f46148bb5c9cb6f</msb:DisplayName>
+		<msb:ProjectId>{D4ABC110-A5B1-42A2-9617-6B9ECDD355BA}</msb:ProjectId>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="ST_b2ccadf6482d49509f46148bb5c9cb6f.csproj"/>
+		<msb:File Include="Properties\AssemblyInfo.cs"/>
+		<msb:File Include="Properties\Settings.settings"/>
+		<msb:File Include="Properties\Resources.resx"/>
+		<msb:File Include="Properties\Resources.Designer.cs"/>
+		<msb:File Include="Properties\Settings.Designer.cs"/>
+		<msb:File Include="ScriptMain.cs"/>
+	</msb:ItemGroup>
+</c:Project>]]></ProjectItem>
+              <ProjectItem
+                Name="Properties\Settings.Designer.cs"
+                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_b2ccadf6482d49509f46148bb5c9cb6f.Properties.Settings.get_Default():ST_b2ccadf6482d49509f46148bb5c9cb6f.Properties.Sett" +
+    "ings")]
+
+namespace ST_b2ccadf6482d49509f46148bb5c9cb6f.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
+              <ProjectItem
                 Name="ST_b2ccadf6482d49509f46148bb5c9cb6f.csproj"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
@@ -2705,65 +2764,6 @@ namespace ST_b2ccadf6482d49509f46148bb5c9cb6f
     </VisualStudio>
   </ProjectExtensions>
 </Project>]]></ProjectItem>
-              <ProjectItem
-                Name="Project"
-                Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
-<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
-	<msb:PropertyGroup>
-		<msb:CodeName>ST_b2ccadf6482d49509f46148bb5c9cb6f</msb:CodeName>
-		<msb:Language>msBuild</msb:Language>
-		<msb:DisplayName>ST_b2ccadf6482d49509f46148bb5c9cb6f</msb:DisplayName>
-		<msb:ProjectId>{D4ABC110-A5B1-42A2-9617-6B9ECDD355BA}</msb:ProjectId>
-	</msb:PropertyGroup>
-	<msb:ItemGroup>
-		<msb:Project Include="ST_b2ccadf6482d49509f46148bb5c9cb6f.csproj"/>
-		<msb:File Include="Properties\AssemblyInfo.cs"/>
-		<msb:File Include="Properties\Settings.settings"/>
-		<msb:File Include="Properties\Resources.resx"/>
-		<msb:File Include="Properties\Resources.Designer.cs"/>
-		<msb:File Include="Properties\Settings.Designer.cs"/>
-		<msb:File Include="ScriptMain.cs"/>
-	</msb:ItemGroup>
-</c:Project>]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\AssemblyInfo.cs"
-                Encoding="UTF8"><![CDATA[using System.Reflection;
-using System.Runtime.CompilerServices;
-
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
-[assembly: AssemblyTitle("ST_b2ccadf6482d49509f46148bb5c9cb6f")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ST_b2ccadf6482d49509f46148bb5c9cb6f")]
-[assembly: AssemblyCopyright("Copyright @  2020")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-
-[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\Settings.settings"
-                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.Designer.cs"
                 Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
@@ -3776,7 +3776,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
     design-time-name="Package\SEQ- Source data load to Raw\DFT - Source Database To Raw">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="198,42"
           Id="Package\SEQ- Source data load to Raw\DFT - Source Database To Raw\OLE - CashFlowEntryRaw"
@@ -3808,9 +3808,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -3832,9 +3830,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
