@@ -4,10 +4,10 @@
 
 CREATE TABLE dm.DimNotifications(
     notification_SK    int              IDENTITY(1,1),
-    workMatterNo       varchar(50)      NOT NULL,
+    workMatterNo       varchar(64)      NOT NULL,
     Comments           varchar(4000)    NULL,
-    Confidence         varchar(50)      NULL,
-    Status             varchar(50)      NULL,
+    Confidence         varchar(64)      NULL,
+    Status             varchar(64)      NULL,
     audit_Insert_Dt    datetime         DEFAULT (getdate()) NULL,
     audit_Update_Dt    datetime         DEFAULT (getdate()) NULL,
     ins_Proc_ID        int              NULL,

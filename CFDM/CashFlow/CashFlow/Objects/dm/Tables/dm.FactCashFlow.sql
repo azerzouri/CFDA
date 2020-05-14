@@ -22,7 +22,7 @@ CREATE TABLE dm.FactCashFlow(
     exposureOpenDate_SK                      int               NOT NULL,
     entryDate_SK                             int               NOT NULL,
     projectionDate_SK                        int               NOT NULL,
-    relatedClaimNumber                       varchar(50)       NULL,
+    relatedClaimNumber                       varchar(64)       NULL,
     cededProjectedTotalPaid                  AS                projectedCededTotalPaidDefExpense+projectedCededPaidCoverageDJExpense+projectedCededTotalPaidLossExInLimits PERSISTED,
     projectedCededPaidCoverageDJExpense      decimal(14, 2)    NULL,
     projectedCededTotalPaidDefExpense        decimal(14, 2)    NULL,
