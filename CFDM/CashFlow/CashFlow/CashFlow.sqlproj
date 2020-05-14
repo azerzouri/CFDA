@@ -219,5 +219,7 @@
     <Build Include="Objects\stg\Tables\Indexes\stg.ndx_stg_cashflowentryperiod.sql" />
     <Build Include="Objects\stg\Tables\stg.Claim.sql" />
     <Build Include="Objects\stg\Tables\Indexes\stg.ndx_stgclaimNumber.sql" />
+    <Build Include="Objects\dm\Tables\dm.Errors_log.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_AdjusterTRGUname.sql" />
   </ItemGroup>
 </Project>
