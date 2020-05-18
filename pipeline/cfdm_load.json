@@ -1,0 +1,28 @@
+{
+	"name": "cfdm_load",
+	"properties": {
+		"activities": [
+			{
+				"name": "dimworkmatter",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dm].[usp_DimWorkMatter]"
+				},
+				"linkedServiceName": {
+					"referenceName": "CashflowDMDev",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": []
+	}
+}
