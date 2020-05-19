@@ -3,7 +3,7 @@
  */
 
 CREATE TABLE dm.DimClaim(
-    claim_SK            int            NOT NULL,
+    claim_SK            int  IDENTITY(0,1),
     claimNo             varchar(64)    NULL,
     actuarialSegment    varchar(64)    NULL,
     fairfaxSegment      varchar(64)    NULL,
