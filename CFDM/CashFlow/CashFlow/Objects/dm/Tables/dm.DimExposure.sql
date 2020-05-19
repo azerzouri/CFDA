@@ -3,8 +3,8 @@
  */
 
 CREATE TABLE dm.DimExposure(
-    Exposure_SK        int            IDENTITY(0,1),
-    exposureNo         varchar(64)    NULL,
+    exposure_SK        int            IDENTITY(0,1),
+    claimExposureNo         varchar(64)    NULL,
     insuredName        varchar(64)    NULL,
     insuredLocation    varchar(64)    NULL,
     exposureStatus     varchar(64)    NULL,
