@@ -55,7 +55,7 @@ SET IDENTITY_INSERT [dm].[DimAdjuster] OFF
         ) AS rownum
     FROM [stg].[Adjuster]
 	GROUP BY 	 
-	- [associateName], 
+	  [associateName], 
 	  [adjustedName],
 	  [managerName], 
 	  [groupManagerName], 
