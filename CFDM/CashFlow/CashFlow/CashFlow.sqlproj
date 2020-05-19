@@ -221,5 +221,8 @@
     <Build Include="Objects\stg\Tables\Indexes\stg.ndx_stgclaimNumber.sql" />
     <Build Include="Objects\dm\Tables\dm.Errors_log.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_AdjusterTRGUname.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimAdjuster.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimNotification.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimWorkMatter.sql" />
   </ItemGroup>
 </Project>
