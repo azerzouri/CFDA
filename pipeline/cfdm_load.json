@@ -75,6 +75,33 @@
 					"referenceName": "CashflowDMDev",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "dimclaim",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "dimnotifications",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dm].[usp_DimClaim]"
+				},
+				"linkedServiceName": {
+					"referenceName": "CashflowDMDev",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"annotations": []
