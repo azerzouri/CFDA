@@ -6,6 +6,7 @@ CREATE TABLE dm.DimAdjuster(
     adjuster_SK         int            IDENTITY(0,1),
     adjusterName        varchar(64)    NULL,
     adjusterTRGUname    varchar(64)    NULL,
+    emailAddress        AS             adjusterTRGUname+'@trg.com' PERSISTED,
     managerName         varchar(64)    NULL,
     groupManagerName    varchar(64)    NULL,
     department          varchar(512)    NULL,
