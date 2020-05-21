@@ -224,5 +224,9 @@
     <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimAdjuster.sql" />
     <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimNotification.sql" />
     <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimWorkMatter.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_Comp_Unique_DimPolicy.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimClaim.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimExposure.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimPolicy.sql" />
   </ItemGroup>
 </Project>

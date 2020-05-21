@@ -11,13 +11,39 @@ if ($Env -eq "DEV"){
 $resourceGroupName="rg_NPRD-DEV"
 $dataFactoryName = "e2nprddfcf"
 #ADF Pipeline to run the end to end data load from Miosoft output to Asbestos DM
-$pipelineName= "CashFlow_Datamart_End_to_End" #EntAsbestos_Datamart_End_to_End
+$pipelineName= "stgclaim" #EntAsbestos_Datamart_End_to_End
 $outputFile = "D:\Powershell\Output\Output.txt"
 # Connect to Azure using Active Directory Service Principal Authentication 
 $passwd = Get-Content "D:\Powershell\Creds\azure_cred.properties" | ConvertTo-SecureString -AsPlainText -Force
 $pscredential = New-Object System.Management.Automation.PSCredential('9f713ae4-f576-4ccb-96db-9654b2c907c1', $passwd)
+Connect-AzAccount -ServicePrincipal -Credential $pscredential -Tenant e93ade6c-2138-454c-87ec-7353d64d3cbb 
+
+}
+elseif ($Env -eq "TEST"){
+   #Set environment variables
+$resourceGroupName="rg_TEST"
+$dataFactoryName = "e2testdfcf"
+#ADF Pipeline to run the end to end data load from Miosoft output to Asbestos DM
+$pipelineName= "stgclaim" #EntAsbestos_Datamart_End_to_End
+$outputFile = "D:\Powershell\Output\Output.txt"
+# Connect to Azure using Active Directory Service Principal Authentication 
+$passwd = Get-Content "D:\Powershell\Creds\azure_cred_test.properties" | ConvertTo-SecureString -AsPlainText -Force
+$pscredential = New-Object System.Management.Automation.PSCredential('707ce238-e059-44f2-9143-ba78b3c661e3', $passwd)
 Connect-AzAccount -ServicePrincipal -Credential $pscredential -Tenant e93ade6c-2138-454c-87ec-7353d64d3cbb
 }
+elseif ($Env -eq "PROD"){
+#Set environment variables
+$resourceGroupName="rg_PROD"
+$dataFactoryName = "e2proddfcf"
+#ADF Pipeline to run the end to end data load from Miosoft output to Asbestos DM
+$pipelineName= "stgclaim" #EntAsbestos_Datamart_End_to_End
+$outputFile = "D:\Powershell\Output\Output.txt"
+# Connect to Azure using Active Directory Service Principal Authentication 
+$passwd = Get-Content "D:\Powershell\Creds\AzureDevOpsPROD.properties" | ConvertTo-SecureString -AsPlainText -Force
+$pscredential = New-Object System.Management.Automation.PSCredential('45ab316f-3334-4dcc-9eb2-86f8bc37282f', $passwd)
+Connect-AzAccount -ServicePrincipal -Credential $pscredential -Tenant e93ade6c-2138-454c-87ec-7353d64d3cbb
+}
+
 try
 {
 

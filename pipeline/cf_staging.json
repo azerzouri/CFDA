@@ -155,7 +155,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "select distinct Policy_No,Policy_Effective_Dt,Policy_Expiration_Dt,Portfolio_Cd\nFROM [Prod_RS_ODS].[pol].[Policy_Period]\n",
+						"sqlReaderQuery": "select distinct Policy_No,Policy_Effective_Dt,Policy_Expiration_Dt,Portfolio_Cd,NAIC_Cd,Business_Type_Cd\nFROM [Prod_RS_ODS].[pol].[Policy_Period]",
 						"queryTimeout": "02:00:00"
 					},
 					"sink": {
@@ -171,7 +171,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "Policy_No",
+									"name": "policy_No",
 									"type": "String"
 								}
 							},
@@ -181,7 +181,27 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "Portfolio_Cd",
+									"name": "portfolio_Cd",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "NAIC_Cd",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NAICCode",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Business_Type_Cd",
+									"type": "String"
+								},
+								"sink": {
+									"name": "businessTypeCode",
 									"type": "String"
 								}
 							},
@@ -191,7 +211,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "PolicyEffectiveDate",
+									"name": "policyEffectiveDate",
 									"type": "DateTime"
 								}
 							},
@@ -201,7 +221,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "PolicyExpirationDate",
+									"name": "policyExpirationDate",
 									"type": "DateTime"
 								}
 							}
