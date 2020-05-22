@@ -4,7 +4,7 @@
 
 CREATE TABLE dm.DimReinsurance(
     reinsurane_SK             int            IDENTITY(0,1),
-    reinsurerName             int            NULL,
+    reinsurerName             varchar(256)   NULL,
     sapiensReinsurerID        int            NULL,
     brokerName                varchar(64)    NULL,
     sapiensBrokerID           int            NULL,
