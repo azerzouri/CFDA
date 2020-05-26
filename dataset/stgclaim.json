@@ -9,65 +9,49 @@
 		"type": "AzureSqlMITable",
 		"schema": [
 			{
-				"name": "adjuster_ID",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "claimCenterID",
-				"type": "int",
-				"precision": 10
-			},
-			{
-				"name": "associateName",
+				"name": "ClaimNumber",
 				"type": "varchar"
 			},
 			{
-				"name": "adjustedName",
+				"name": "ActuarialSegment",
 				"type": "varchar"
 			},
 			{
-				"name": "managerName",
-				"type": "varchar"
-			},
-			{
-				"name": "groupManagerName",
-				"type": "varchar"
-			},
-			{
-				"name": "department",
-				"type": "varchar"
-			},
-			{
-				"name": "emailAddress",
-				"type": "varchar"
-			},
-			{
-				"name": "userName",
-				"type": "varchar"
-			},
-			{
-				"name": "effectiveDate",
+				"name": "ActuarialSegmentEffectiveDate",
 				"type": "date"
 			},
 			{
-				"name": "expirationDate",
+				"name": "ActuarialSegmentExpirationDate",
 				"type": "date"
 			},
 			{
-				"name": "workmatternumber",
+				"name": "BusinessSegment",
 				"type": "varchar"
 			},
 			{
-				"name": "Insert_Date",
-				"type": "datetime",
-				"precision": 23,
-				"scale": 3
+				"name": "FairfaxSegment",
+				"type": "varchar"
+			},
+			{
+				"name": "HandlingSegment",
+				"type": "varchar"
+			},
+			{
+				"name": "ClaimsSegment",
+				"type": "varchar"
+			},
+			{
+				"name": "BusinessSegmentEffectiveDate",
+				"type": "date"
+			},
+			{
+				"name": "BusinessSegmentExpirationDate",
+				"type": "date"
 			}
 		],
 		"typeProperties": {
 			"schema": "stg",
-			"table": "Claim"
+			"table": "claimSegmentation"
 		}
 	}
 }
