@@ -667,7 +667,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "\nSELECT RTRIM(C.Claim_No) + '-' + RTRIM(e.Exposure_No) AS claim_Exposure_NO, \nC.Claim_No,\ne.Exposure_No,\nWM.Work_Matter_No,\nFT.Portfolio_Cd, \nPP.Policy_No, \nPP.Policy_Effective_Dt,\nFT.Valuation_Dt,\nCOALESCE(SUM(FT.Paid_Loss),0) AS Paid_Loss,\nCOALESCE(SUM(FT.Paid_Adjusting_Expense_InLimits),0) AS Paid_Expense_InLimits,\nCOALESCE(SUM(FT.Paid_Coverage_DJ_Expense),0) AS Paid_Coverage_DJ_Expense,\nCOALESCE(SUM(FT.Paid_Adjusting_Expense) ,0) AS Paid_Adjusting_Expense ,\nCOALESCE(SUM(FT.Recovery_Salavage) ,0) AS Recovery_Salavage ,\nCOALESCE(SUM(FT.Recovery_Subrogation_Loss) ,0) AS Recovery_Subrogation_Loss ,\nCOALESCE(SUM(FT.Recovery_Deductible_Loss) ,0) AS Recovery_Deductible_Loss ,\nCOALESCE(SUM(FT.Recovery_Subrogation_Expense) ,0) AS Recovery_Subrogation_Expense ,\nCOALESCE(SUM(FT.case_Loss),0) as caseloss,\nCOALESCE(SUM(FT.case_Adjusting_expense),0) as case_Adjusting_expense,\nCOALESCE(SUM(FT.Case_coverage_dj_expense),0) as Case_coverage_dj_expense\nFROM PROD_RS_ODS.clm.Exposure AS e \nJOIN PROD_RS_ODS.clm.Claim AS C ON e.Claim_Id = C.Claim_ID AND c.Sys_RowEndDt = '12/31/9999'\nJOIN PROD_RS_ODS.clm.Incident AS I ON e.Incident_Id = i.Incident_Id AND i.Sys_RowEndDt = '12/31/9999'\nJOIN PROD_RS_ODS.clm.Work_Matter AS WM ON I.WM_Id = WM.WM_ID AND wm.Sys_RowEndDt = '12/31/9999'\nJOIN PROD_RS_ODS.dbo.Dw_Max_Policy_Version AS PV ON e.Policy_Period_ID = PV.Policy_Period_Id\nJOIN PROD_RS_ODS.pol.Policy_Period AS PP ON PV.Policy_Period_ID = PP.Policy_Period_Id AND PV.PolicyVersion = PP.PolicyVersion\nJOIN PROD_RS_ODS.pol.Policy_Coverage_Line AS PCL ON e.Policy_Coverage_Line_ID = pcl.Coverage_Line_Id AND PV.PolicyVersion = PCL.PolicyVersion\nJOIN PROD_RS_ODS.pol.RiskUnit AS RU ON PCL.Risk_Unit_Id = RU.Risk_Unit_ID AND PV.PolicyVersion = RU.PolicyVersion\nLEFT JOIN PROD_RS_ODS.trn.Financial_Transaction AS FT ON E.Exposure_ID = FT.Exposure_Id\nWHERE e.sys_rowenddt = '12/31/9999' AND FT.Transaction_Source_Cd = 'Claim Center' \nGROUP BY RTRIM(C.Claim_No) + '-' + RTRIM(e.Exposure_No),C.Claim_No,\ne.Exposure_No,\nWM.Work_Matter_No, FT.Portfolio_Cd, PP.Policy_No, PP.Policy_Effective_Dt,FT.Valuation_Dt\n\n\n\n\n",
+						"sqlReaderQuery": "\nSELECT RTRIM(C.Claim_No) + '-' + RTRIM(e.Exposure_No) AS claim_Exposure_NO, \nC.Claim_No,\ne.Exposure_No,\nWM.Work_Matter_No,\nFT.Portfolio_Cd, \nPP.Policy_No, \nPP.Policy_Effective_Dt,\nPP.Policy_Expiration_Dt,\nPP.NAIC_Cd,\nPP.Business_Type_Cd,\nFT.Valuation_Dt,\nCOALESCE(SUM(FT.Paid_Loss),0) AS Paid_Loss,\nCOALESCE(SUM(FT.Paid_Adjusting_Expense_InLimits),0) AS Paid_Expense_InLimits,\nCOALESCE(SUM(FT.Paid_Coverage_DJ_Expense),0) AS Paid_Coverage_DJ_Expense,\nCOALESCE(SUM(FT.Paid_Adjusting_Expense) ,0) AS Paid_Adjusting_Expense ,\nCOALESCE(SUM(FT.Recovery_Salavage) ,0) AS Recovery_Salavage ,\nCOALESCE(SUM(FT.Recovery_Subrogation_Loss) ,0) AS Recovery_Subrogation_Loss ,\nCOALESCE(SUM(FT.Recovery_Deductible_Loss) ,0) AS Recovery_Deductible_Loss ,\nCOALESCE(SUM(FT.Recovery_Subrogation_Expense) ,0) AS Recovery_Subrogation_Expense ,\nCOALESCE(SUM(FT.case_Loss),0) as caseloss,\nCOALESCE(SUM(FT.case_Adjusting_expense),0) as case_Adjusting_expense,\nCOALESCE(SUM(FT.Case_coverage_dj_expense),0) as Case_coverage_dj_expense\nFROM PROD_RS_ODS.clm.Exposure AS e \nJOIN PROD_RS_ODS.clm.Claim AS C ON e.Claim_Id = C.Claim_ID AND c.Sys_RowEndDt = '12/31/9999'\nJOIN PROD_RS_ODS.clm.Incident AS I ON e.Incident_Id = i.Incident_Id AND i.Sys_RowEndDt = '12/31/9999'\nJOIN PROD_RS_ODS.clm.Work_Matter AS WM ON I.WM_Id = WM.WM_ID AND wm.Sys_RowEndDt = '12/31/9999'\nJOIN PROD_RS_ODS.dbo.Dw_Max_Policy_Version AS PV ON e.Policy_Period_ID = PV.Policy_Period_Id\nJOIN PROD_RS_ODS.pol.Policy_Period AS PP ON PV.Policy_Period_ID = PP.Policy_Period_Id AND PV.PolicyVersion = PP.PolicyVersion\nJOIN PROD_RS_ODS.pol.Policy_Coverage_Line AS PCL ON e.Policy_Coverage_Line_ID = pcl.Coverage_Line_Id AND PV.PolicyVersion = PCL.PolicyVersion\nJOIN PROD_RS_ODS.pol.RiskUnit AS RU ON PCL.Risk_Unit_Id = RU.Risk_Unit_ID AND PV.PolicyVersion = RU.PolicyVersion\nLEFT JOIN PROD_RS_ODS.trn.Financial_Transaction AS FT ON E.Exposure_ID = FT.Exposure_Id\nWHERE e.sys_rowenddt = '12/31/9999' AND FT.Transaction_Source_Cd = 'Claim Center' \nGROUP BY RTRIM(C.Claim_No) + '-' + RTRIM(e.Exposure_No),C.Claim_No,\ne.Exposure_No,\nWM.Work_Matter_No, FT.Portfolio_Cd, PP.Policy_No, PP.Policy_Effective_Dt,PP.Policy_Expiration_Dt,PP.NAIC_Cd,\nPP.Business_Type_Cd,FT.Valuation_Dt\n\n\n\n",
 						"queryTimeout": "02:00:00"
 					},
 					"sink": {
@@ -745,6 +745,36 @@
 								"sink": {
 									"name": "policyEffectiveDate",
 									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "Policy_Expiration_Dt",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "Policy_Expiration_Dt",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "NAIC_Cd",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NAIC_Cd",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Business_Type_Cd",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Business_Type_Cd",
+									"type": "String"
 								}
 							},
 							{
