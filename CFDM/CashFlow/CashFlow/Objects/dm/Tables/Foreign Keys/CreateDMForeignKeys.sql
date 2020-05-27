@@ -1,33 +1,6 @@
-
 /* 
  * TABLE: dm.FactActuals 
  */
-
-ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimPolicy60 
-    FOREIGN KEY (policy_SK)
-    REFERENCES dm.DimPolicy(policy_SK)
-go
-
-
-ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimDate62 
-    FOREIGN KEY (valuationDate_SK)
-    REFERENCES dm.DimDate(Date_SK)
-go
-
-ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimWorkmatter63 
-    FOREIGN KEY (workMatter_SK)
-    REFERENCES dm.DimWorkmatter(workMatter_SK)
-go
-
-ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimReinsurance64 
-    FOREIGN KEY (reinsurane_SK)
-    REFERENCES dm.DimReinsurance(reinsurane_SK)
-go
-
-ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimAdjuster65 
-    FOREIGN KEY (adjuster_SK)
-    REFERENCES dm.DimAdjuster(adjuster_SK)
-go
 
 ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimExposure66 
     FOREIGN KEY (Exposure_SK)
@@ -79,6 +52,26 @@ ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimDate75
     REFERENCES dm.DimDate(Date_SK)
 go
 
+ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimPolicy60 
+    FOREIGN KEY (policy_SK)
+    REFERENCES dm.DimPolicy(policy_SK)
+go
+
+ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimDate62 
+    FOREIGN KEY (valuationDate_SK)
+    REFERENCES dm.DimDate(Date_SK)
+go
+
+ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimWorkmatter63 
+    FOREIGN KEY (workMatter_SK)
+    REFERENCES dm.DimWorkmatter(workMatter_SK)
+go
+
+ALTER TABLE dm.FactActuals ADD CONSTRAINT RefDimAdjuster65 
+    FOREIGN KEY (adjuster_SK)
+    REFERENCES dm.DimAdjuster(adjuster_SK)
+go
+
 
 /* 
  * TABLE: dm.FactCashFlow 
@@ -99,9 +92,9 @@ ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimPolicy5
     REFERENCES dm.DimPolicy(policy_SK)
 go
 
-ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimReinsurance9 
-    FOREIGN KEY (reinsurane_SK)
-    REFERENCES dm.DimReinsurance(reinsurane_SK)
+ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimClaim76 
+    FOREIGN KEY (claim_SK)
+    REFERENCES dm.DimClaim(claim_SK)
 go
 
 ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimNotifications10 
@@ -155,23 +148,103 @@ ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimDate45
 go
 
 ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimDate52 
-    FOREIGN KEY (workmatterOpenDate_SK)
+    FOREIGN KEY (workMatterOpenDate_SK)
     REFERENCES dm.DimDate(Date_SK)
 go
 
 ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimDate57 
-    FOREIGN KEY (workmatterClosedDate_SK)
+    FOREIGN KEY (workMatterClosedDate_SK)
     REFERENCES dm.DimDate(Date_SK)
 go
 
 ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimDate59 
+    FOREIGN KEY (workMatterReopenDate_SK)
+    REFERENCES dm.DimDate(Date_SK)
+go
+
+
+/* 
+ * TABLE: dm.FactCededCashFlow 
+ */
+
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimReinsurance101 
+    FOREIGN KEY (reinsurane_SK)
+    REFERENCES dm.DimReinsurance(reinsurane_SK)
+go
+
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimAdjuster102 
+    FOREIGN KEY (adjuster_SK)
+    REFERENCES dm.DimAdjuster(adjuster_SK)
+go
+
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimExposure103 
+    FOREIGN KEY (Exposure_SK)
+    REFERENCES dm.DimExposure(Exposure_SK)
+go
+
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimClaim104 
+    FOREIGN KEY (claim_SK)
+    REFERENCES dm.DimClaim(claim_SK)
+go
+
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimWorkmatter105 
+    FOREIGN KEY (workMatter_SK)
+    REFERENCES dm.DimWorkmatter(workMatter_SK)
+go
+
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimPolicy106 
+    FOREIGN KEY (policy_SK)
+    REFERENCES dm.DimPolicy(policy_SK)
+go
+
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimDate107 
+    FOREIGN KEY (policyEffectiveDate_SK)
+    REFERENCES dm.DimDate(Date_SK)
+go
+
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimDate108 
+    FOREIGN KEY (policyExpirationDate_SK)
+    REFERENCES dm.DimDate(Date_SK)
+go
+
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimDate109 
+    FOREIGN KEY (workmatterOpenDate_SK)
+    REFERENCES dm.DimDate(Date_SK)
+go
+
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimDate110 
+    FOREIGN KEY (workmatterClosedDate_SK)
+    REFERENCES dm.DimDate(Date_SK)
+go
+
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimDate111 
     FOREIGN KEY (workmatterReopenDate_SK)
     REFERENCES dm.DimDate(Date_SK)
 go
 
-ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimClaim76 
-    FOREIGN KEY (claim_SK)
-    REFERENCES dm.DimClaim(claim_SK)
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimDate112 
+    FOREIGN KEY (valuationDate_SK)
+    REFERENCES dm.DimDate(Date_SK)
+go
+
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimDate113 
+    FOREIGN KEY (exposerReopenDate_SK)
+    REFERENCES dm.DimDate(Date_SK)
+go
+
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimDate114 
+    FOREIGN KEY (exposureClosedDate_SK)
+    REFERENCES dm.DimDate(Date_SK)
+go
+
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimDate115 
+    FOREIGN KEY (exposureOpenDate_SK)
+    REFERENCES dm.DimDate(Date_SK)
+go
+
+ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimDate116 
+    FOREIGN KEY (entryDate_SK)
+    REFERENCES dm.DimDate(Date_SK)
 go
 
 

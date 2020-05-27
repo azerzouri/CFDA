@@ -180,7 +180,6 @@
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_policy_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_policyEffectiveDate_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_policyExpirationDate_SK.sql" />
-    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_reinsurane_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_adjuster_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_claim_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_Exposure_SK.sql" />
@@ -221,5 +220,14 @@
     <Build Include="Objects\stg\Tables\Indexes\stg.ndx_stgclaimNumber.sql" />
     <Build Include="Objects\dm\Tables\dm.Errors_log.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_AdjusterTRGUname.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimAdjuster.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimNotification.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimWorkMatter.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_Comp_Unique_DimPolicy.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimClaim.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimExposure.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimPolicy.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimReinsurance.sql" />
+    <Build Include="Objects\dm\Tables\dm.FactCededCashFlow.sql" />
   </ItemGroup>
 </Project>

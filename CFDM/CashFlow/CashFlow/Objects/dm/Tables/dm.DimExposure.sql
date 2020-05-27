@@ -3,10 +3,10 @@
  */
 
 CREATE TABLE dm.DimExposure(
-    Exposure_SK        int            IDENTITY(0,1),
-    exposureNo         varchar(64)    NULL,
-    insuredName        varchar(64)    NULL,
-    insuredLocation    varchar(64)    NULL,
+    exposure_SK        int            IDENTITY(0,1),
+    claimExposureNo         varchar(64)    NULL,
+    insuredName        varchar(256)    NULL,
+    insuredLocation    varchar(256)    NULL,
     exposureStatus     varchar(64)    NULL,
     audit_Insert_Dt    datetime       DEFAULT GetDate() NULL,
     audit_Update_Dt    datetime       DEFAULT GetDate() NULL,
