@@ -180,7 +180,6 @@
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_policy_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_policyEffectiveDate_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_policyExpirationDate_SK.sql" />
-    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_reinsurane_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_adjuster_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_claim_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_Exposure_SK.sql" />
