@@ -1,1 +1,1 @@
-﻿CREATE UNIQUE INDEX ndx_CF_adjuster_SK ON dm.FactCashFlow(adjuster_SK)
+﻿CREATE  INDEX ndx_CF_adjuster_SK ON dm.FactCashFlow(adjuster_SK)
