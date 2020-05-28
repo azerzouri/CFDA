@@ -1,1 +1,1 @@
-﻿CREATE UNIQUE INDEX ndx_adjuster_SK ON dm.FactActuals(adjuster_SK)
+﻿CREATE  INDEX ndx_adjuster_SK ON dm.FactActuals(adjuster_SK)
