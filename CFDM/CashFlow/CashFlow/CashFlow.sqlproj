@@ -228,6 +228,6 @@
     <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimPolicy.sql" />
     <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimReinsurance.sql" />
     <Build Include="Objects\dm\Tables\dm.FactCededCashFlow.sql" />
-    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DmFactActuals.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_FactActuals.sql" />
   </ItemGroup>
 </Project>
