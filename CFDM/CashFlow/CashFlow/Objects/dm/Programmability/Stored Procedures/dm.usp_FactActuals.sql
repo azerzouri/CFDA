@@ -20,12 +20,30 @@ SET
 BEGIN TRY DECLARE @InsertDate DATETIME = GETDATE() -- Catching executiontime
 DECLARE @Ins_proc_id INT = 8;
 
-WITH WMAdjuster AS (
+WITH AdjusterCTE AS (
+    SELECT
+        [adjustedName],
+        [workmatternumber],
+        MAX(COALESCE(NULL, [expirationDate], GETDATE())) AS expirationDate,
+        ROW_NUMBER() OVER (
+            PARTITION BY [workmatternumber]
+            ORDER BY
+                MAX(COALESCE(NULL, [expirationDate], GETDATE())) DESC
+        ) AS rownum
+    FROM
+        [stg].[Adjuster]
+    GROUP BY
+        [adjustedName],
+        [workmatternumber]
+),
+WMAdjuster AS (
     SELECT
         DISTINCT [workmatternumber],
         [adjustedName]
     FROM
-        [stg].[Adjuster]
+        AdjusterCTE
+    WHERE
+        rownum = 1
     UNION
     SELECT
         workmatternumber,
@@ -33,20 +51,19 @@ WITH WMAdjuster AS (
     FROM
         [dm].[DimWorkmatter]
     where
-        workmatternumber IN (
+        workmatternumber in (
             SELECT
                 workmatternumber
             FROM
                 stg.FactActuals
-            except
+            EXCEPT
             SELECT
                 [workmatternumber]
             FROM
                 stg.Adjuster
         )
 )
-INSERT INTO
-    [dm].[FactActuals](
+INSERT INTO [dm].[FactActuals](
     [policy_SK],
     [policyEffectiveDate_SK],
     [policyExpirationDate_SK],
