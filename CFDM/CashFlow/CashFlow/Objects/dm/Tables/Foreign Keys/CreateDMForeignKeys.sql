@@ -77,11 +77,6 @@ go
  * TABLE: dm.FactCashFlow 
  */
 
-ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimDate1 
-    FOREIGN KEY (valuationDate_SK)
-    REFERENCES dm.DimDate(Date_SK)
-go
-
 ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimWorkmatter2 
     FOREIGN KEY (workMatter_SK)
     REFERENCES dm.DimWorkmatter(workMatter_SK)

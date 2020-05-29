@@ -191,7 +191,6 @@
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_workMatterClosedDate_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_workMatterReopenDate_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_valuationDate_SK.sql" />
-    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_valuationDate_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_workMatter_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_policy_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_reinsurane_SK.sql" />
