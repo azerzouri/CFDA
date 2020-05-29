@@ -229,5 +229,6 @@
     <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimReinsurance.sql" />
     <Build Include="Objects\dm\Tables\dm.FactCededCashFlow.sql" />
     <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_FactActuals.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_FactCashflow.sql" />
   </ItemGroup>
 </Project>
