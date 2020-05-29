@@ -118,7 +118,7 @@ ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimDate35
 go
 
 ALTER TABLE dm.FactCashFlow ADD CONSTRAINT RefDimDate36 
-    FOREIGN KEY (exposerReopenDate_SK)
+    FOREIGN KEY (exposureReopenDate_SK)
     REFERENCES dm.DimDate(Date_SK)
 go
 

@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dm].[usp_DmFactActuals]
+﻿CREATE PROCEDURE [dm].[usp_FactActuals]
 
 AS
 /*

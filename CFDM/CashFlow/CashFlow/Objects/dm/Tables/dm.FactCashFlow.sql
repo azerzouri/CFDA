@@ -15,7 +15,7 @@ CREATE TABLE dm.FactCashFlow(
     workMatterOpenDate_SK             int               NOT NULL,
     workMatterClosedDate_SK           int               NOT NULL,
     workMatterReopenDate_SK           int               NOT NULL,
-    exposerReopenDate_SK              int               NOT NULL,
+    exposureReopenDate_SK             int               NOT NULL,
     exposureClosedDate_SK             int               NOT NULL,
     exposureOpenDate_SK               int               NOT NULL,
     entryDate_SK                      int               NOT NULL,
