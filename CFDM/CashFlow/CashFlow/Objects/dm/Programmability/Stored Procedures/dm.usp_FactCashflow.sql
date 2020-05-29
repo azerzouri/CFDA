@@ -20,30 +20,48 @@ SET
 BEGIN TRY DECLARE @InsertDate DATETIME = GETDATE() -- Catching executiontime
 DECLARE @Ins_proc_id INT = 9;
 
-WITH WMAdjuster AS (
-	SELECT
-		DISTINCT [workmatternumber],
-		[adjustedName]
-	FROM
-		[stg].[Adjuster]
-	UNION
-	SELECT
-		workmatternumber,
-		'NA' AS [adjustedName]
-	FROM
-		[dm].[DimWorkmatter]
-	WHERE
-		workmatternumber IN (
-			SELECT
-				workmatternumber
-			FROM
-				stg.FactActuals
-			except
-			SELECT
-				[workmatternumber]
-			FROM
-				stg.Adjuster
-		)
+WITH AdjusterCTE AS (
+    SELECT
+        [adjustedName],
+        [workmatternumber],
+        MAX(COALESCE(NULL, [expirationDate], GETDATE())) AS expirationDate,
+        ROW_NUMBER() OVER (
+            PARTITION BY [workmatternumber]
+            ORDER BY
+                MAX(COALESCE(NULL, [expirationDate], GETDATE())) DESC
+        ) AS rownum
+    FROM
+        [stg].[Adjuster]
+    GROUP BY
+        [adjustedName],
+        [workmatternumber]
+),
+WMAdjuster AS (
+    SELECT
+        DISTINCT [workmatternumber],
+        [adjustedName]
+    FROM
+        AdjusterCTE
+    WHERE
+        rownum = 1
+    UNION
+    SELECT
+        workmatternumber,
+        'NA' AS [adjustedName]
+    FROM
+        [dm].[DimWorkmatter]
+    where
+        workmatternumber in (
+            SELECT
+                workmatternumber
+            FROM
+                stg.FactActuals
+            EXCEPT
+            SELECT
+                [workmatternumber]
+            FROM
+                stg.Adjuster
+        )
 ),
 Policynumber AS (
 SELECT
@@ -58,8 +76,7 @@ FROM
 	[stg].[FactCAShflow] f
 	LEFT JOIN [stg].FactActuals fa ON f.claim_Exposure_No = fa.claim_Exposure_No
 )
-INSERT INTO
-	[dm].[FactCAShFlow](
+INSERT INTO [dm].[FactCAShFlow](
 	[notification_SK],
 	[policy_SK],
 	[policyEffectiveDate_SK],
