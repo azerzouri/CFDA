@@ -13,7 +13,7 @@
     workmatterClosedDate_SK                  int               NOT NULL,
     workmatterReopenDate_SK                  int               NOT NULL,
     valuationDate_SK                         int               NOT NULL,
-    exposerReopenDate_SK                     int               NOT NULL,
+    exposureReopenDate_SK                     int               NOT NULL,
     exposureClosedDate_SK                    int               NOT NULL,
     exposureOpenDate_SK                      int               NOT NULL,
     entryDate_SK                             int               NOT NULL,
