@@ -10,7 +10,7 @@
 					"referenceName": "AsbestosKeyVault",
 					"type": "LinkedServiceReference"
 				},
-				"secretName": "CashflowDMDev"
+				"secretName": "E2NPRDSQL01-CashFlowDMDEV"
 			}
 		},
 		"connectVia": {
