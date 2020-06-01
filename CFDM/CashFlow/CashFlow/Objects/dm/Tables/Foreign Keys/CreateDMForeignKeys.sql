@@ -217,11 +217,6 @@ ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimDate111
     REFERENCES dm.DimDate(Date_SK)
 go
 
-ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimDate112 
-    FOREIGN KEY (valuationDate_SK)
-    REFERENCES dm.DimDate(Date_SK)
-go
-
 ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimDate113 
     FOREIGN KEY (exposureReopenDate_SK)
     REFERENCES dm.DimDate(Date_SK)
