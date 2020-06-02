@@ -4,7 +4,7 @@
     policy_SK                                int               NOT NULL,
     policyEffectiveDate_SK                   int               NOT NULL,
     policyExpirationDate_SK                  int               NOT NULL,
-    reinsurane_SK                            int               NOT NULL,
+    reinsurance_SK                            int               NOT NULL,
     adjuster_SK                              int               NOT NULL,
     claim_SK                                 int               NOT NULL,
     Exposure_SK                              int               NOT NULL,
