@@ -28,5 +28,5 @@
     upd_Proc_ID                              int               NULL,
     is_Deleted                               bit               DEFAULT 0 NULL,
     is_Active                                bit               DEFAULT 0 NULL,
-    CONSTRAINT PK_FactCashFlow_1 PRIMARY KEY CLUSTERED (factCededCashflowID)
+    CONSTRAINT PK_FactCededCashFlow PRIMARY KEY CLUSTERED (factCededCashflowID)
 )
