@@ -191,10 +191,9 @@
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_workMatterClosedDate_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_workMatterReopenDate_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_valuationDate_SK.sql" />
-    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_valuationDate_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_workMatter_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_policy_SK.sql" />
-    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_reinsurane_SK.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Ceded_reinsurane_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_notification_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_adjuster_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Exposure_SK.sql" />
@@ -229,5 +228,21 @@
     <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimPolicy.sql" />
     <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_DimReinsurance.sql" />
     <Build Include="Objects\dm\Tables\dm.FactCededCashFlow.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_FactActuals.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_FactCashflow.sql" />
+    <Build Include="Objects\dm\Programmability\Stored Procedures\dm.usp_FactCededCashflow.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Ceded_adjuster_SK.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Ceded_claim_SK.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Ceded_entryDate_SK.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Ceded_Exposure_SK.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Ceded_exposureClosedDate_SK.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Ceded_exposureOpenDate_SK.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Ceded_exposureReopenDate_SK.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Ceded_policy_SK.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Ceded_policyEffectiveDate_SK.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Ceded_policyExpirationDate_SK.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Ceded_workMatterClosedDate_SK.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Ceded_workMatterOpenDate_SK.sql" />
+    <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Ceded_workMatterReopenDate_SK.sql" />
   </ItemGroup>
 </Project>
