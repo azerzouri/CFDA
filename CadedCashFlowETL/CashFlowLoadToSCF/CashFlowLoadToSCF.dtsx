@@ -12,8 +12,8 @@
   DTS:ObjectName="CashFlowLoadToSCF"
   DTS:PackageType="5"
   DTS:ProtectionLevel="0"
-  DTS:VersionBuild="273"
-  DTS:VersionGUID="{4A475822-6E2E-4348-AD2C-9E064ABA39B2}">
+  DTS:VersionBuild="295"
+  DTS:VersionGUID="{24F2B333-6059-44F6-9C13-5C1D43340744}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">6</DTS:Property>
   <DTS:ConnectionManagers>
@@ -282,6 +282,17 @@
     </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
+      DTS:DTSID="{95D035A7-D27F-4E64-BDE0-3186B13D34F5}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="(DT_WSTR, 4) DATEPART( &quot;YYYY&quot;, Getdate() ) +  RIGHT(&quot;0&quot; + (DT_WSTR, 2) DATEPART( &quot;MM&quot;, Getdate() ), 2) + RIGHT(&quot;0&quot; + (DT_WSTR, 2) DATEPART( &quot;DD&quot;, Getdate() ), 2) + &quot;_&quot; +  RIGHT(&quot;0&quot; + (DT_WSTR, 4) DATEPART( &quot;HH&quot;, Getdate() ), 2) + RIGHT(&quot;0&quot; + (DT_WSTR, 4) DATEPART( &quot;MI&quot;, Getdate() ), 2)"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DateTimeString">
+      <DTS:VariableValue
+        DTS:DataType="8">20200602_1626</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
       DTS:DTSID="{DB278906-5FAC-47C9-B6FA-DEA9F1CE7A32}"
       DTS:Expression="REPLACE( @[$Package::CashFlowTemplateFilePath] , &quot;\\Drop\\&quot;, &quot;\\_Error\\&quot; )"
       DTS:IncludeInDebugDump="2345"
@@ -347,6 +358,7 @@
     <DTS:Executable
       DTS:refId="Package\EST - Generate BatchID"
       DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:DelayValidation="True"
       DTS:Description="Execute SQL Task"
       DTS:DTSID="{8C3420F4-ED9A-4CAA-BECA-2140C06B052A}"
       DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
@@ -380,12 +392,13 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{A796CDF2-1FD2-4005-A16A-6AD2D2006EA7}"
-          SQLTask:SqlStatementSource="IF OBJECT_ID('rein.CashFlowEntryRaw') IS NULL &#xA;CREATE TABLE rein.CashFlowEntryRaw(&#xA; CashFlowEntryRawID INT IDENTITY (1, 1) NOT NULL,&#xA; DataSourceTypeID    TINYINT NOT NULL,&#xA; BatchID    BIGINT NOT NULL,&#xA; WorkMatter   VARCHAR(50) NOT NULL,&#xA; Exposure   VARCHAR (50)  NOT NULL,&#xA; PolicyNumber  VARCHAR (50)  NULL,&#xA; Year    INT  NOT NULL,&#xA; Quarter    INT NOT NULL,&#xA; ValueName   VARCHAR (50) NOT NULL,&#xA; Amount    DECIMAL (18, 2) NOT NULL,&#xA; StartUser   VARCHAR (50) NOT NULL,&#xA; StartTime   DATETIME NOT NULL,&#xA; EndUser    VARCHAR (50) NULL,&#xA; EndTime    DATETIME  NULL,&#xA; ProjectionPeriod VARCHAR(5) NOT NULL, &#xA; SourceFileFullPath VARCHAR(500) NULL, &#xA; CreatedDate   DATETIME  NOT NULL CONSTRAINT DF_CashFlowEntryRaw_CreatedDate DEFAULT (GETDATE()),&#xA; CreatedBy   VARCHAR (255)  NOT NULL CONSTRAINT DF_ClaimTransactionRaw_CreatedBy DEFAULT(SUSER_NAME()),&#xA; ModifiedDate  DATETIME NULL,&#xA; ModifiedBy   VARCHAR (255)  NULL,&#xA; ProcessedStatusID SMALLINT NOT NULL CONSTRAINT DF_CashFlowEntryRaw_ProcessedStatusID DEFAULT 0,/*0=New/Pending;1=Processed;-1=Failed*/&#xA; BatchStatusID  SMALLINT NOT NULL CONSTRAINT DF_CashFlowEntryRaw_BatchStatusID DEFAULT 0 /*0=New/Pending;1=Processed to SCF;-1=Failed within the Batch;-2=Failed in Sapiens Process;2=Successful in Sapiens Process*/&#xA;) &#xA;GO&#xA;&#xA;IF OBJECT_ID('rein.CashFlowEntryRawHistory') IS NULL &#xA;CREATE TABLE rein.CashFlowEntryRawHistory(&#xA; CashFlowEntryRawHistoryID INT IDENTITY (1, 1) NOT NULL,&#xA; CashFlowEntryRawID INT NOT NULL,&#xA; DataSourceTypeID    TINYINT NOT NULL,&#xA; BatchID    BIGINT NOT NULL,&#xA; WorkMatter   VARCHAR(50) NOT NULL,&#xA; Exposure   VARCHAR (50)  NOT NULL,&#xA; PolicyNumber  VARCHAR (50)  NULL,&#xA; Year    INT  NOT NULL,&#xA; Quarter    INT NOT NULL,&#xA; ValueName   VARCHAR (50) NOT NULL,&#xA; Amount    DECIMAL (18, 2) NOT NULL,&#xA; StartUser   VARCHAR (50) NOT NULL,&#xA; StartTime   DATETIME NOT NULL,&#xA; EndUser    VARCHAR (50) NULL,&#xA; EndTime    DATETIME  NULL,&#xA; ProjectionPeriod VARCHAR(5) NOT NULL,  &#xA; SourceFileFullPath VARCHAR(500) NULL, &#xA; CreatedDate      DATETIME  NOT NULL,&#xA; CreatedBy   VARCHAR (255)  NOT NULL,&#xA; ModifiedDate   DATETIME NULL,&#xA; ModifiedBy   VARCHAR (255)  NULL,&#xA; ProcessedStatusID SMALLINT NOT NULL,&#xA; BatchStatusID SMALLINT NOT NULL,&#xA; HistoryCreatedBy   VARCHAR (255)  NOT NULL CONSTRAINT DF_ClaimTransactionRawHistory_HistoryCreatedBy DEFAULT(SUSER_NAME()),&#xA; HistoryCreatedDate DATETIME2 NOT NULL CONSTRAINT DF_ClaimTransactionRawHistory_HistoryCreatedDate DEFAULT GETDATE()&#xA;) &#xA;GO&#xA;&#xA;&#xA;IF OBJECT_ID('rein.CashFlowEntryTransform') IS NULL &#xA;CREATE TABLE rein.CashFlowEntryTransform(&#xA; CashFlowEntryTransformID INT IDENTITY (1, 1) NOT NULL,&#xA; CashFlowEntryRawID INT NOT NULL,&#xA; BatchID BIGINT NOT NULL,&#xA; Claim_No VARCHAR(20) NOT NULL,&#xA; Exposure_no varchar(20) NOT NULL,&#xA; Transaction_Cd varchar(10) NOT NULL,&#xA; Amount decimal(18, 2) NOT NULL,&#xA; CreatedDate     DATETIME  NOT NULL CONSTRAINT DF_CashFlowEntryTransform_CreatedDate DEFAULT (GETDATE()),&#xA; CreatedBy   VARCHAR (255)  NOT NULL CONSTRAINT DF_CashFlowEntryTransform_CreatedBy DEFAULT(SUSER_NAME()),&#xA; ModifiedDate DATETIME NULL,&#xA; ModifiedBy   VARCHAR (255)  NULL,&#xA; ProcessedStatusID SMALLINT NOT NULL CONSTRAINT DF_CashFlowEntryTransform_ProcessedStatusID DEFAULT 0,/*0=New/Pending;1=Processed;-1=Failed*/&#xA; BatchStatusID SMALLINT NOT NULL CONSTRAINT DF_CashFlowEntryTransform_BatchStatusID DEFAULT 0 /*0=New/Pending;1=Processed to SCF;-1=Failed within the Batch;-2=Failed in Sapiens Process;2=Successful in Sapiens Process*/&#xA;) &#xA;GO&#xA;&#xA;IF OBJECT_ID('rein.CashFlowEntryTransformHistory') IS NULL &#xA;CREATE TABLE rein.CashFlowEntryTransformHistory(&#xA;&#x9;CashFlowEntryRawHistoryID INT IDENTITY (1, 1) NOT NULL,&#xA;&#x9;CashFlowEntryTransformID INT NOT NULL,&#xA;&#x9;CashFlowEntryRawID INT NOT NULL,&#xA;&#x9;BatchID BIGINT NOT NULL,&#xA;&#x9;Claim_No VARCHAR(20) NOT NULL,&#xA;&#x9;Exposure_no varchar(20) NOT NULL,&#xA;&#x9;Transaction_Cd varchar(10) NOT NULL,&#xA;&#x9;Amount decimal(18, 2) NOT NULL,&#xA;&#x9;CreatedDate     DATETIME  NOT NULL,&#xA;&#x9;CreatedBy&#x9;  VARCHAR (255)  NOT NULL,&#xA;                ModifiedDate DATETIME NULL,&#xA;&#x9;ModifiedBy   VARCHAR (255)  NULL,&#xA;&#x9;ProcessedStatusID SMALLINT NOT NULL,&#xA;&#x9;BatchStatusID SMALLINT NOT NULL,&#xA;&#x9;HistoryCreatedBy   VARCHAR (255)  NOT NULL CONSTRAINT DF_CashFlowEntryTransformHistory_HistoryCreatedBy DEFAULT(SUSER_NAME()),&#xA;&#x9;HistoryCreatedDate DATETIME2 NOT NULL CONSTRAINT DF_CashFlowEntryTransformHistory_HistoryCreatedDate DEFAULT GETDATE()&#xA;) &#xA;GO&#xA;&#xA;IF OBJECT_ID('rein.CashFlowEntryConform') IS NULL &#xA;CREATE TABLE rein.CashFlowEntryConform(&#xA; CashFlowEntryConformID INT IDENTITY (1, 1) NOT NULL,&#xA; BatchID BIGINT NOT NULL,&#xA; Claim_No VARCHAR(20) NOT NULL,&#xA; Exposure_no varchar(20) NOT NULL,&#xA; Transaction_Cd varchar(10) NOT NULL,&#xA; Amount decimal(18, 2) NOT NULL,&#xA; CreatedDate      DATETIME  NOT NULL CONSTRAINT DF_CashFlowEntryConform_CreatedDate DEFAULT (GETDATE()),&#xA; CreatedBy   VARCHAR (255)  NOT NULL CONSTRAINT DF_CashFlowEntryConform_CreatedBy DEFAULT(SUSER_NAME()),&#xA; ModifiedDate      DATETIME NULL,&#xA; ModifiedBy   VARCHAR (255)  NULL,&#xA; ProcessedStatusID SMALLINT NOT NULL CONSTRAINT DF_CashFlowEntryConform_ProcessedStatusID DEFAULT 0,/*0=New/Pending;1=Processed;-1=Failed*/&#xA; BatchStatusID SMALLINT NOT NULL CONSTRAINT DF_CashFlowEntryConform_BatchStatusID DEFAULT 0 /*0=New/Pending;1=Processed to SCF;-1=Failed within the Batch;-2=Failed in Sapiens Process;2=Successful in Sapiens Process*/&#xA;) &#xA;GO&#xA;&#xA;IF OBJECT_ID('rein.CashFlowEntryConformHistory') IS NULL &#xA;CREATE TABLE rein.CashFlowEntryConformHistory(&#xA;&#x9;CashFlowEntryRawHistoryID INT IDENTITY (1, 1) NOT NULL,&#xA;&#x9;CashFlowEntryConformID INT NOT NULL,&#xA;&#x9;BatchID BIGINT NOT NULL,&#xA;&#x9;Claim_No VARCHAR(20) NOT NULL,&#xA;&#x9;Exposure_no varchar(20) NOT NULL,&#xA;&#x9;Transaction_Cd varchar(10) NOT NULL,&#xA;&#x9;Amount decimal(18, 2) NOT NULL,&#xA;&#x9;CreatedDate      DATETIME  NOT NULL,&#xA;&#x9;CreatedBy   VARCHAR (255)  NOT NULL,&#xA;                ModifiedDate      DATETIME NULL,&#xA;&#x9;ModifiedBy   VARCHAR (255)  NULL,&#xA;&#x9;ProcessedStatusID SMALLINT NOT NULL,&#xA;&#x9;BatchStatusID SMALLINT NOT NULL,&#xA;&#x9;HistoryCreatedBy   VARCHAR (255)  NOT NULL CONSTRAINT DF_CashFlowEntryConformHistory_HistoryCreatedBy DEFAULT(SUSER_NAME()),&#xA;&#x9;HistoryCreatedDate DATETIME2 NOT NULL CONSTRAINT DF_CashFlowEntryConformHistory_HistoryCreatedDate DEFAULT GETDATE()&#xA;) &#xA;GO&#xA;&#xA;DROP PROCEDURE [rein].[CashFlow_UpdateETLBatchStatusID]&#xA;GO&#xA;&#xA;CREATE PROCEDURE [rein].[CashFlow_UpdateETLBatchStatusID]&#xA;(@BatchStatusID SMALLINT)&#xA;AS&#xA;/* &#xA;------------------------------------------------------------&#xA;Name: rein.CashFlow_UpdateETLBatchStatusID&#xA;Purpose: To update the BatchStatusID upon success or failure of the Sapiens ETL Processes&#xA;&#x9;&#x9; called by JAMS sequence &#xA;Database: RS_ODS&#xA;Date: 2020-05-15&#xA;Author: Vijay Kapuluru&#xA;&#xA;Usage:&#xA;&#xA;DECLARE @ret INT;&#x9;&#xA;EXECUTE @ret = rein.CashFlow_UpdateETLBatchStatusID -2;&#xA;PRINT   @ret;&#xA;&#xA;Change Log:&#xA;Date&#x9;&#x9;By&#x9;&#x9;Reason&#x9;&#xA;YYYY-MM-DD&#x9;Your Name&#x9;This update....&#x9;&#xA;------------------------------------------------------------&#xA;*/&#xA;SET NOCOUNT ON;&#xA;&#xA;DECLARE @BatchID BIGINT&#xA;SELECT @BatchID=MAX(BatchID) FROM rein.CashFlowEntryRaw&#xA;SELECT @BatchID&#xA;UPDATE rein.CashFlowEntryRaw&#xA;SET &#xA;&#x9;BatchStatusID=@BatchStatusID,&#xA;    ModifiedDate = GETDATE(),&#xA;    ModifiedBy = SUSER_NAME()&#xA;WHERE BatchID=@BatchID&#xA;&#xA;UPDATE rein.CashFlowEntryTransform&#xA;SET &#xA;&#x9;BatchStatusID=@BatchStatusID,&#xA;    ModifiedDate = GETDATE(),&#xA;    ModifiedBy = SUSER_NAME()&#xA;WHERE BatchID=@BatchID&#xA;&#xA;UPDATE rein.CashFlowEntryConform&#xA;SET &#xA;&#x9;BatchStatusID=@BatchStatusID,&#xA;    ModifiedDate = GETDATE(),&#xA;    ModifiedBy = SUSER_NAME()&#xA;WHERE BatchID=@BatchID&#xA;&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="IF OBJECT_ID('rein.CashFlowEntryRaw') IS NULL &#xA;CREATE TABLE rein.CashFlowEntryRaw(&#xA; CashFlowEntryRawID INT IDENTITY (1, 1) NOT NULL,&#xA; DataSourceTypeID    TINYINT NOT NULL,&#xA; BatchID    BIGINT NOT NULL,&#xA; WorkMatter   VARCHAR(50) NOT NULL,&#xA; Exposure   VARCHAR (50)  NOT NULL,&#xA; PolicyNumber  VARCHAR (50)  NULL,&#xA; Year    INT  NOT NULL,&#xA; Quarter    INT NOT NULL,&#xA; ValueName   VARCHAR (50) NOT NULL,&#xA; Amount    DECIMAL (18, 2) NOT NULL,&#xA; StartUser   VARCHAR (50) NOT NULL,&#xA; StartTime   DATETIME NOT NULL,&#xA; EndUser    VARCHAR (50) NULL,&#xA; EndTime    DATETIME  NULL,&#xA; ProjectionPeriod VARCHAR(5) NOT NULL, &#xA; SourceFileFullPath VARCHAR(500) NULL, &#xA; ArchiveFileFullPath VARCHAR(500) NULL, &#xA; CreatedDate   DATETIME  NOT NULL CONSTRAINT DF_CashFlowEntryRaw_CreatedDate DEFAULT (GETDATE()),&#xA; CreatedBy   VARCHAR (255)  NOT NULL CONSTRAINT DF_ClaimTransactionRaw_CreatedBy DEFAULT(SUSER_NAME()),&#xA; ModifiedDate  DATETIME NULL,&#xA; ModifiedBy   VARCHAR (255)  NULL,&#xA; ProcessedStatusID SMALLINT NOT NULL CONSTRAINT DF_CashFlowEntryRaw_ProcessedStatusID DEFAULT 0,/*0=New/Pending;1=Processed;-1=Failed*/&#xA; BatchStatusID  SMALLINT NOT NULL CONSTRAINT DF_CashFlowEntryRaw_BatchStatusID DEFAULT 0 /*0=New/Pending;1=Processed to SCF;-1=Failed within the Batch;-2=Failed in Sapiens Process;2=Successful in Sapiens Process*/&#xA;) &#xA;GO&#xA;&#xA;IF OBJECT_ID('rein.CashFlowEntryRawHistory') IS NULL &#xA;CREATE TABLE rein.CashFlowEntryRawHistory(&#xA; CashFlowEntryRawHistoryID INT IDENTITY (1, 1) NOT NULL,&#xA; CashFlowEntryRawID INT NOT NULL,&#xA; DataSourceTypeID    TINYINT NOT NULL,&#xA; BatchID    BIGINT NOT NULL,&#xA; WorkMatter   VARCHAR(50) NOT NULL,&#xA; Exposure   VARCHAR (50)  NOT NULL,&#xA; PolicyNumber  VARCHAR (50)  NULL,&#xA; Year    INT  NOT NULL,&#xA; Quarter    INT NOT NULL,&#xA; ValueName   VARCHAR (50) NOT NULL,&#xA; Amount    DECIMAL (18, 2) NOT NULL,&#xA; StartUser   VARCHAR (50) NOT NULL,&#xA; StartTime   DATETIME NOT NULL,&#xA; EndUser    VARCHAR (50) NULL,&#xA; EndTime    DATETIME  NULL,&#xA; ProjectionPeriod VARCHAR(5) NOT NULL,  &#xA; SourceFileFullPath VARCHAR(500) NULL, &#xA; ArchiveFileFullPath VARCHAR(500) NULL, &#xA; CreatedDate      DATETIME  NOT NULL,&#xA; CreatedBy   VARCHAR (255)  NOT NULL,&#xA; ModifiedDate   DATETIME NULL,&#xA; ModifiedBy   VARCHAR (255)  NULL,&#xA; ProcessedStatusID SMALLINT NOT NULL,&#xA; BatchStatusID SMALLINT NOT NULL,&#xA; HistoryCreatedBy   VARCHAR (255)  NOT NULL CONSTRAINT DF_ClaimTransactionRawHistory_HistoryCreatedBy DEFAULT(SUSER_NAME()),&#xA; HistoryCreatedDate DATETIME2 NOT NULL CONSTRAINT DF_ClaimTransactionRawHistory_HistoryCreatedDate DEFAULT GETDATE()&#xA;) &#xA;GO&#xA;&#xA;&#xA;IF OBJECT_ID('rein.CashFlowEntryTransform') IS NULL &#xA;CREATE TABLE rein.CashFlowEntryTransform(&#xA; CashFlowEntryTransformID INT IDENTITY (1, 1) NOT NULL,&#xA; CashFlowEntryRawID INT NOT NULL,&#xA; BatchID BIGINT NOT NULL,&#xA; Claim_No VARCHAR(20) NOT NULL,&#xA; Exposure_no varchar(20) NOT NULL,&#xA; Transaction_Cd varchar(10) NOT NULL,&#xA; Amount decimal(18, 2) NOT NULL,&#xA; CreatedDate     DATETIME  NOT NULL CONSTRAINT DF_CashFlowEntryTransform_CreatedDate DEFAULT (GETDATE()),&#xA; CreatedBy   VARCHAR (255)  NOT NULL CONSTRAINT DF_CashFlowEntryTransform_CreatedBy DEFAULT(SUSER_NAME()),&#xA; ModifiedDate DATETIME NULL,&#xA; ModifiedBy   VARCHAR (255)  NULL,&#xA; ProcessedStatusID SMALLINT NOT NULL CONSTRAINT DF_CashFlowEntryTransform_ProcessedStatusID DEFAULT 0,/*0=New/Pending;1=Processed;-1=Failed*/&#xA; BatchStatusID SMALLINT NOT NULL CONSTRAINT DF_CashFlowEntryTransform_BatchStatusID DEFAULT 0 /*0=New/Pending;1=Processed to SCF;-1=Failed within the Batch;-2=Failed in Sapiens Process;2=Successful in Sapiens Process*/&#xA;) &#xA;GO&#xA;&#xA;IF OBJECT_ID('rein.CashFlowEntryTransformHistory') IS NULL &#xA;CREATE TABLE rein.CashFlowEntryTransformHistory(&#xA;&#x9;CashFlowEntryRawHistoryID INT IDENTITY (1, 1) NOT NULL,&#xA;&#x9;CashFlowEntryTransformID INT NOT NULL,&#xA;&#x9;CashFlowEntryRawID INT NOT NULL,&#xA;&#x9;BatchID BIGINT NOT NULL,&#xA;&#x9;Claim_No VARCHAR(20) NOT NULL,&#xA;&#x9;Exposure_no varchar(20) NOT NULL,&#xA;&#x9;Transaction_Cd varchar(10) NOT NULL,&#xA;&#x9;Amount decimal(18, 2) NOT NULL,&#xA;&#x9;CreatedDate     DATETIME  NOT NULL,&#xA;&#x9;CreatedBy&#x9;  VARCHAR (255)  NOT NULL,&#xA;                ModifiedDate DATETIME NULL,&#xA;&#x9;ModifiedBy   VARCHAR (255)  NULL,&#xA;&#x9;ProcessedStatusID SMALLINT NOT NULL,&#xA;&#x9;BatchStatusID SMALLINT NOT NULL,&#xA;&#x9;HistoryCreatedBy   VARCHAR (255)  NOT NULL CONSTRAINT DF_CashFlowEntryTransformHistory_HistoryCreatedBy DEFAULT(SUSER_NAME()),&#xA;&#x9;HistoryCreatedDate DATETIME2 NOT NULL CONSTRAINT DF_CashFlowEntryTransformHistory_HistoryCreatedDate DEFAULT GETDATE()&#xA;) &#xA;GO&#xA;&#xA;IF OBJECT_ID('rein.CashFlowEntryConform') IS NULL &#xA;CREATE TABLE rein.CashFlowEntryConform(&#xA; CashFlowEntryConformID INT IDENTITY (1, 1) NOT NULL,&#xA; BatchID BIGINT NOT NULL,&#xA; Claim_No VARCHAR(20) NOT NULL,&#xA; Exposure_no varchar(20) NOT NULL,&#xA; Transaction_Cd varchar(10) NOT NULL,&#xA; Amount decimal(18, 2) NOT NULL,&#xA; CreatedDate      DATETIME  NOT NULL CONSTRAINT DF_CashFlowEntryConform_CreatedDate DEFAULT (GETDATE()),&#xA; CreatedBy   VARCHAR (255)  NOT NULL CONSTRAINT DF_CashFlowEntryConform_CreatedBy DEFAULT(SUSER_NAME()),&#xA; ModifiedDate      DATETIME NULL,&#xA; ModifiedBy   VARCHAR (255)  NULL,&#xA; ProcessedStatusID SMALLINT NOT NULL CONSTRAINT DF_CashFlowEntryConform_ProcessedStatusID DEFAULT 0,/*0=New/Pending;1=Processed;-1=Failed*/&#xA; BatchStatusID SMALLINT NOT NULL CONSTRAINT DF_CashFlowEntryConform_BatchStatusID DEFAULT 0 /*0=New/Pending;1=Processed to SCF;-1=Failed within the Batch;-2=Failed in Sapiens Process;2=Successful in Sapiens Process*/&#xA;) &#xA;GO&#xA;&#xA;IF OBJECT_ID('rein.CashFlowEntryConformHistory') IS NULL &#xA;CREATE TABLE rein.CashFlowEntryConformHistory(&#xA;&#x9;CashFlowEntryRawHistoryID INT IDENTITY (1, 1) NOT NULL,&#xA;&#x9;CashFlowEntryConformID INT NOT NULL,&#xA;&#x9;BatchID BIGINT NOT NULL,&#xA;&#x9;Claim_No VARCHAR(20) NOT NULL,&#xA;&#x9;Exposure_no varchar(20) NOT NULL,&#xA;&#x9;Transaction_Cd varchar(10) NOT NULL,&#xA;&#x9;Amount decimal(18, 2) NOT NULL,&#xA;&#x9;CreatedDate      DATETIME  NOT NULL,&#xA;&#x9;CreatedBy   VARCHAR (255)  NOT NULL,&#xA;                ModifiedDate      DATETIME NULL,&#xA;&#x9;ModifiedBy   VARCHAR (255)  NULL,&#xA;&#x9;ProcessedStatusID SMALLINT NOT NULL,&#xA;&#x9;BatchStatusID SMALLINT NOT NULL,&#xA;&#x9;HistoryCreatedBy   VARCHAR (255)  NOT NULL CONSTRAINT DF_CashFlowEntryConformHistory_HistoryCreatedBy DEFAULT(SUSER_NAME()),&#xA;&#x9;HistoryCreatedDate DATETIME2 NOT NULL CONSTRAINT DF_CashFlowEntryConformHistory_HistoryCreatedDate DEFAULT GETDATE()&#xA;) &#xA;GO&#xA;&#xA;IF NOT EXISTS ( SELECT 1 FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='trn' AND TABLE_NAME='Ceded_Financial_Transaction' AND COLUMN_NAME='CashFlowBatchID')&#xA;ALTER TABLE trn.Ceded_Financial_Transaction ADD CashFlowBatchID BIGINT NULL&#xA;&#xA;GO&#xA;&#xA;IF OBJECT_ID('rein.CashFlow_UpdateETLBatchStatusID','P') IS NOT NULL &#xA;DROP PROCEDURE rein.CashFlow_UpdateETLBatchStatusID&#xA;GO&#xA;&#xA;CREATE PROCEDURE rein.CashFlow_UpdateETLBatchStatusID&#xA;(@BatchStatusID SMALLINT)&#xA;AS&#xA;BEGIN&#xA;/* &#xA;------------------------------------------------------------&#xA;Name: rein.CashFlow_UpdateETLBatchStatusID&#xA;Purpose: To update the BatchStatusID upon success or failure of the Sapiens ETL Processes&#xA;&#x9;&#x9; called by JAMS sequence &#xA;Database: RS_ODS&#xA;Date: 2020-05-15&#xA;Author: Vijay Kapuluru&#xA;&#xA;Usage:&#xA;&#xA;DECLARE @returnvalue  INT;&#x9;&#xA;EXECUTE @returnvalue  = rein.CashFlow_UpdateETLBatchStatusID -2;&#xA;PRINT   @returnvalue ;&#xA;&#xA;Change Log:&#xA;Date&#x9;&#x9;By&#x9;&#x9;Reason&#x9;&#xA;YYYY-MM-DD&#x9;Your Name&#x9;This update....&#x9;&#xA;------------------------------------------------------------&#xA;*/&#xA;SET NOCOUNT ON;&#xA;&#xA;DECLARE @BatchID BIGINT&#xA;SELECT @BatchID=MAX(BatchID) FROM rein.CashFlowEntryRaw&#xA;SELECT @BatchID&#xA;UPDATE rein.CashFlowEntryRaw&#xA;SET &#xA;&#x9;BatchStatusID=@BatchStatusID,&#xA;    ModifiedDate = GETDATE(),&#xA;    ModifiedBy = SUSER_NAME()&#xA;WHERE BatchID=@BatchID&#xA;&#xA;UPDATE rein.CashFlowEntryTransform&#xA;SET &#xA;&#x9;BatchStatusID=@BatchStatusID,&#xA;    ModifiedDate = GETDATE(),&#xA;    ModifiedBy = SUSER_NAME()&#xA;WHERE BatchID=@BatchID&#xA;&#xA;UPDATE rein.CashFlowEntryConform&#xA;SET &#xA;&#x9;BatchStatusID=@BatchStatusID,&#xA;    ModifiedDate = GETDATE(),&#xA;    ModifiedBy = SUSER_NAME()&#xA;WHERE BatchID=@BatchID&#xA;END&#xA;GO&#xA;&#xA;IF OBJECT_ID('rein.Ceded_Financial_Transaction_UpdateCashFlowBatchID','P') IS NOT NULL &#xA;DROP PROCEDURE rein.Ceded_Financial_Transaction_UpdateCashFlowBatchID&#xA;GO&#xA;&#xA;CREATE PROCEDURE rein.Ceded_Financial_Transaction_UpdateCashFlowBatchID&#xA;AS&#xA;BEGIN&#xA;/* &#xA;------------------------------------------------------------&#xA;Name: rein.Ceded_Financial_Transaction_UpdateCashFlowBatchID&#xA;Purpose: To update the BatchID upon success of the Sapiens outbound ETL Processes&#xA;&#x9;&#x9; called by JAMS sequence &#xA;Database: RS_ODS&#xA;Date: 2020-06-01&#xA;Author: Vijay Kapuluru&#xA;&#xA;Usage:&#xA;&#xA;DECLARE @ret INT;&#x9;&#xA;EXECUTE @ret = rein.Ceded_Financial_Transaction_UpdateCashFlowBatchID;&#xA;PRINT   @ret;&#xA;&#xA;Change Log:&#xA;Date&#x9;&#x9;By&#x9;&#x9;Reason&#x9;&#xA;YYYY-MM-DD&#x9;Your Name&#x9;This update....&#x9;&#xA;------------------------------------------------------------&#xA;*/&#xA;SET NOCOUNT ON;&#xA;&#xA;DECLARE @BatchID BIGINT,@maxValuation_Dt DATE&#xA;SELECT @BatchID=MAX(BatchID) FROM &#xA;&#x9;(&#xA;&#x9;SELECT ISNULL(MAX(BatchID), 0) + 1 AS BatchID FROM rein.CashFlowEntryRaw&#xA;&#x9;UNION &#xA;&#x9;SELECT ISNULL(MAX(BatchID), 0) + 1 FROM rein.CashFlowEntryRawHistory&#xA;&#x9;)b&#xA;SELECT @maxValuation_Dt=MAX(Valuation_Dt) FROM trn.Ceded_Financial_Transaction&#xA;--SELECT @BatchID&#xA;--SELECT @maxValuation_Dt&#xA;UPDATE cft&#xA;SET &#xA;&#x9;CashFlowBatchID=@BatchID&#xA;--SELECT claimno, exposureno, acctingitem,CashFlowBatchID--, avg(transaction_amnt) as originalacctingAmt ---this is not the ceded amount this is what was feed to sapiens and came back&#xA;FROM trn.Ceded_Financial_Transaction cft&#xA;JOIN rein.Sapiens_CLaim_Feed scf&#xA;ON scf.Sapiens_Claim_No=cft.ClaimNo  &#xA;AND scf.Exposure_No=cft.ExposureNo &#xA;AND cft.AcctingItem=scf.Transaction_Cd&#xA;WHERE cft.Valuation_Dt=@maxValuation_Dt&#xA;&#xA;END&#xA;&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\EST- Move previous run data to History"
       DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:DelayValidation="True"
       DTS:Description="Execute SQL Task"
       DTS:DTSID="{d89bd128-5501-4291-b004-c480ef6cd224}"
       DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
@@ -396,7 +409,7 @@
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{A796CDF2-1FD2-4005-A16A-6AD2D2006EA7}"
-          SQLTask:SqlStatementSource="&#xA;INSERT INTO rein.CashFlowEntryRawHistory&#xA;           (CashFlowEntryRawID&#xA;           ,DataSourceTypeID&#xA;           ,BatchID&#xA;           ,WorkMatter&#xA;           ,Exposure&#xA;           ,PolicyNumber&#xA;           ,Year&#xA;           ,Quarter&#xA;           ,ValueName&#xA;           ,Amount&#xA;           ,StartUser&#xA;           ,StartTime&#xA;           ,EndUser&#xA;           ,EndTime&#xA;           ,ProjectionPeriod&#xA;           ,SourceFileFullPath&#xA;           ,CreatedDate&#xA;     ,CreatedBy&#xA;           ,ProcessedStatusID&#xA;     ,BatchStatusID&#xA;     ,ModifiedDate&#xA;     ,ModifiedBy)&#xA;     SELECT CashFlowEntryRawID&#xA;           ,DataSourceTypeID&#xA;           ,BatchID&#xA;           ,WorkMatter&#xA;           ,Exposure&#xA;           ,PolicyNumber&#xA;           ,Year&#xA;           ,Quarter&#xA;           ,ValueName&#xA;           ,Amount&#xA;           ,StartUser&#xA;           ,StartTime&#xA;           ,EndUser&#xA;           ,EndTime&#xA;           ,ProjectionPeriod&#xA;           ,SourceFileFullPath&#xA;           ,CreatedDate&#xA;           ,CreatedBy&#xA;           ,ProcessedStatusID&#xA;     ,BatchStatusID&#xA;     ,ModifiedDate&#xA;     ,ModifiedBy&#xA; FROM rein.CashFlowEntryRaw&#xA;&#xA;DELETE CFER FROM rein.CashFlowEntryRaw CFER WHERE EXISTS (SELECT 1 FROM rein.CashFlowEntryRawHistory H WHERE H.BatchID=CFER.BatchID AND H.CashFlowEntryRawID=CFER.CashFlowEntryRawID)&#xA;&#xA;INSERT INTO rein.CashFlowEntryTransformHistory&#xA;(&#xA;    CashFlowEntryTransformID,&#xA;    CashFlowEntryRawID,&#xA;    BatchID,&#xA;    Claim_No,&#xA;    Exposure_no,&#xA;    Transaction_Cd,&#xA;    Amount,&#xA;    CreatedDate,&#xA;    CreatedBy,&#xA;    ModifiedDate,&#xA;    ModifiedBy,&#xA;    ProcessedStatusID,&#xA;    BatchStatusID&#xA;)&#xA;&#xA;SELECT &#xA;    CashFlowEntryTransformID,&#xA;    CashFlowEntryRawID,&#xA;    BatchID,&#xA;    Claim_No,&#xA;    Exposure_no,&#xA;    Transaction_Cd,&#xA;    Amount,&#xA;    CreatedDate,&#xA;    CreatedBy,&#xA;    ModifiedDate,&#xA;    ModifiedBy,&#xA;    ProcessedStatusID,&#xA;    BatchStatusID&#xA; FROM rein.CashFlowEntryTransform&#xA;&#xA;DELETE CFET FROM rein.CashFlowEntryTransform CFET WHERE EXISTS (SELECT 1 FROM rein.CashFlowEntryTransformHistory H WHERE H.BatchID=CFET.BatchID AND H.CashFlowEntryTransformID=CFET.CashFlowEntryTransformID)&#xA;&#xA;&#xA;INSERT INTO rein.CashFlowEntryConformHistory&#xA;(&#xA;    CashFlowEntryConformID,&#xA;    BatchID,&#xA;    Claim_No,&#xA;    Exposure_no,&#xA;    Transaction_Cd,&#xA;    Amount,&#xA;    CreatedDate,&#xA;    CreatedBy,&#xA;    ModifiedDate,&#xA;    ModifiedBy,&#xA;    ProcessedStatusID,&#xA;    BatchStatusID&#xA;)&#xA;SELECT &#xA;    CashFlowEntryConformID,&#xA;    BatchID,&#xA;    Claim_No,&#xA;    Exposure_no,&#xA;    Transaction_Cd,&#xA;    Amount,&#xA;    CreatedDate,&#xA;    CreatedBy,&#xA;    ModifiedDate,&#xA;    ModifiedBy,&#xA;    ProcessedStatusID,&#xA;    BatchStatusID&#xA; FROM rein.CashFlowEntryConform&#xA;&#xA;DELETE CFEC FROM rein.CashFlowEntryConform CFEC WHERE EXISTS (SELECT 1 FROM rein.CashFlowEntryConformHistory H WHERE H.BatchID=CFEC.BatchID AND H.CashFlowEntryConformID=CFEC.CashFlowEntryConformID)&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="&#xA;INSERT INTO rein.CashFlowEntryRawHistory&#xA;           (CashFlowEntryRawID&#xA;           ,DataSourceTypeID&#xA;           ,BatchID&#xA;           ,WorkMatter&#xA;           ,Exposure&#xA;           ,PolicyNumber&#xA;           ,Year&#xA;           ,Quarter&#xA;           ,ValueName&#xA;           ,Amount&#xA;           ,StartUser&#xA;           ,StartTime&#xA;           ,EndUser&#xA;           ,EndTime&#xA;           ,ProjectionPeriod&#xA;           ,SourceFileFullPath&#xA;           ,ArchiveFileFullPath&#xA;           ,CreatedDate&#xA;     ,CreatedBy&#xA;           ,ProcessedStatusID&#xA;     ,BatchStatusID&#xA;     ,ModifiedDate&#xA;     ,ModifiedBy)&#xA;     SELECT CashFlowEntryRawID&#xA;           ,DataSourceTypeID&#xA;           ,BatchID&#xA;           ,WorkMatter&#xA;           ,Exposure&#xA;           ,PolicyNumber&#xA;           ,Year&#xA;           ,Quarter&#xA;           ,ValueName&#xA;           ,Amount&#xA;           ,StartUser&#xA;           ,StartTime&#xA;           ,EndUser&#xA;           ,EndTime&#xA;           ,ProjectionPeriod&#xA;           ,SourceFileFullPath&#xA;           ,ArchiveFileFullPath&#xA;           ,CreatedDate&#xA;           ,CreatedBy&#xA;           ,ProcessedStatusID&#xA;     ,BatchStatusID&#xA;     ,ModifiedDate&#xA;     ,ModifiedBy&#xA; FROM rein.CashFlowEntryRaw&#xA;&#xA;DELETE CFER FROM rein.CashFlowEntryRaw CFER WHERE EXISTS (SELECT 1 FROM rein.CashFlowEntryRawHistory H WHERE H.BatchID=CFER.BatchID AND H.CashFlowEntryRawID=CFER.CashFlowEntryRawID)&#xA;&#xA;INSERT INTO rein.CashFlowEntryTransformHistory&#xA;(&#xA;    CashFlowEntryTransformID,&#xA;    CashFlowEntryRawID,&#xA;    BatchID,&#xA;    Claim_No,&#xA;    Exposure_no,&#xA;    Transaction_Cd,&#xA;    Amount,&#xA;    CreatedDate,&#xA;    CreatedBy,&#xA;    ModifiedDate,&#xA;    ModifiedBy,&#xA;    ProcessedStatusID,&#xA;    BatchStatusID&#xA;)&#xA;&#xA;SELECT &#xA;    CashFlowEntryTransformID,&#xA;    CashFlowEntryRawID,&#xA;    BatchID,&#xA;    Claim_No,&#xA;    Exposure_no,&#xA;    Transaction_Cd,&#xA;    Amount,&#xA;    CreatedDate,&#xA;    CreatedBy,&#xA;    ModifiedDate,&#xA;    ModifiedBy,&#xA;    ProcessedStatusID,&#xA;    BatchStatusID&#xA; FROM rein.CashFlowEntryTransform&#xA;&#xA;DELETE CFET FROM rein.CashFlowEntryTransform CFET WHERE EXISTS (SELECT 1 FROM rein.CashFlowEntryTransformHistory H WHERE H.BatchID=CFET.BatchID AND H.CashFlowEntryTransformID=CFET.CashFlowEntryTransformID)&#xA;&#xA;&#xA;INSERT INTO rein.CashFlowEntryConformHistory&#xA;(&#xA;    CashFlowEntryConformID,&#xA;    BatchID,&#xA;    Claim_No,&#xA;    Exposure_no,&#xA;    Transaction_Cd,&#xA;    Amount,&#xA;    CreatedDate,&#xA;    CreatedBy,&#xA;    ModifiedDate,&#xA;    ModifiedBy,&#xA;    ProcessedStatusID,&#xA;    BatchStatusID&#xA;)&#xA;SELECT &#xA;    CashFlowEntryConformID,&#xA;    BatchID,&#xA;    Claim_No,&#xA;    Exposure_no,&#xA;    Transaction_Cd,&#xA;    Amount,&#xA;    CreatedDate,&#xA;    CreatedBy,&#xA;    ModifiedDate,&#xA;    ModifiedBy,&#xA;    ProcessedStatusID,&#xA;    BatchStatusID&#xA; FROM rein.CashFlowEntryConform&#xA;&#xA;DELETE CFEC FROM rein.CashFlowEntryConform CFEC WHERE EXISTS (SELECT 1 FROM rein.CashFlowEntryConformHistory H WHERE H.BatchID=CFEC.BatchID AND H.CashFlowEntryConformID=CFEC.CashFlowEntryConformID)&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
@@ -1246,6 +1259,12 @@
                           dataType="str"
                           length="500"
                           name="SourceFileFullPath" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ- File load to Raw\DFT - Load Template File To Raw\OLE - CashFlowEntryRaw.Inputs[OLE DB Destination Input].ExternalColumns[ArchiveFileFullPath]"
+                          codePage="1252"
+                          dataType="str"
+                          length="500"
+                          name="ArchiveFileFullPath" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -1291,6 +1310,36 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
+          DTS:refId="Package\SEQ- File load to Raw\EST - Update Archive Path"
+          DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:DelayValidation="True"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{d78801c0-1e98-4753-86da-e7602ce83196}"
+          DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="EST - Update Archive Path"
+          DTS:ThreadHint="3">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{A796CDF2-1FD2-4005-A16A-6AD2D2006EA7}"
+              SQLTask:SqlStatementSource="UPDATE rein.CashFlowEntryRaw &#xA;SET ArchiveFileFullPath=?&#xA;WHERE BatchID=?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::ArchiveFileFullPath"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
           DTS:refId="Package\SEQ- File load to Raw\EST – Raise file not found error"
           DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:Description="Execute SQL Task"
@@ -1299,7 +1348,7 @@
           DTS:LocaleID="-1"
           DTS:ObjectName="EST – Raise file not found error"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="1">
+          DTS:ThreadHint="0">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -1332,7 +1381,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <ExpressionTask
-              Expression="@[User::ArchiveFileFullPath]= REPLACE( @[$Package::CashFlowTemplateFilePath] , &quot;\\Drop\\&quot;, &quot;\\_Archive\\&quot; )" />
+              Expression="@[User::ArchiveFileFullPath]= REPLACE( REPLACE( @[$Package::CashFlowTemplateFilePath] , &quot;\\Drop\\&quot;, &quot;\\_Archive\\&quot; ),  &quot;.csv&quot;, &quot;_&quot;+@[User::DateTimeString] + &quot;.csv&quot;)" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -1347,7 +1396,7 @@
           <DTS:Variables />
           <DTS:ObjectData>
             <ExpressionTask
-              Expression="@[User::ArchiveFileFullPath]= REPLACE( @[$Package::CashFlowTemplateFilePath] , &quot;\\Drop\\&quot;, &quot;\\_Error\\&quot; )" />
+              Expression="@[User::ArchiveFileFullPath]= REPLACE(REPLACE( @[$Package::CashFlowTemplateFilePath] , &quot;\\Drop\\&quot;, &quot;\\_Error\\&quot; ),&quot;.csv&quot;, &quot;_&quot;+@[User::DateTimeString] + &quot;.csv&quot;)" />
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
@@ -1379,7 +1428,7 @@
           DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ScriptTask.ScriptTask, Microsoft.SqlServer.ScriptTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:LocaleID="-1"
           DTS:ObjectName="SCR – Check File Existence"
-          DTS:ThreadHint="1">
+          DTS:ThreadHint="0">
           <DTS:Variables />
           <DTS:ObjectData>
             <ScriptProject
@@ -1389,6 +1438,36 @@
               Language="CSharp"
               ReadOnlyVariables="$Package::CashFlowTemplateFilePath"
               ReadWriteVariables="User::FileExists">
+              <ProjectItem
+                Name="Properties\AssemblyInfo.cs"
+                Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_b2ccadf6482d49509f46148bb5c9cb6f")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_b2ccadf6482d49509f46148bb5c9cb6f")]
+[assembly: AssemblyCopyright("Copyright @  2020")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -1509,34 +1588,14 @@
   </resheader>
 </root>]]></ProjectItem>
               <ProjectItem
-                Name="Properties\Settings.Designer.cs"
-                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
-// <auto-generated>
-//     This code was generated by a tool.
-//
-//     Changes to this file may cause incorrect behavior and will be lost if
-//     the code is regenerated.
-// </auto-generated>
-//------------------------------------------------------------------------------
-
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_b2ccadf6482d49509f46148bb5c9cb6f.Properties.Settings.get_Default():ST_b2ccadf6482d49509f46148bb5c9cb6f.Properties.Sett" +
-    "ings")]
-
-namespace ST_b2ccadf6482d49509f46148bb5c9cb6f.Properties {
-    
-    
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
-        
-        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-        private static Settings defaultInstance = new Settings();
-        
-        public static Settings Default {
-            get {
-                return defaultInstance;
-            }
-        }
-    }
-}]]></ProjectItem>
+                Name="Properties\Settings.settings"
+                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="ScriptMain.cs"
                 Encoding="UTF8"><![CDATA[#region Help:  Introduction to the script task
@@ -1669,6 +1728,55 @@ namespace ST_b2ccadf6482d49509f46148bb5c9cb6f
 	}
 }]]></ProjectItem>
               <ProjectItem
+                Name="Project"
+                Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:CodeName>ST_b2ccadf6482d49509f46148bb5c9cb6f</msb:CodeName>
+		<msb:Language>msBuild</msb:Language>
+		<msb:DisplayName>ST_b2ccadf6482d49509f46148bb5c9cb6f</msb:DisplayName>
+		<msb:ProjectId>{D4ABC110-A5B1-42A2-9617-6B9ECDD355BA}</msb:ProjectId>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="ST_b2ccadf6482d49509f46148bb5c9cb6f.csproj"/>
+		<msb:File Include="Properties\AssemblyInfo.cs"/>
+		<msb:File Include="Properties\Settings.settings"/>
+		<msb:File Include="Properties\Resources.resx"/>
+		<msb:File Include="Properties\Resources.Designer.cs"/>
+		<msb:File Include="Properties\Settings.Designer.cs"/>
+		<msb:File Include="ScriptMain.cs"/>
+	</msb:ItemGroup>
+</c:Project>]]></ProjectItem>
+              <ProjectItem
+                Name="Properties\Settings.Designer.cs"
+                Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_b2ccadf6482d49509f46148bb5c9cb6f.Properties.Settings.get_Default():ST_b2ccadf6482d49509f46148bb5c9cb6f.Properties.Sett" +
+    "ings")]
+
+namespace ST_b2ccadf6482d49509f46148bb5c9cb6f.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
+              <ProjectItem
                 Name="ST_b2ccadf6482d49509f46148bb5c9cb6f.csproj"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
@@ -1760,65 +1868,6 @@ namespace ST_b2ccadf6482d49509f46148bb5c9cb6f
     </VisualStudio>
   </ProjectExtensions>
 </Project>]]></ProjectItem>
-              <ProjectItem
-                Name="Project"
-                Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
-<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
-	<msb:PropertyGroup>
-		<msb:CodeName>ST_b2ccadf6482d49509f46148bb5c9cb6f</msb:CodeName>
-		<msb:Language>msBuild</msb:Language>
-		<msb:DisplayName>ST_b2ccadf6482d49509f46148bb5c9cb6f</msb:DisplayName>
-		<msb:ProjectId>{D4ABC110-A5B1-42A2-9617-6B9ECDD355BA}</msb:ProjectId>
-	</msb:PropertyGroup>
-	<msb:ItemGroup>
-		<msb:Project Include="ST_b2ccadf6482d49509f46148bb5c9cb6f.csproj"/>
-		<msb:File Include="Properties\AssemblyInfo.cs"/>
-		<msb:File Include="Properties\Settings.settings"/>
-		<msb:File Include="Properties\Resources.resx"/>
-		<msb:File Include="Properties\Resources.Designer.cs"/>
-		<msb:File Include="Properties\Settings.Designer.cs"/>
-		<msb:File Include="ScriptMain.cs"/>
-	</msb:ItemGroup>
-</c:Project>]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\AssemblyInfo.cs"
-                Encoding="UTF8"><![CDATA[using System.Reflection;
-using System.Runtime.CompilerServices;
-
-//
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-//
-[assembly: AssemblyTitle("ST_b2ccadf6482d49509f46148bb5c9cb6f")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ST_b2ccadf6482d49509f46148bb5c9cb6f")]
-[assembly: AssemblyCopyright("Copyright @  2020")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-//
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-
-[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
-              <ProjectItem
-                Name="Properties\Settings.settings"
-                Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
-</SettingsFile>]]></ProjectItem>
               <ProjectItem
                 Name="Properties\Resources.Designer.cs"
                 Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
@@ -2013,7 +2062,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:PrecedenceConstraint
           DTS:refId="Package\SEQ- File load to Raw.PrecedenceConstraints[Constraint]"
           DTS:CreationName=""
+          DTS:Description="File Exists"
           DTS:DTSID="{E9613A39-CDB4-47C0-904E-96A4554C2326}"
+          DTS:EvalOp="3"
+          DTS:Expression="@[User::FileExists]==True"
           DTS:From="Package\SEQ- File load to Raw\SCR – Check File Existence"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint"
@@ -2029,6 +2081,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint 1"
           DTS:To="Package\SEQ- File load to Raw\EST – Raise file not found error" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SEQ- File load to Raw.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{3BD90660-7E24-4854-9128-CF26E0F54F58}"
+          DTS:From="Package\SEQ- File load to Raw\FST – Archive file"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\SEQ- File load to Raw\EST - Update Archive Path" />
         <DTS:PrecedenceConstraint
           DTS:refId="Package\SEQ- File load to Raw.PrecedenceConstraints[Constraint 4]"
           DTS:CreationName=""
@@ -2075,13 +2135,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:Executable
           DTS:refId="Package\SEQ- Raw to SCF\EST - Audit - Conform To Sapiens Claim Feed"
           DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:DelayValidation="True"
           DTS:Description="Execute SQL Task"
           DTS:DTSID="{7f394bd9-6692-474d-acee-c2e15315ad62}"
           DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:LocaleID="-1"
           DTS:ObjectName="EST - Audit - Conform To Sapiens Claim Feed"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="4">
+          DTS:ThreadHint="5">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -2099,13 +2160,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:Executable
           DTS:refId="Package\SEQ- Raw to SCF\EST - Audit - Raw To Transform"
           DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:DelayValidation="True"
           DTS:Description="Execute SQL Task"
           DTS:DTSID="{5598bf56-0c11-495c-a20d-f5b3417b5b78}"
           DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:LocaleID="-1"
           DTS:ObjectName="EST - Audit - Raw To Transform"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="4">
+          DTS:ThreadHint="5">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -2123,13 +2185,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:Executable
           DTS:refId="Package\SEQ- Raw to SCF\EST - Audit - Transform To Conform"
           DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:DelayValidation="True"
           DTS:Description="Execute SQL Task"
           DTS:DTSID="{ed3f8016-7592-4d99-84c3-9dd759901b98}"
           DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:LocaleID="-1"
           DTS:ObjectName="EST - Audit - Transform To Conform"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="4">
+          DTS:ThreadHint="5">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -2147,13 +2210,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:Executable
           DTS:refId="Package\SEQ- Raw to SCF\EST - Conform data existence check"
           DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:DelayValidation="True"
           DTS:Description="Execute SQL Task"
           DTS:DTSID="{95112d1b-9000-4c86-ba7d-3d28d761ffd8}"
           DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:LocaleID="-1"
           DTS:ObjectName="EST - Conform data existence check"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="4">
+          DTS:ThreadHint="5">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -2177,13 +2241,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:Executable
           DTS:refId="Package\SEQ- Raw to SCF\EST - Conform to Sapiens Claim Feed"
           DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:DelayValidation="True"
           DTS:Description="Execute SQL Task"
           DTS:DTSID="{d5f1f333-abc9-421e-9e66-570c3bd1080d}"
           DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:LocaleID="-1"
           DTS:ObjectName="EST - Conform to Sapiens Claim Feed"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="4">
+          DTS:ThreadHint="5">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -2201,13 +2266,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:Executable
           DTS:refId="Package\SEQ- Raw to SCF\EST - Raw To Transform"
           DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:DelayValidation="True"
           DTS:Description="Execute SQL Task"
           DTS:DTSID="{9812A9E2-B7F6-4EF1-98D6-00E129D99181}"
           DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:LocaleID="-1"
           DTS:ObjectName="EST - Raw To Transform"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="4">
+          DTS:ThreadHint="5">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -2225,13 +2291,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:Executable
           DTS:refId="Package\SEQ- Raw to SCF\EST - Restore original claim feed data if needed"
           DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:DelayValidation="True"
           DTS:Description="Execute SQL Task"
           DTS:DTSID="{81199ffe-b72f-4d7d-a8f0-164259772f11}"
           DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:LocaleID="-1"
           DTS:ObjectName="EST - Restore original claim feed data if needed"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="4">
+          DTS:ThreadHint="5">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -2242,13 +2309,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:Executable
           DTS:refId="Package\SEQ- Raw to SCF\EST - Transform To Conform"
           DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:DelayValidation="True"
           DTS:Description="Execute SQL Task"
           DTS:DTSID="{c857ec82-393a-4830-b604-377f22ae55e3}"
           DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:LocaleID="-1"
           DTS:ObjectName="EST - Transform To Conform"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="4">
+          DTS:ThreadHint="5">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -2266,12 +2334,13 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:Executable
           DTS:refId="Package\SEQ- Raw to SCF\EST - Update BatchStatusID to Success"
           DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:DelayValidation="True"
           DTS:Description="Execute SQL Task"
           DTS:DTSID="{69c80dc4-60d0-4307-bfa2-d36be570744c}"
           DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:LocaleID="-1"
           DTS:ObjectName="EST - Update BatchStatusID to Success"
-          DTS:ThreadHint="4">
+          DTS:ThreadHint="5">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -2301,13 +2370,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:Executable
           DTS:refId="Package\SEQ- Raw to SCF\EST - Update ProcessedStatusID and BatchStatusID in Conform"
           DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:DelayValidation="True"
           DTS:Description="Execute SQL Task"
           DTS:DTSID="{9d93ceb7-3f81-4311-a835-046d0791a669}"
           DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:LocaleID="-1"
           DTS:ObjectName="EST - Update ProcessedStatusID and BatchStatusID in Conform"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="4">
+          DTS:ThreadHint="5">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -2318,13 +2388,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:Executable
           DTS:refId="Package\SEQ- Raw to SCF\EST - Update ProcessedStatusID and BatchStatusID in Raw"
           DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:DelayValidation="True"
           DTS:Description="Execute SQL Task"
           DTS:DTSID="{06fd8d18-cfa1-4fee-9770-e2499d3e96bd}"
           DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:LocaleID="-1"
           DTS:ObjectName="EST - Update ProcessedStatusID and BatchStatusID in Raw"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="4">
+          DTS:ThreadHint="5">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -2335,13 +2406,14 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:Executable
           DTS:refId="Package\SEQ- Raw to SCF\EST - Update ProcessedStatusID and BatchStatusID in Transform"
           DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:DelayValidation="True"
           DTS:Description="Execute SQL Task"
           DTS:DTSID="{4803728d-5843-4deb-aa42-46119020e4fd}"
           DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
           DTS:LocaleID="-1"
           DTS:ObjectName="EST - Update ProcessedStatusID and BatchStatusID in Transform"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="4">
+          DTS:ThreadHint="5">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -2358,7 +2430,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           DTS:LocaleID="-1"
           DTS:ObjectName="EST – Raise conform data availability"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="5">
+          DTS:ThreadHint="6">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -2485,6 +2557,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:Executable
           DTS:refId="Package\SEQ- Source data load to Raw\DFT - Source Database To Raw"
           DTS:CreationName="SSIS.Pipeline.3"
+          DTS:DelayValidation="True"
           DTS:Description="Data Flow Task"
           DTS:DTSID="{540125C5-249F-4494-AA41-8BA842818E44}"
           DTS:ExecutableType="SSIS.Pipeline.3"
@@ -3249,6 +3322,12 @@ WHERE   (
                           dataType="str"
                           length="500"
                           name="SourceFileFullPath" />
+                        <externalMetadataColumn
+                          refId="Package\SEQ- Source data load to Raw\DFT - Source Database To Raw\OLE - CashFlowEntryRaw.Inputs[OLE DB Destination Input].ExternalColumns[ArchiveFileFullPath]"
+                          codePage="1252"
+                          dataType="str"
+                          length="500"
+                          name="ArchiveFileFullPath" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -3302,7 +3381,7 @@ WHERE   (
           DTS:LocaleID="-1"
           DTS:ObjectName="EST - Get Projection Period"
           DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2017 RC1; © 2017 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
-          DTS:ThreadHint="0">
+          DTS:ThreadHint="4">
           <DTS:Variables />
           <DTS:ObjectData>
             <SQLTask:SqlTaskData
@@ -3426,6 +3505,7 @@ WHERE   (
         <DTS:Executable
           DTS:refId="Package.EventHandlers[OnError]\EST - Update BatchStatusID to Failed"
           DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+          DTS:DelayValidation="True"
           DTS:Description="Execute SQL Task"
           DTS:DTSID="{349d6060-fc52-4f28-9ba5-c0b8571869aa}"
           DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
@@ -3477,6 +3557,10 @@ WHERE   (
           Id="Package\Data Source Type"
           TopLeft="741.111111111111,152" />
         <NodeLayout
+          Size="255,42"
+          Id="Package\EST - Backup original claim feed data"
+          TopLeft="256.666666666667,6.88888888889005" />
+        <NodeLayout
           Size="191,42"
           Id="Package\EST - Generate BatchID"
           TopLeft="569,4.777777777778" />
@@ -3484,6 +3568,10 @@ WHERE   (
           Size="175,42"
           Id="Package\EST- Create Schema"
           TopLeft="18.666666666667,5.33333333333331" />
+        <NodeLayout
+          Size="264,42"
+          Id="Package\EST- Move previous run data to History"
+          TopLeft="694,63.8888888888901" />
         <NodeLayout
           Size="237,42"
           Id="Package\SEQ- File load to Raw\DFT - Load Template File To Raw"
@@ -3508,6 +3596,30 @@ WHERE   (
           Size="206,42"
           Id="Package\SEQ- File load to Raw\SCR – Check File Existence"
           TopLeft="80.3333333333333,14.2222222222222" />
+        <EdgeLayout
+          Id="Package\SEQ- File load to Raw.PrecedenceConstraints[Constraint]"
+          TopLeft="180.305555555556,56.2222222222222">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,74.9999999999998"
+              Start="0,0"
+              End="0,67.4999999999998">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.4999999999998" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-31.05123046875,25.7499999999999,62.1024609375,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\SEQ- File load to Raw.PrecedenceConstraints[Constraint 1]"
           TopLeft="286.333333333333,37.2222222222222">
@@ -3534,7 +3646,7 @@ WHERE   (
         </EdgeLayout>
         <EdgeLayout
           Id="Package\SEQ- File load to Raw.PrecedenceConstraints[Constraint 4]"
-          TopLeft="295.777777777778,149.666666666666">
+          TopLeft="295.777777777778,149.666666666667">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
@@ -3584,14 +3696,14 @@ WHERE   (
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,67.5555555555561"
+              EndConnector="0,67.555555555556"
               Start="0,0"
-              End="0,60.0555555555561">
+              End="0,60.055555555556">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,60.0555555555561" />
+                    End="0,60.055555555556" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3622,20 +3734,24 @@ WHERE   (
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="203,42"
+          Id="Package\SEQ- File load to Raw\EST - Update Archive Path"
+          TopLeft="480.777777777778,315.444444444445" />
         <EdgeLayout
-          Id="Package\SEQ- File load to Raw.PrecedenceConstraints[Constraint]"
-          TopLeft="180.305555555556,56.2222222222222">
+          Id="Package\SEQ- File load to Raw.PrecedenceConstraints[Constraint 2]"
+          TopLeft="581.666666666666,283.444444444445">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,74.9999999999997"
+              EndConnector="0,32"
               Start="0,0"
-              End="0,67.4999999999997">
+              End="0,24.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,67.4999999999997" />
+                    End="0,24.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3647,18 +3763,42 @@ WHERE   (
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="730,312"
-          Size="730,355"
+          PanelSize="730,440"
+          Size="730,483"
           Id="Package\SEQ- File load to Raw"
-          TopLeft="778.333333333333,325.555555555555" />
+          TopLeft="778.333333333333,320.555555555555" />
+        <NodeLayout
+          Size="293,42"
+          Id="Package\SEQ- Raw to SCF\EST - Audit - Conform To Sapiens Claim Feed"
+          TopLeft="384.5,679" />
+        <NodeLayout
+          Size="230,42"
+          Id="Package\SEQ- Raw to SCF\EST - Audit - Raw To Transform"
+          TopLeft="372.5,25" />
+        <NodeLayout
+          Size="250,42"
+          Id="Package\SEQ- Raw to SCF\EST - Audit - Transform To Conform"
+          TopLeft="359.5,205" />
+        <NodeLayout
+          Size="249,42"
+          Id="Package\SEQ- Raw to SCF\EST - Conform data existence check"
+          TopLeft="41.5,400" />
         <NodeLayout
           Size="255,42"
           Id="Package\SEQ- Raw to SCF\EST - Conform to Sapiens Claim Feed"
           TopLeft="47.5,681" />
         <NodeLayout
+          Size="253,42"
+          Id="Package\SEQ- Raw to SCF\EST – Raise conform data availability"
+          TopLeft="490.5,398" />
+        <NodeLayout
           Size="195,42"
           Id="Package\SEQ- Raw to SCF\EST - Raw To Transform"
           TopLeft="52.5,27" />
+        <NodeLayout
+          Size="304,42"
+          Id="Package\SEQ- Raw to SCF\EST - Restore original claim feed data if needed"
+          TopLeft="21.5,551" />
         <NodeLayout
           Size="215,42"
           Id="Package\SEQ- Raw to SCF\EST - Transform To Conform"
@@ -3679,6 +3819,130 @@ WHERE   (
           Size="387,42"
           Id="Package\SEQ- Raw to SCF\EST - Update ProcessedStatusID and BatchStatusID in Transform"
           TopLeft="737,199" />
+        <EdgeLayout
+          Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint]"
+          TopLeft="930.5,241">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-764.5,159"
+              Start="0,0"
+              End="-764.5,151.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,75.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,75.5"
+                    Point2="0,79.5"
+                    Point3="-4,79.5" />
+                  <mssgle:LineSegment
+                    End="-760.5,79.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-760.5,79.5"
+                    Point2="-764.5,79.5"
+                    Point3="-764.5,83.5" />
+                  <mssgle:LineSegment
+                    End="-764.5,151.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 1]"
+          TopLeft="247.5,47">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="125,0"
+              Start="0,0"
+              End="117.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="117.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 10]"
+          TopLeft="290.5,420">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="200,0"
+              Start="0,0"
+              End="192.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="192.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="44.0849609375,5,104.330078125,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 11]"
+          TopLeft="677.5,697.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="82.5,0"
+              Start="0,0"
+              End="75,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="75,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 2]"
+          TopLeft="257.5,229">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="102,0"
+              Start="0,0"
+              End="94.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="94.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 3]"
           TopLeft="915,63">
@@ -3711,6 +3975,52 @@ WHERE   (
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 4]"
+          TopLeft="302.5,701">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="82,0"
+              Start="0,0"
+              End="74.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="74.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 5]"
+          TopLeft="169.75,442">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,109"
+              Start="0,0"
+              End="0,101.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,101.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-33.66123046875,42.75,67.3224609375,16"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -3747,72 +4057,6 @@ WHERE   (
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="249,42"
-          Id="Package\SEQ- Raw to SCF\EST - Conform data existence check"
-          TopLeft="41.5,400" />
-        <EdgeLayout
-          Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint]"
-          TopLeft="930.5,241">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-764.5,159"
-              Start="0,0"
-              End="-764.5,151.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,75.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,75.5"
-                    Point2="0,79.5"
-                    Point3="-4,79.5" />
-                  <mssgle:LineSegment
-                    End="-760.5,79.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-760.5,79.5"
-                    Point2="-764.5,79.5"
-                    Point3="-764.5,83.5" />
-                  <mssgle:LineSegment
-                    End="-764.5,151.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="304,42"
-          Id="Package\SEQ- Raw to SCF\EST - Restore original claim feed data if needed"
-          TopLeft="21.5,551" />
-        <EdgeLayout
-          Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 5]"
-          TopLeft="169.75,442">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,109"
-              Start="0,0"
-              End="0,101.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,101.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-33.66123046875,42.75,67.3224609375,16"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <EdgeLayout
           Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 7]"
           TopLeft="174.25,593">
@@ -3827,32 +4071,6 @@ WHERE   (
                   Capacity="5">
                   <mssgle:LineSegment
                     End="0,80.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="230,42"
-          Id="Package\SEQ- Raw to SCF\EST - Audit - Raw To Transform"
-          TopLeft="372.5,25" />
-        <EdgeLayout
-          Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 1]"
-          TopLeft="247.5,47">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="125,0"
-              Start="0,0"
-              End="117.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="117.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3883,32 +4101,6 @@ WHERE   (
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="250,42"
-          Id="Package\SEQ- Raw to SCF\EST - Audit - Transform To Conform"
-          TopLeft="359.5,205" />
-        <EdgeLayout
-          Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 2]"
-          TopLeft="257.5,229">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="102,0"
-              Start="0,0"
-              End="94.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="94.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <EdgeLayout
           Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 9]"
           TopLeft="609.5,223">
@@ -3931,89 +4123,13 @@ WHERE   (
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="253,42"
-          Id="Package\SEQ- Raw to SCF\EST – Raise conform data availability"
-          TopLeft="490.5,398" />
-        <EdgeLayout
-          Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 10]"
-          TopLeft="290.5,420">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="200,0"
-              Start="0,0"
-              End="192.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="192.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="44.0849609375,5,104.330078125,16"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="293,42"
-          Id="Package\SEQ- Raw to SCF\EST - Audit - Conform To Sapiens Claim Feed"
-          TopLeft="384.5,679" />
-        <EdgeLayout
-          Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 4]"
-          TopLeft="302.5,701">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="82,0"
-              Start="0,0"
-              End="74.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="74.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 11]"
-          TopLeft="677.5,697.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="82.5,0"
-              Start="0,0"
-              End="75,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="75,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
           PanelSize="1348,1080"
           Size="1348,1123"
           Id="Package\SEQ- Raw to SCF"
-          TopLeft="159.888888888889,745.88888888889" />
+          TopLeft="167.888888888889,893.88888888889" />
         <NodeLayout
           Size="227,42"
           Id="Package\SEQ- Source data load to Raw\DFT - Source Database To Raw"
@@ -4028,14 +4144,14 @@ WHERE   (
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,96.6666666666666"
+              EndConnector="0,96.6666666666667"
               Start="0,0"
-              End="0,89.1666666666666">
+              End="0,89.1666666666667">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,89.1666666666666" />
+                    End="0,89.1666666666667" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -4052,39 +4168,111 @@ WHERE   (
           Id="Package\SEQ- Source data load to Raw"
           TopLeft="157,324.11111111111" />
         <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="1143.33333333333,680.555555555555">
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="760,25.777777777778">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-86.1111111111109,65.3333333333351"
+              EndConnector="66,38.1111111111121"
               Start="0,0"
-              End="-86.1111111111109,57.8333333333351">
+              End="66,30.6111111111121">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,35.1535269709554" />
+                    End="62,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,35.1535269709554"
-                    Point2="0,39.1535269709554"
-                    Point3="-4,39.1535269709554" />
+                    Point1="62,0"
+                    Point2="66,0"
+                    Point3="66,4" />
                   <mssgle:LineSegment
-                    End="-82.1111111111109,39.1535269709554" />
+                    End="66,30.6111111111121" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="1143.33333333333,803.555555555555">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-78.1111111111109,90.3333333333351"
+              Start="0,0"
+              End="-78.1111111111109,82.8333333333351">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.1357439241267" />
                   <mssgle:CubicBezierSegment
-                    Point1="-82.1111111111109,39.1535269709554"
-                    Point2="-86.1111111111109,39.1535269709554"
-                    Point3="-86.1111111111109,43.1535269709554" />
+                    Point1="0,50.1357439241267"
+                    Point2="0,54.1357439241267"
+                    Point3="-4,54.1357439241267" />
                   <mssgle:LineSegment
-                    End="-86.1111111111109,57.8333333333351" />
+                    End="-74.1111111111109,54.1357439241267" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-74.1111111111109,54.1357439241267"
+                    Point2="-78.1111111111109,54.1357439241267"
+                    Point3="-78.1111111111109,58.1357439241267" />
+                  <mssgle:LineSegment
+                    End="-78.1111111111109,82.8333333333351" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="-51.0819032118054,44.1535269709554,16.0526953125,9.724609375"
+              BoundingBox="-47.0819032118054,59.1357439241267,16.0526953125,9.724609375"
               RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="193.666666666667,27.1111111111117">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="63,0"
+              Start="0,0"
+              End="55.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="55.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="824.305555555555,105.88888888889">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46.1111111111099"
+              Start="0,0"
+              End="0,38.6111111111099">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.6111111111099" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4093,34 +4281,56 @@ WHERE   (
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="149.055555555556,67.7777777777801"
+              EndConnector="157.055555555556,215.77777777778"
               Start="0,0"
-              End="149.055555555556,60.2777777777801">
+              End="157.055555555556,208.27777777778">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,36.6184548508214" />
+                    End="0,125.313179213596" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,36.6184548508214"
-                    Point2="0,40.6184548508214"
-                    Point3="4,40.6184548508214" />
+                    Point1="0,125.313179213596"
+                    Point2="0,129.313179213596"
+                    Point3="4,129.313179213596" />
                   <mssgle:LineSegment
-                    End="145.055555555556,40.6184548508214" />
+                    End="153.055555555556,129.313179213596" />
                   <mssgle:CubicBezierSegment
-                    Point1="145.055555555556,40.6184548508214"
-                    Point2="149.055555555556,40.6184548508214"
-                    Point3="149.055555555556,44.6184548508214" />
+                    Point1="153.055555555556,129.313179213596"
+                    Point2="157.055555555556,129.313179213596"
+                    Point3="157.055555555556,133.313179213596" />
                   <mssgle:LineSegment
-                    End="149.055555555556,60.2777777777801" />
+                    End="157.055555555556,208.27777777778" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="53.4664301215278,45.6184548508214,42.1226953125,9.7490234375"
+              BoundingBox="57.4664301215278,134.313179213596,42.1226953125,9.7490234375"
               RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="511.666666666667,26.833333333334">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="57.333333333333,0"
+              Start="0,0"
+              End="49.833333333333,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="49.833333333333,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4165,136 +4375,34 @@ WHERE   (
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="294.888888888889,131.555555555555"
+              EndConnector="294.888888888889,126.555555555555"
               Start="0,0"
-              End="294.888888888889,124.055555555555">
+              End="294.888888888889,119.055555555555">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,49.389496422303" />
+                    End="0,47.3603348184148" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,49.389496422303"
-                    Point2="0,53.389496422303"
-                    Point3="4,53.389496422303" />
+                    Point1="0,47.3603348184148"
+                    Point2="0,51.3603348184148"
+                    Point3="4,51.3603348184148" />
                   <mssgle:LineSegment
-                    End="290.888888888889,53.389496422303" />
+                    End="290.888888888889,51.3603348184148" />
                   <mssgle:CubicBezierSegment
-                    Point1="290.888888888889,53.389496422303"
-                    Point2="294.888888888889,53.389496422303"
-                    Point3="294.888888888889,57.389496422303" />
+                    Point1="290.888888888889,51.3603348184148"
+                    Point2="294.888888888889,51.3603348184148"
+                    Point3="294.888888888889,55.3603348184148" />
                   <mssgle:LineSegment
-                    End="294.888888888889,124.055555555555" />
+                    End="294.888888888889,119.055555555555" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="130.549444444444,58.389496422303,33.79,16"
+              BoundingBox="130.549444444444,56.3603348184148,33.79,16"
               RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="264,42"
-          Id="Package\EST- Move previous run data to History"
-          TopLeft="694,63.8888888888901" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="760,25.777777777778">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="66,38.1111111111121"
-              Start="0,0"
-              End="66,30.6111111111121">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="62,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="62,0"
-                    Point2="66,0"
-                    Point3="66,4" />
-                  <mssgle:LineSegment
-                    End="66,30.6111111111121" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 3]"
-          TopLeft="824.305555555555,105.88888888889">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,46.1111111111099"
-              Start="0,0"
-              End="0,38.6111111111099">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,38.6111111111099" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="255,42"
-          Id="Package\EST - Backup original claim feed data"
-          TopLeft="256.666666666667,6.88888888889005" />
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="193.666666666667,27.1111111111117">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="63,0"
-              Start="0,0"
-              End="55.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="55.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package.PrecedenceConstraints[Constraint 5]"
-          TopLeft="511.666666666667,26.833333333334">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="57.333333333333,0"
-              Start="0,0"
-              End="49.833333333333,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="49.833333333333,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -4390,7 +4498,19 @@ WHERE   (
     </Properties>
   </PipelineComponentMetadata>
   <PrecedenceConstraint
+    design-time-name="Package\SEQ- File load to Raw.PrecedenceConstraints[Constraint]">
+    <ShowAnnotation>ConstraintDescription</ShowAnnotation>
+  </PrecedenceConstraint>
+  <PrecedenceConstraint
     design-time-name="Package\SEQ- File load to Raw.PrecedenceConstraints[Constraint 1]">
+    <ShowAnnotation>ConstraintDescription</ShowAnnotation>
+  </PrecedenceConstraint>
+  <PrecedenceConstraint
+    design-time-name="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 10]">
+    <ShowAnnotation>ConstraintDescription</ShowAnnotation>
+  </PrecedenceConstraint>
+  <PrecedenceConstraint
+    design-time-name="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 5]">
     <ShowAnnotation>ConstraintDescription</ShowAnnotation>
   </PrecedenceConstraint>
   <TaskHost
@@ -4497,14 +4617,6 @@ WHERE   (
   </PrecedenceConstraint>
   <PrecedenceConstraint
     design-time-name="Package.PrecedenceConstraints[Constraint 8]">
-    <ShowAnnotation>ConstraintDescription</ShowAnnotation>
-  </PrecedenceConstraint>
-  <PrecedenceConstraint
-    design-time-name="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 5]">
-    <ShowAnnotation>ConstraintDescription</ShowAnnotation>
-  </PrecedenceConstraint>
-  <PrecedenceConstraint
-    design-time-name="Package\SEQ- Raw to SCF.PrecedenceConstraints[Constraint 10]">
     <ShowAnnotation>ConstraintDescription</ShowAnnotation>
   </PrecedenceConstraint>
 </Objects>]]></DTS:DesignTimeProperties>
