@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dm].[usp_FactCAShflow] AS
+﻿CREATE PROCEDURE [dm].[usp_FactCashFlow] AS
 /*
  Procedure Name:  [dm].[usp_FactCAShflow]
  Purpose: Prepare data FROM Stage  to DM fact
@@ -132,19 +132,19 @@ SELECT
 		1 AS [Is_active]
 FROM
 		stg.FactCAShflow F
-		LEFT JOIN dm.DimClaim C on f.claimNumber = c.claimNo
-		LEFT JOIN dm.DimExposure e on f.claim_Exposure_No = e.claimExposureNo
-		LEFT JOIN stg.Exposure SE on SE.claim_Exposure_No = F.claim_Exposure_No
-		LEFT JOIN dm.DimWorkmatter w on F.workmatternumber = w.workmatternumber
-		LEFT JOIN stg.Workmatter SW on SW.workmatternumber = F.workmatternumber
-		LEFT JOIN WMAdjusterCTECTE PA on f.claim_Exposure_No = pa.claim_Exposure_No
-		LEFT JOIN Dm.DimPolicy p on pa.policy_No = p.WMAdjusterCTECTE
+		LEFT JOIN dm.DimClaim C ON f.claimNumber = c.claimNo
+		LEFT JOIN dm.DimExposure e ON f.claim_Exposure_No = e.claimExposureNo
+		LEFT JOIN stg.Exposure SE ON SE.claim_Exposure_No = F.claim_Exposure_No
+		LEFT JOIN dm.DimWorkmatter w ON F.workmatternumber = w.workmatternumber
+		LEFT JOIN stg.Workmatter SW ON SW.workmatternumber = F.workmatternumber
+		LEFT JOIN Policynumber PA ON f.claim_Exposure_No = pa.claim_Exposure_No
+		LEFT JOIN Dm.DimPolicy p ON pa.policy_No = p.policyNumber
 		AND pa.portfolio_Cd = p.portfolioCode
 		AND pa.[NAIC_Cd] = p.NAICCode
 		AND pa.[Business_Type_Cd] = p.businessTypeCode
-		LEFT JOIN dm.DimNotifications N on F.workmatternumber = N.workMatterNo
-		LEFT JOIN WMAdjusterCTE A on A.workmatternumber = F.workmatternumber
-		left join dm.DimAdjuster DA on A.adjustedName = DA.adjusterName
+		LEFT JOIN dm.DimNotifications N ON F.workmatternumber = N.workMatterNo
+		LEFT JOIN WMAdjuster A ON A.workmatternumber = F.workmatternumber
+		left join dm.DimAdjuster DA ON A.adjustedName = DA.adjusterName
 		LEFT JOIN [dm].[DimDate] Dt1 ON pa.policyEffectiveDate = Dt1.datefull
 		LEFT JOIN [dm].[DimDate] Dt2 ON pa.Policy_Expiration_Dt = Dt2.datefull
 		LEFT JOIN [dm].[DimDate] Dt3 ON SE.exposureCloseDate = Dt3.datefull
