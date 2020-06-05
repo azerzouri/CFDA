@@ -912,6 +912,154 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "stg_claimsegmentation",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "stg_factactuals",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "SELECT [ClaimNumber]\n      ,[ActuarialSegment]\n      ,[ActuarialSegmentEffectiveDate]\n      ,[ActuarialSegmentExpirationDate]\n      ,[BusinessSegment]\n      ,[FairfaxSegment]\n      ,[HandlingSegment]\n      ,[ClaimsSegment]\n      ,[BusinessSegmentEffectiveDate]\n      ,[BusinessSegmentExpirationDate]\n  FROM [MHT01IHSQL01].[RDM].[dbo].[vw_Reporting_ClaimsSegments] \n",
+						"queryTimeout": "02:00:00"
+					},
+					"sink": {
+						"type": "SqlMISink"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "ClaimNumber",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ClaimNumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ActuarialSegment",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ActuarialSegment",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ActuarialSegmentEffectiveDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ActuarialSegmentEffectiveDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "ActuarialSegmentExpirationDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "ActuarialSegmentExpirationDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "BusinessSegment",
+									"type": "String"
+								},
+								"sink": {
+									"name": "BusinessSegment",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "FairfaxSegment",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FairfaxSegment",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "HandlingSegment",
+									"type": "String"
+								},
+								"sink": {
+									"name": "HandlingSegment",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "ClaimsSegment",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ClaimsSegment",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "BusinessSegmentEffectiveDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "BusinessSegmentEffectiveDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"name": "BusinessSegmentExpirationDate",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "BusinessSegmentExpirationDate",
+									"type": "DateTime"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "BIASRC01",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "stgclaim",
+						"type": "DatasetReference"
+					}
+				]
 			}
 		],
 		"annotations": []

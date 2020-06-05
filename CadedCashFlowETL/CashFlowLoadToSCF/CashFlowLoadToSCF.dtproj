@@ -41,10 +41,10 @@
                 <SSIS:Property SSIS:Name="Name">CashFlowLoadToSCF</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">273</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">294</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{4A475822-6E2E-4348-AD2C-9E064ABA39B2}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{CF4351BB-D209-47D9-A050-14CDFA40E4D3}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">6</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>

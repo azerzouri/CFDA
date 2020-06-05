@@ -5,7 +5,14 @@
 			{
 				"name": "dimworkmatter",
 				"type": "SqlServerStoredProcedure",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Create_FK",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -97,6 +104,260 @@
 				"userProperties": [],
 				"typeProperties": {
 					"storedProcedureName": "[dm].[usp_DimClaim]"
+				},
+				"linkedServiceName": {
+					"referenceName": "CashflowDMDev",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "dimexposure",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "dimclaim",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dm].[usp_DimExposure]"
+				},
+				"linkedServiceName": {
+					"referenceName": "CashflowDMDev",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "dimpolicy",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "dimexposure",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dm].[usp_DimPolicy]"
+				},
+				"linkedServiceName": {
+					"referenceName": "CashflowDMDev",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "dimreinsurance",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "dimpolicy",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dm].[usp_DimReinsurance]"
+				},
+				"linkedServiceName": {
+					"referenceName": "CashflowDMDev",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "factactuals",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "dimreinsurance",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dm].[usp_FactActuals]"
+				},
+				"linkedServiceName": {
+					"referenceName": "CashflowDMDev",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "factcashfow",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "factactuals",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dm].[usp_FactCashflow]"
+				},
+				"linkedServiceName": {
+					"referenceName": "CashflowDMDev",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "factcededcashflow",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "factcashfow",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dm].[usp_FactCededCashflow]"
+				},
+				"linkedServiceName": {
+					"referenceName": "CashflowDMDev",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Drop FKs",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[wrk].[ups_Drop_Create_ForeignKeys]",
+					"storedProcedureParameters": {
+						"execStep": {
+							"value": "DROP",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "CashflowDMDev",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "DM_TruncateTables",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Drop FKs",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dm].[usp_DimTruncateTable]",
+					"storedProcedureParameters": {
+						"schemaName": {
+							"value": "dm",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "CashflowDMDev",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Create_FK",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "DM_TruncateTables",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[wrk].[ups_Drop_Create_ForeignKeys]",
+					"storedProcedureParameters": {
+						"execStep": {
+							"value": "CREATE",
+							"type": "String"
+						}
+					}
 				},
 				"linkedServiceName": {
 					"referenceName": "CashflowDMDev",
