@@ -7,6 +7,7 @@
     projectedPaidLossExInLimits       decimal(14, 2)    NULL,
     projectedPaidCoverageDJExpense    decimal(14, 2)    NULL,
     projectedTotalPaidDefExpense      decimal(14, 2)    NULL,
+	claimNumber                       AS                SUBSTRING(claim_Exposure_No,0,CHARINDEX('-', claim_Exposure_No)) PERSISTED,
     Insert_Date                       datetime          DEFAULT (getdate()) NOT NULL,
     CONSTRAINT PK_stg_factcashflow PRIMARY KEY CLUSTERED (factcashflow_ID)
 )
