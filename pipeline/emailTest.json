@@ -21,8 +21,8 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"value": "@pipeline().Pipeline",
-						"type": "Expression"
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}"
 					}
 				}
 			}
