@@ -34,8 +34,7 @@ SET
 			INFORMATION_SCHEMA.TABLES
 		WHERE
 			TABLE_SCHEMA = @schema
-			AND TABLE_NAME <> 'Date'
-			AND TABLE_NAME <> 'FactCashflow' FOR XML PATH(''),
+			AND TABLE_NAME NOT IN ('FactCashflow', 'Date', 'Reinsurance') FOR XML PATH(''),
 			TYPE
 	).value('.', 'NVARCHAR(MAX)')
 END
