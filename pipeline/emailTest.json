@@ -17,7 +17,10 @@
 				"typeProperties": {
 					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
 					"method": "POST",
-					"body": ""
+					"body": {
+						"value": "@pipeline().Pipeline",
+						"type": "Expression"
+					}
 				}
 			}
 		],
