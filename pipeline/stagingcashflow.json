@@ -89,21 +89,21 @@
 							},
 							{
 								"source": {
-									"name": "Exposure_No",
-									"type": "String"
-								},
-								"sink": {
-									"name": "claimNumber",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
 									"name": "CashFlowHashKey",
 									"type": "String"
 								},
 								"sink": {
 									"name": "FactCashFlowHashKey",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "Exposure_No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claim_Exposure_No",
 									"type": "String"
 								}
 							}
