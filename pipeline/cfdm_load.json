@@ -461,9 +461,16 @@
 				}
 			},
 			{
-				"name": "on_DM_DimAdjuster_Error_copy1_copy1",
+				"name": "on_DM_DimPolicy_Error",
 				"type": "WebActivity",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "dimpolicy",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -479,7 +486,7 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"message": "@{activity('dimAdjuster').error.message}",
+						"message": "@{activity('dimPolicy').error.message}",
 						"dataFactoryName": "@{pipeline().DataFactory}",
 						"pipelineName": "@{pipeline().Pipeline}"
 					}
@@ -518,9 +525,16 @@
 				}
 			},
 			{
-				"name": "on_DM_DimAdjuster_Error_copy1_copy3",
+				"name": "on_DM_Factactuals_Error",
 				"type": "WebActivity",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "factactuals",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -536,16 +550,23 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"message": "@{activity('dimAdjuster').error.message}",
+						"message": "@{activity('FactActuals').error.message}",
 						"dataFactoryName": "@{pipeline().DataFactory}",
 						"pipelineName": "@{pipeline().Pipeline}"
 					}
 				}
 			},
 			{
-				"name": "on_DM_DimAdjuster_Error_copy1_copy4",
+				"name": "on_DM_DimExposure_Error",
 				"type": "WebActivity",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "dimexposure",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -561,14 +582,78 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"message": "@{activity('dimAdjuster').error.message}",
+						"message": "@{activity('dimExposure').error.message}",
 						"dataFactoryName": "@{pipeline().DataFactory}",
 						"pipelineName": "@{pipeline().Pipeline}"
 					}
 				}
 			},
 			{
-				"name": "on_DM_DimAdjuster_Error_copy1_copy5",
+				"name": "on_DM_DimReinsurance_Error",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "dimreinsurance",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"message": "@{activity('dimReinsurance').error.message}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}"
+					}
+				}
+			},
+			{
+				"name": "on_DM_FactCashflow_Error",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "factcashfow",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"message": "@{activity('FactCashflow').error.message}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}"
+					}
+				}
+			},
+			{
+				"name": "on_DM_DimAdjuster_Error_copy1_copy3_copy1_copy1",
 				"type": "WebActivity",
 				"dependsOn": [],
 				"policy": {
