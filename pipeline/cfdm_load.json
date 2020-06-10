@@ -653,9 +653,16 @@
 				}
 			},
 			{
-				"name": "on_DM_DimAdjuster_Error_copy1_copy3_copy1_copy1",
+				"name": "on_DM_FactCededCashflow_Error",
 				"type": "WebActivity",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "factcededcashflow",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -671,7 +678,7 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"message": "@{activity('dimAdjuster').error.message}",
+						"message": "@{activity('FactCededCashflow').error.message}",
 						"dataFactoryName": "@{pipeline().DataFactory}",
 						"pipelineName": "@{pipeline().Pipeline}"
 					}
