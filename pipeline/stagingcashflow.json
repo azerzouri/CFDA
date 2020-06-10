@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "select * \n  FROM [CashFlowPOC].[dbo].[CFDATANEW]\n\n",
+						"sqlReaderQuery": "select\n    [WorkMatterNo],\n    [Exposure_No],\n    [Cashflowentryperiod],\n    [CFProjectionsfor],\n    [Loss],\n    [DefExp],\n    [CovDJ],\n    CONVERT(\n        VARCHAR(32),\n        HashBytes(\n            'MD5',\n            CONCAT(\n                [Exposure_No],\n                ' ',\n                [WorkMatterNo],\n                ' ',\n                CAST([cashFlowEntryPeriod] AS VARCHAR),\n                ' ',\n                CAST([CFProjectionsfor] AS VARCHAR),\n                ' ',\n                CAST([Loss] AS VARCHAR),\n                ' ',\n                CAST([DefExp] AS VARCHAR),\n                ' ',\n                CAST([CovDJ] AS VARCHAR)\n            )\n        ),\n        2\n    ) as CashFlowHashKey\nFROM\n    [CashFlowPOC].[dbo].[CFDATANEW]",
 						"queryTimeout": "02:00:00"
 					},
 					"sink": {
@@ -27,16 +27,6 @@
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
-							{
-								"source": {
-									"name": "Exposure_No",
-									"type": "String"
-								},
-								"sink": {
-									"name": "claim_Exposure_No",
-									"type": "String"
-								}
-							},
 							{
 								"source": {
 									"name": "WorkMatterNo",
@@ -53,7 +43,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "cashflowentryperiod",
+									"name": "cashFlowEntryPeriod",
 									"type": "DateTime"
 								}
 							},
@@ -95,6 +85,26 @@
 								"sink": {
 									"name": "projectedTotalPaidDefExpense",
 									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "Exposure_No",
+									"type": "String"
+								},
+								"sink": {
+									"name": "claimNumber",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "CashFlowHashKey",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FactCashFlowHashKey",
+									"type": "String"
 								}
 							}
 						]
