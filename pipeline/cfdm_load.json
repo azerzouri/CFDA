@@ -363,6 +363,234 @@
 					"referenceName": "CashflowDMDev",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "on_DM_DimWM_Error",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "dimworkmatter",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"message": "@{activity('dimworkmatter').error.message}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}"
+					}
+				}
+			},
+			{
+				"name": "on_DM_DimAdjuster_Error",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "dimadjuster",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"message": "@{activity('dimAdjuster').error.message}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}"
+					}
+				}
+			},
+			{
+				"name": "on_DM_DimClaim_Error",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "dimclaim",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"message": "@{activity('dimClaim').error.message}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}"
+					}
+				}
+			},
+			{
+				"name": "on_DM_DimAdjuster_Error_copy1_copy1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"message": "@{activity('dimAdjuster').error.message}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}"
+					}
+				}
+			},
+			{
+				"name": "on_DM_DimNotifications_Error",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "dimnotifications",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"message": "@{activity('dimNotifications').error.message}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}"
+					}
+				}
+			},
+			{
+				"name": "on_DM_DimAdjuster_Error_copy1_copy3",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"message": "@{activity('dimAdjuster').error.message}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}"
+					}
+				}
+			},
+			{
+				"name": "on_DM_DimAdjuster_Error_copy1_copy4",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"message": "@{activity('dimAdjuster').error.message}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}"
+					}
+				}
+			},
+			{
+				"name": "on_DM_DimAdjuster_Error_copy1_copy5",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"message": "@{activity('dimAdjuster').error.message}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}"
+					}
+				}
 			}
 		],
 		"annotations": []
