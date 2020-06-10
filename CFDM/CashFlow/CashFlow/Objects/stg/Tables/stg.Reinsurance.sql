@@ -8,7 +8,6 @@
 	[sectionReferenceNumber] [varchar](64) NULL,
 	[retentionInd] [varchar](64) NULL,
 	[entrydate] [date] NULL,
-	[Valauation_Dt] [date] NULL,
 	[CashFlowBatchID] [int] NULL,
 	[creditProvisionPercent] [decimal](14, 2) NULL,
 	[reinsurerName] [varchar](64) NULL,
@@ -18,6 +17,7 @@
 	[projectedCededTotalPaidLossExInLimits] [decimal](14, 2) NULL,
 	[projectedCededTotalPaidDefExpense] [decimal](14, 2) NULL,
 	[projectedCededPaidCoverageDJExpense] [decimal](14, 2) NULL,
+	CededFactsHashKey                        AS                CONVERT(VARCHAR(32), HashBytes('MD5', CONCAT(claimNumber, ' ', exposure_No, ' ', CAST(sapiensReinsurerID AS VARCHAR), ' ', CAST(sapiensBrokerID AS VARCHAR), ' ', CAST(sapiensPoolID AS VARCHAR), ' ', sectionReferenceNumber, ' ', retentionInd, ' ', CAST(entryDate AS VARCHAR), ' ', creditProvisionPercent, ' ', reinsurerName, ' ', pool_Name, ' ', brokerName, ' ', relatedClaimNumber, ' ', CAST(projectedCededTotalPaidLossExInLimits AS VARCHAR), ' ', CAST(projectedCededTotalPaidDefExpense AS VARCHAR), ' ', CAST(projectedCededPaidCoverageDJExpense AS VARCHAR))),2) PERSISTED,
     Insert_Date                              datetime          DEFAULT (getdate()) NOT NULL,
     CONSTRAINT PK_stg_reinsurance PRIMARY KEY CLUSTERED (reinsurance_ID)
 )
