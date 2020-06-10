@@ -28,6 +28,7 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
+						"message": "@{activity('Aziz_Is_Testing').error.message}",
 						"dataFactoryName": "@{pipeline().DataFactory}",
 						"pipelineName": "@{pipeline().Pipeline}"
 					}
