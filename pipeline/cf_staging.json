@@ -5,7 +5,14 @@
 			{
 				"name": "stg_workmatter",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Truncate_Staging_tbl",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -1283,6 +1290,33 @@
 						"dataFactoryName": "@{pipeline().DataFactory}",
 						"pipelineName": "@{pipeline().Pipeline}"
 					}
+				}
+			},
+			{
+				"name": "Truncate_Staging_tbl",
+				"description": "This task will truncate the stg tables, without altering the Cashflow, reinsurance and date tables",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dm].[usp_DimTruncateTable]",
+					"storedProcedureParameters": {
+						"schemaName": {
+							"value": "stg",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "CashflowDMDev",
+					"type": "LinkedServiceReference"
 				}
 			}
 		],
