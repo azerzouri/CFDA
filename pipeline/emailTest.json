@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "OnError_SendMail",
+				"name": "Start_SendMail",
 				"type": "WebActivity",
 				"dependsOn": [
 					{
@@ -27,17 +27,20 @@
 					"headers": {
 						"Content-Type": "application/json"
 					},
-					"body": {
-						"message": "@{activity('Aziz_Is_Testing').error.message}",
-						"dataFactoryName": "@{pipeline().DataFactory}",
-						"pipelineName": "@{pipeline().Pipeline}"
-					}
+					"body": "{\n   \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n   \"PipelineName\": \"@{pipeline().Pipeline}\",\n   \"Subject\": \"The CFDM_END_TO_END pipeline started!\",\n   \"Message\": \"The CFDM_END_TO_END pipeline started!\",\n   \n}"
 				}
 			},
 			{
 				"name": "Aziz_Is_Testing",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "OnError_SendMail_copy1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -69,6 +72,31 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "OnError_SendMail_copy1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"message": "@{activity('Aziz_Is_Testing').error.message}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}"
+					}
+				}
 			}
 		],
 		"annotations": []
