@@ -91,11 +91,7 @@
 					"headers": {
 						"Content-Type": "application/json"
 					},
-					"body": {
-						"message": "@{activity('Aziz_Is_Testing').error.message}",
-						"dataFactoryName": "@{pipeline().DataFactory}",
-						"pipelineName": "@{pipeline().Pipeline}"
-					}
+					"body": "{\n   \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n   \"PipelineName\": \"@{pipeline().Pipeline}\",\n   \"Subject\": \"The CFDM_END_TO_END pipeline started!\",\n   \"Message\": \"The CFDM_END_TO_END pipeline started!\",\n   \n}"
 				}
 			}
 		],
