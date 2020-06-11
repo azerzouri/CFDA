@@ -2,6 +2,41 @@
 	"name": "CFDM_End_to_End",
 	"properties": {
 		"description": "this is the one and only end to pipeline to load all of cashflow dims and facts",
+		"activities": [
+			{
+				"name": "Execute_cf_staging",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "cf_staging",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Execute_cfdm_load",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute_cf_staging",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "cfdm_load",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
 		"annotations": []
 	}
 }
