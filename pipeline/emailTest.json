@@ -35,7 +35,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "OnError_SendMail_copy1",
+						"activity": "OnStart_SendMail",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -74,7 +74,7 @@
 				]
 			},
 			{
-				"name": "OnError_SendMail_copy1",
+				"name": "OnStart_SendMail",
 				"type": "WebActivity",
 				"dependsOn": [],
 				"policy": {
