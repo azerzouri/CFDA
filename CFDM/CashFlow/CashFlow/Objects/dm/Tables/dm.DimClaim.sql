@@ -8,6 +8,7 @@ CREATE TABLE dm.DimClaim(
     actuarialSegment    varchar(64)    NULL,
     fairfaxSegment      varchar(64)    NULL,
     claimSegment        varchar(64)    NULL,
+	handlingSegment     varchar(64)    NULL,
     audit_Insert_Dt     datetime       DEFAULT GetDate() NULL,
     audit_Update_Dt     datetime       DEFAULT GetDate() NULL,
     ins_Proc_ID         int            NULL,

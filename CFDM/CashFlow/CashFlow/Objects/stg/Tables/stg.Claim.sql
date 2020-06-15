@@ -4,6 +4,7 @@
     actuarialSegment    varchar(64)    NULL,
     fairfaxSegment      varchar(64)    NULL,
     claimSegment        varchar(64)    NULL,
+	handlingSegment     varchar(64)    NULL,
     Insert_Date         datetime       DEFAULT (getdate()) NOT NULL,
     CONSTRAINT PK_claim PRIMARY KEY CLUSTERED (claim_ID)
 )
