@@ -550,7 +550,7 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"message": "@{activity('FactActuals').error.message}",
+						"message": "@{activity('Factcashflow').error.message}",
 						"dataFactoryName": "@{pipeline().DataFactory}",
 						"pipelineName": "@{pipeline().Pipeline}"
 					}
