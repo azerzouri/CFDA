@@ -17,7 +17,7 @@
     exposureOpenDate_SK                      int               NOT NULL,
     entryDate_SK                             int               NOT NULL,
     relatedClaimNumber                       varchar(50)       NULL,
-    cededProjectedTotalPaid                  AS                projectedCededTotalPaidDefExpense+projectedCededPaidCoverageDJExpense+projectedCededTotalPaidLossExInLimits PERSISTED,
+    cededProjectedTotalPaid                  AS                iSNULL(projectedCededTotalPaidDefExpense , 0)+iSNULL(projectedCededPaidCoverageDJExpense , 0)+iSNULL(projectedCededTotalPaidLossExInLimits , 0) PERSISTED,
     projectedCededPaidCoverageDJExpense      decimal(14, 2)    NULL,
     projectedCededTotalPaidDefExpense        decimal(14, 2)    NULL,
     projectedCededTotalPaidLossExInLimits    decimal(14, 2)    NULL,
