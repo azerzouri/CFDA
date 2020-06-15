@@ -1,45 +1,54 @@
 {
-	"name": "emailTest",
+	"name": "CFDM_End_to_End",
 	"properties": {
+		"description": "this is the one and only end to pipeline to load all of cashflow dims and facts",
 		"activities": [
 			{
-				"name": "Start_SendMail",
-				"type": "WebActivity",
-				"dependsOn": [
-					{
-						"activity": "Aziz_Is_Testing",
-						"dependencyConditions": [
-							"Failed"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
-					"method": "POST",
-					"headers": {
-						"Content-Type": "application/json"
-					},
-					"body": {
-						"message": "@{activity('Aziz_Is_Testing').error.message}",
-						"dataFactoryName": "@{pipeline().DataFactory}",
-						"pipelineName": "@{pipeline().Pipeline}"
-					}
-				}
-			},
-			{
-				"name": "Aziz_Is_Testing",
-				"type": "Copy",
+				"name": "Execute_cf_staging",
+				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
 						"activity": "OnStart_SendMail",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "cf_staging",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Execute_cfdm_load",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute_cf_staging",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "cfdm_load",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "OnCFDMLoad_Completion",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Execute_cfdm_load",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -54,28 +63,15 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"source": {
-						"type": "SqlServerSource",
-						"sqlReaderQuery": "select 1 from test",
-						"queryTimeout": "02:00:00"
-					},
-					"sink": {
-						"type": "SqlServerSink"
-					},
-					"enableStaging": false
-				},
-				"inputs": [
-					{
-						"referenceName": "BIASRC01",
-						"type": "DatasetReference"
+					"url": "https://prod-20.eastus2.logic.azure.com:443/workflows/d388a3be879a4a2c8e55e95a9d4fce26/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Gp6eGx2LNep2SU_asbY9QiirT2OF2Nl7LGYMVfhoefg",
+					"method": "POST",
+					"body": {
+						"Subject": "CFDM_End_To_End_Load Successfully Finished!",
+						"message": "@{activity('cfdm_load').error.message}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}"
 					}
-				],
-				"outputs": [
-					{
-						"referenceName": "BIDEVDM01",
-						"type": "DatasetReference"
-					}
-				]
+				}
 			},
 			{
 				"name": "OnStart_SendMail",
