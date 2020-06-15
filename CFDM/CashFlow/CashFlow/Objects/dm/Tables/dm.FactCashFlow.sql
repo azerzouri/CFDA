@@ -22,7 +22,7 @@ CREATE TABLE dm.FactCashFlow(
     projectionDate_SK                 int               NOT NULL,
     projectedPaidCoverageDJExpense    decimal(14, 2)    NULL,
     projectedPaidLossExInLimits       decimal(14, 2)    NULL,
-    projectedTotalPaid                AS                projectedPaidLossExInLimits + projectedTotalPaidDefExpense + projectedPaidCoverageDJExpense PERSISTED,
+    projectedTotalPaid                AS                ISNULL(projectedPaidLossExInLimits, 0) + ISNULL(projectedTotalPaidDefExpense, 0) + ISNULL(projectedPaidCoverageDJExpense, 0) PERSISTED,
     projectedTotalPaidDefExpense      decimal(14, 2)    NULL,
     audit_Insert_Dt                   datetime          DEFAULT (getdate()) NULL,
     audit_Update_Dt                   datetime          DEFAULT (getdate()) NULL,
