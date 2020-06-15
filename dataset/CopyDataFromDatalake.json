@@ -1,10 +1,6 @@
 {
 	"name": "CopyDataFromDatalake",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "Data Lake Storage",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
