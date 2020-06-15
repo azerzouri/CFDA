@@ -273,7 +273,7 @@
 				}
 			},
 			{
-				"name": "Drop FKs",
+				"name": "Truncate_dm",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [],
 				"policy": {
@@ -285,10 +285,10 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": "[wrk].[ups_Drop_Create_ForeignKeys]",
+					"storedProcedureName": " [dm].[usp_DimTruncateTable]",
 					"storedProcedureParameters": {
 						"execStep": {
-							"value": "DROP",
+							"value": "dm",
 							"type": "String"
 						}
 					}
@@ -303,7 +303,7 @@
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
-						"activity": "Drop FKs",
+						"activity": "Truncate_dm",
 						"dependencyConditions": [
 							"Succeeded"
 						]
