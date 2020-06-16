@@ -246,7 +246,7 @@
 				}
 			},
 			{
-				"name": "factcededcashflow1",
+				"name": "factcededcashflow",
 				"type": "SqlServerStoredProcedure",
 				"dependsOn": [
 					{
@@ -624,7 +624,7 @@
 				"type": "WebActivity",
 				"dependsOn": [
 					{
-						"activity": "factcededcashflow1",
+						"activity": "factcededcashflow",
 						"dependencyConditions": [
 							"Failed"
 						]
