@@ -14,7 +14,7 @@
 			}
 		},
 		"connectVia": {
-			"referenceName": "selfhostedruntime",
+			"referenceName": "SelfhostedruntimeCF",
 			"type": "IntegrationRuntimeReference"
 		}
 	}
