@@ -620,7 +620,7 @@
 				}
 			},
 			{
-				"name": "on_DM_Factcashflow_Error",
+				"name": "on_DM_FactCF_Error",
 				"type": "WebActivity",
 				"dependsOn": [
 					{
@@ -645,7 +645,7 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"message": "@{activity('Factcashflow').error.message}",
+						"message": "@{activity('FactCF').error.message}",
 						"dataFactoryName": "@{pipeline().DataFactory}",
 						"pipelineName": "@{pipeline().Pipeline}"
 					}
