@@ -1,12 +1,6 @@
 {
 	"name": "BIASRC01",
 	"properties": {
-		"parameters": {
-			"secret_name": {
-				"type": "string",
-				"defaultValue": "BIASRC01prodrs"
-			}
-		},
 		"annotations": [],
 		"type": "SqlServer",
 		"typeProperties": {
@@ -16,10 +10,7 @@
 					"referenceName": "AsbestosKeyVault",
 					"type": "LinkedServiceReference"
 				},
-				"secretName": {
-					"value": "@linkedService().secret_name",
-					"type": "Expression"
-				}
+				"secretName": "BIASRC01prodrs"
 			}
 		},
 		"connectVia": {
