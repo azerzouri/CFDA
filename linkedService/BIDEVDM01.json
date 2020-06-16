@@ -6,10 +6,10 @@
 		"type": "SqlServer",
 		"typeProperties": {
 			"connectionString": "integrated security=False;data source=BIDEVDM01;initial catalog=CashFlowPOC;user id=cftest",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIwZjM2YjU3Mi1lZjQzLTQ1ZDUtYTYxOS1jMGEwZTc2M2JhZTYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJhNGQ0ZjgwZS1lMWYyLTQwODYtOWY4Ny1kNzVkMDBkMzE1YmEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
-			"referenceName": "selfhostedruntime",
+			"referenceName": "SelfhostedruntimeCF",
 			"type": "IntegrationRuntimeReference"
 		}
 	}
