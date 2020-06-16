@@ -645,7 +645,7 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"message": "@{activity('dimworkmatter').error.message}",
+						"message": "@{activity('factcf').error.message}",
 						"dataFactoryName": "@{pipeline().DataFactory}",
 						"pipelineName": "@{pipeline().Pipeline}"
 					}
