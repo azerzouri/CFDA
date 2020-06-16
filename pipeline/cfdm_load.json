@@ -285,9 +285,9 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"storedProcedureName": " [dm].[usp_DimTruncateTable]",
+					"storedProcedureName": "[dm].[usp_DimTruncateTable]",
 					"storedProcedureParameters": {
-						"execStep": {
+						"schemaName": {
 							"value": "dm",
 							"type": "String"
 						}
