@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dm].[usp_FactCededCashflow] AS
+﻿CREATE  PROCEDURE [dm].[usp_FactCededCashflow] AS
 /*
  Procedure Name:  [dm].[usp_FactCededCashflow]
  Purpose: Prepare data FROM Stage  to DM fact
@@ -77,6 +77,7 @@ Policynumber AS (
 		[stg].[Reinsurance] R
 		LEFT JOIN [stg].FactActuals fa ON R.claimNumber = fa.claimNumber
 		AND R.exposure_No = fa.exposure_No
+		WHERE R.CashFlowBatchID IS NOT NULL
 ),
 WorkmatterNumber AS (
 	SELECT
@@ -87,6 +88,8 @@ WorkmatterNumber AS (
 		stg.Reinsurance R
 		left join stg.FactActuals F ON F.claimNumber = R.claimNumber
 		AND F.exposure_No = R.exposure_No
+		WHERE R.CashFlowBatchID IS NOT NULL
+
 )
 INSERT INTO
 	[dm].[FactCededCashFlow](
@@ -118,68 +121,74 @@ INSERT INTO
 		[is_Active]
 	)
 SELECT
-		ISNULL(P.policy_SK, 0) AS Policy_SK,
-		ISNULL(Dt1.Date_SK, 0) AS PolicyEffectiveDate_SK,
-		ISNULL(Dt2.Date_SK, 0) AS PolicyExpirationDate_SK,
-		ISNULL(DR.reinsurane_SK, 0) AS Reinsurance_SK,
-		ISNULL(DA.adjuster_SK, 0) AS Adjuster_SK,
-		ISNULL(C.claim_SK, 0) AS claim_SK,
-		ISNULL(e.exposure_SK, 0) AS Exposure_SK,
-		ISNULL(w.workMatter_SK, 0) AS Workmatter_SK,
-		ISNULL(Dt6.Date_SK, 0) AS WorkmatterOpenDate_SK,
-		ISNULL(Dt7.Date_SK, 0) AS WorkmatterClosedDate_SK,
-		ISNULL(Dt8.Date_SK, 0) AS WorkmatterReopenDate_SK,
-		ISNULL(Dt5.Date_SK, 0) AS ExposureReopenDate_SK,
-		ISNULL(Dt3.Date_SK, 0) AS ExposureClosedDate_SK,
-		ISNULL(Dt4.Date_SK, 0) AS ExposureOpenDate_SK,
-		ISNULL(Dt9.Date_SK, 0) AS EntryDate_SK,
-		R.relatedClaimNumber,
-		R.[projectedCededPaidCoverageDJExpense],
-		R.[projectedCededTotalPaidDefExpense],
-		R.[projectedCededTotalPaidLossExInLimits],
-		R.creditProvisionPercent,
-		@InsertDate AS [Audit_insert_dt],
-		NULL AS [Audit_update_dt],
-		@Ins_proc_id AS [Ins_proc_id],
-		NULL AS [Upd_proc_id],
-		0 AS [Is_deleted],
-		1 AS [Is_active]
+	ISNULL(P.policy_SK, 0) AS Policy_SK,
+	ISNULL(Dt1.Date_SK, 0) AS PolicyEffectiveDate_SK,
+	ISNULL(Dt2.Date_SK, 0) AS PolicyExpirationDate_SK,
+	ISNULL(DR.reinsurane_SK, 0) AS Reinsurance_SK,
+	ISNULL(DA.adjuster_SK, 0) AS Adjuster_SK,
+	ISNULL(C.claim_SK, 0) AS claim_SK,
+	ISNULL(e.exposure_SK, 0) AS Exposure_SK,
+	ISNULL(w.workMatter_SK, 0) AS Workmatter_SK,
+	ISNULL(Dt6.Date_SK, 0) AS WorkmatterOpenDate_SK,
+	ISNULL(Dt7.Date_SK, 0) AS WorkmatterClosedDate_SK,
+	ISNULL(Dt8.Date_SK, 0) AS WorkmatterReopenDate_SK,
+	ISNULL(Dt5.Date_SK, 0) AS ExposureReopenDate_SK,
+	ISNULL(Dt3.Date_SK, 0) AS ExposureClosedDate_SK,
+	ISNULL(Dt4.Date_SK, 0) AS ExposureOpenDate_SK,
+	ISNULL(Dt9.Date_SK, 0) AS EntryDate_SK,
+	R.relatedClaimNumber,
+	R.[projectedCededPaidCoverageDJExpense],
+	R.[projectedCededTotalPaidDefExpense],
+	R.[projectedCededTotalPaidLossExInLimits],
+	R.creditProvisionPercent,
+	@InsertDate AS [Audit_insert_dt],
+	NULL AS [Audit_update_dt],
+	@Ins_proc_id AS [Ins_proc_id],
+	NULL AS [Upd_proc_id],
+	0 AS [Is_deleted],
+	1 AS [Is_active]
 FROM
-		[stg].[Reinsurance] R
-		LEFT JOIN dm.DimClaim C ON R.claimNumber = C.claimNo
-		LEFT JOIN dm.DimExposure e ON R.claimNumber = e.claimNumber
-		AND RIGHT(e.claimExposureNo, 4) = R.exposure_No
-		LEFT JOIN stg.Exposure SE ON SE.claimNumber = R.claimNumber
-		AND SE.exposure_No = R.exposure_No
-		LEFT JOIN WorkmatterNumber WN ON WN.claimNumber = R.claimNumber
-		and wN.exposure_No = R.exposure_No
-		LEFT JOIN dm.DimWorkmatter W ON w.workmatternumber = WN.workmatternumber
-		LEFT JOIN Stg.Workmatter SW ON WN.workmatternumber = SW.workmatternumber
-		LEFT JOIN Policynumber PA ON R.claimNumber = pa.claimNumber
-		AND R.exposure_No = PA.exposure_No
-		LEFT JOIN Dm.DimPolicy p ON pa.policy_No = p.policyNumber
-		AND pa.portfolio_Cd = p.portfolioCode
-		AND pa.[NAIC_Cd] = p.NAICCode
-		AND pa.[Business_Type_Cd] = p.businessTypeCode
-		LEFT JOIN dm.dimReinsurance DR ON COALESCE(DR.[reinsurerName], '') = COALESCE(R.reinsurerName, '')
-		AND COALESCE(DR.sapiensReinsurerID, -9999) = COALESCE(R.sapiensReinsurerID, -9999)
-		AND COALESCE(DR.brokerName, '') = COALESCE(R.brokerName, '')
-		AND COALESCE(DR.sapiensBrokerID, -9999) = COALESCE(R.sapiensBrokerID, -9999)
-		AND COALESCE(DR.sapiensPoolID, -9999) = COALESCE(R.sapiensPoolID, -9999)
-		LEFT JOIN WMAdjuster A ON A.workmatternumber = WN.workmatternumber
-		LEFT JOIN dm.DimAdjuster DA ON A.adjustedName = DA.adjusterName
-		LEFT JOIN [dm].[DimDate] Dt1 ON pa.policyEffectiveDate = Dt1.datefull
-		LEFT JOIN [dm].[DimDate] Dt2 ON pa.Policy_Expiration_Dt = Dt2.datefull
-		LEFT JOIN [dm].[DimDate] Dt3 ON SE.exposureCloseDate = Dt3.datefull
-		LEFT JOIN [dm].[DimDate] Dt4 ON SE.exposureOpenDate = Dt4.datefull
-		LEFT JOIN [dm].[DimDate] Dt5 ON SE.exposureReOpenDate = Dt5.datefull
-		LEFT JOIN [dm].[DimDate] Dt6 ON SW.workmatterOpenDate = Dt6.datefull
-		LEFT JOIN [dm].[DimDate] Dt7 ON SW.workmattercloseddate = Dt7.datefull
-		LEFT JOIN [dm].[DimDate] Dt8 ON SW.workmatterreopendate = Dt8.datefull
-		LEFT JOIN [dm].[DimDate] Dt9 ON R.entrydate = Dt9.datefull
-END TRY 
-BEGIN CATCH 
-DECLARE @ErrorMessage NVARCHAR(2000) = ERROR_MESSAGE();
+	[stg].[Reinsurance] R
+	LEFT JOIN dm.DimClaim C ON R.claimNumber = C.claimNo
+	LEFT JOIN dm.DimExposure e ON R.claimNumber = SUBSTRING(
+		e.claimExposureNo,
+		0,
+		CHARINDEX('-', e.claimExposureNo)
+	)
+	AND RIGHT(e.claimExposureNo, 4) = R.exposure_No
+	LEFT JOIN stg.Exposure SE ON SE.claimNumber = R.claimNumber
+	AND SE.exposure_No = R.exposure_No
+	LEFT JOIN WorkmatterNumber WN ON WN.claimNumber = R.claimNumber
+	and wN.exposure_No = R.exposure_No
+	LEFT JOIN dm.DimWorkmatter W ON w.workmatternumber = WN.workmatternumber
+	LEFT JOIN Stg.Workmatter SW ON WN.workmatternumber = SW.workmatternumber
+	LEFT JOIN Policynumber PA ON R.claimNumber = pa.claimNumber
+	AND R.exposure_No = PA.exposure_No
+	LEFT JOIN Dm.DimPolicy p ON pa.policy_No = p.policyNumber
+	AND pa.portfolio_Cd = p.portfolioCode
+	AND pa.[NAIC_Cd] = p.NAICCode
+	AND pa.[Business_Type_Cd] = p.businessTypeCode
+	LEFT JOIN dm.dimReinsurance DR ON COALESCE(DR.[reinsurerName], '') = COALESCE(R.reinsurerName, '')
+	AND COALESCE(DR.sapiensReinsurerID, -9999) = COALESCE(R.sapiensReinsurerID, -9999)
+	AND COALESCE(DR.brokerName, '') = COALESCE(R.brokerName, '')
+	AND COALESCE(DR.sapiensBrokerID, -9999) = COALESCE(R.sapiensBrokerID, -9999)
+	AND COALESCE(DR.sapiensPoolID, -9999) = COALESCE(R.sapiensPoolID, -9999)
+	LEFT JOIN WMAdjuster A ON A.workmatternumber = WN.workmatternumber
+	LEFT JOIN dm.DimAdjuster DA ON A.adjustedName = DA.adjusterName
+	LEFT JOIN [dm].[DimDate] Dt1 ON pa.policyEffectiveDate = Dt1.datefull
+	LEFT JOIN [dm].[DimDate] Dt2 ON pa.Policy_Expiration_Dt = Dt2.datefull
+	LEFT JOIN [dm].[DimDate] Dt3 ON SE.exposureCloseDate = Dt3.datefull
+	LEFT JOIN [dm].[DimDate] Dt4 ON SE.exposureOpenDate = Dt4.datefull
+	LEFT JOIN [dm].[DimDate] Dt5 ON SE.exposureReOpenDate = Dt5.datefull
+	LEFT JOIN [dm].[DimDate] Dt6 ON SW.workmatterOpenDate = Dt6.datefull
+	LEFT JOIN [dm].[DimDate] Dt7 ON SW.workmattercloseddate = Dt7.datefull
+	LEFT JOIN [dm].[DimDate] Dt8 ON SW.workmatterreopendate = Dt8.datefull
+	LEFT JOIN [dm].[DimDate] Dt9 ON R.entrydate = Dt9.datefull
+
+		WHERE R.CashFlowBatchID IS NOT NULL
+
+END TRY BEGIN CATCH DECLARE @ErrorMessage NVARCHAR(2000) = ERROR_MESSAGE();
+
 --Raise error
 RAISERROR(@ErrorMessage, 16, 1);
 
