@@ -11,7 +11,7 @@ CREATE TABLE stg.Notification(
 	[RWCLoss] [decimal](14, 2) NULL,
 	[RWCDefExp] [decimal](14, 2) NULL,
 	[RWCCovDJ] [decimal](14, 2) NULL,
-	[Insert_Date] [datetime] NOT NULL,
+	[Insert_Date] [datetime]         DEFAULT (getdate()) NULL,
     CONSTRAINT PK_Notification PRIMARY KEY CLUSTERED (notification_ID)
 )
 go
