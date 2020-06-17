@@ -658,7 +658,7 @@
 					{
 						"activity": "factcededcashflow",
 						"dependencyConditions": [
-							"Succeeded"
+							"Completed"
 						]
 					}
 				],
@@ -676,7 +676,10 @@
 					"headers": {
 						"Content-Type": "application/json"
 					},
-					"body": "{\n   \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n   \"PipelineName\": \"@{pipeline().Pipeline}\",\n   \"Subject\": \"The CFDM_END_TO_END pipeline Completed Successfuly!\",\n   \"Message\": \"The CFDM_END_TO_END pipeline Successfully!\",\n   \n}"
+					"body": {
+						"value": "{\n   \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n   \"PipelineName\": \"@{pipeline().Pipeline}\",\n   \"Subject\": \"The CFDM_END_TO_END pipeline Completed Successfuly!\",\n   \"Message\": \"The CFDM_END_TO_END pipeline Successfully!\",\n   \n}",
+						"type": "Expression"
+					}
 				}
 			}
 		],
