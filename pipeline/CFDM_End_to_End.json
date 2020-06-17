@@ -44,36 +44,6 @@
 				}
 			},
 			{
-				"name": "OnCFDMLoad_Completion",
-				"type": "WebActivity",
-				"dependsOn": [
-					{
-						"activity": "Execute_cfdm_load",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "7.00:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"url": "https://prod-20.eastus2.logic.azure.com:443/workflows/d388a3be879a4a2c8e55e95a9d4fce26/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Gp6eGx2LNep2SU_asbY9QiirT2OF2Nl7LGYMVfhoefg",
-					"method": "POST",
-					"body": {
-						"Subject": "CFDM_End_To_End_Load Successfully Finished!",
-						"message": "@{activity('cfdm_load').error.message}",
-						"dataFactoryName": "@{pipeline().DataFactory}",
-						"pipelineName": "@{pipeline().Pipeline}"
-					}
-				}
-			},
-			{
 				"name": "OnStart_SendMail",
 				"type": "WebActivity",
 				"dependsOn": [],
@@ -91,7 +61,10 @@
 					"headers": {
 						"Content-Type": "application/json"
 					},
-					"body": "{\n   \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n   \"PipelineName\": \"@{pipeline().Pipeline}\",\n   \"Subject\": \"The CFDM_END_TO_END pipeline started!\",\n   \"Message\": \"The CFDM_END_TO_END pipeline started!\",\n   \n}"
+					"body": {
+						"value": "{\n   \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n   \"PipelineName\": \"@{pipeline().Pipeline}\",\n   \"Subject\": \"The CFDM_END_TO_END pipeline started!\",\n   \"Message\": \"The CFDM_END_TO_END pipeline started!\",\n   \n}",
+						"type": "Expression"
+					}
 				}
 			}
 		],
