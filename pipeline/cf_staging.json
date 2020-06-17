@@ -40,7 +40,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "workmatternumber",
+									"name": "workMatterNumber",
 									"type": "String"
 								}
 							},
@@ -50,7 +50,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "workmatterDescription",
+									"name": "workMatterDescription",
 									"type": "String"
 								}
 							},
@@ -60,7 +60,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "workmatterTypeDescription",
+									"name": "workMatterTypeDescription",
 									"type": "String"
 								}
 							},
@@ -70,7 +70,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "workmatterStatus",
+									"name": "workMatterStatus",
 									"type": "String"
 								}
 							},
@@ -80,7 +80,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "specialtrackinggroup",
+									"name": "specialTrackingGroup",
 									"type": "String"
 								}
 							},
@@ -100,7 +100,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "workmatterOpenDate",
+									"name": "workMatterOpenDate",
 									"type": "DateTime"
 								}
 							},
@@ -110,7 +110,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "workmatterreopendate",
+									"name": "workMatterReOpenDate",
 									"type": "DateTime"
 								}
 							},
@@ -120,7 +120,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "workmattercloseddate",
+									"name": "workMatterClosedDate",
 									"type": "DateTime"
 								}
 							}
