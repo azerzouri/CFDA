@@ -36,7 +36,8 @@ elseif ($Env -eq "PROD"){
 $resourceGroupName="rg_PROD"
 $dataFactoryName = "e2proddfcf"
 #ADF Pipeline to run the end to end data load from Miosoft output to Asbestos DM
-$pipelineName= "stgclaim" #EntAsbestos_Datamart_End_to_End
+$pipelineName= "CFDM_End_to_End" #EntAsbestos_Datamart_End_to_End
+#$pipelineName= "emailTest"
 $outputFile = "D:\Powershell\Output\Output.txt"
 # Connect to Azure using Active Directory Service Principal Authentication 
 $passwd = Get-Content "D:\Powershell\Creds\AzureDevOpsPROD.properties" | ConvertTo-SecureString -AsPlainText -Force
