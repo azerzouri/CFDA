@@ -10,7 +10,7 @@
 					"referenceName": "AsbestosKeyVault",
 					"type": "LinkedServiceReference"
 				},
-				"secretName": "BIASRC01prodrs"
+				"secretName": "BIASRC01-ProdRSODS-ADF"
 			}
 		},
 		"connectVia": {
