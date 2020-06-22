@@ -1,5 +1,5 @@
 {
-	"name": "pipeline2",
+	"name": "Truncate_STG_DM",
 	"properties": {
 		"activities": [
 			{
