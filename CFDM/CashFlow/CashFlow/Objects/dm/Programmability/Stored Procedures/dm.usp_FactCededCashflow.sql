@@ -124,7 +124,7 @@ SELECT
 	ISNULL(P.policy_SK, 0) AS Policy_SK,
 	ISNULL(Dt1.Date_SK, 0) AS PolicyEffectiveDate_SK,
 	ISNULL(Dt2.Date_SK, 0) AS PolicyExpirationDate_SK,
-	ISNULL(DR.reinsurane_SK, 0) AS Reinsurance_SK,
+	ISNULL(DR.reinsurance_SK, 0) AS Reinsurance_SK,
 	ISNULL(DA.adjuster_SK, 0) AS Adjuster_SK,
 	ISNULL(C.claim_SK, 0) AS claim_SK,
 	ISNULL(e.exposure_SK, 0) AS Exposure_SK,
