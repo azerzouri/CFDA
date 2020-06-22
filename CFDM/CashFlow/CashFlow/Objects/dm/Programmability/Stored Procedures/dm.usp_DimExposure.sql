@@ -26,7 +26,6 @@ INSERT INTO
         [exposure_SK],
         [claimExposureNo],
         [insuredName],
-        [insuredLocation],
         [exposureStatus],
         [audit_Insert_Dt],
         [audit_Update_Dt],
@@ -38,7 +37,6 @@ INSERT INTO
 VALUES
     (
         0,
-        'NA',
         'NA',
         'NA',
         'NA',
@@ -55,7 +53,6 @@ INSERT INTO
     [dm].[DimExposure] (
         [claimExposureNo],
         [insuredName],
-        [insuredLocation],
         [exposureStatus],
         [audit_Insert_Dt],
         [audit_Update_Dt],
@@ -68,7 +65,6 @@ SELECT
         DISTINCT 
         claim_Exposure_No,
         insuredName,
-        NULL as insuredLocation,
         exposureStatus,
         @InsertDate,
         NULL,
