@@ -164,7 +164,7 @@ go
 
 ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimReinsurance101 
     FOREIGN KEY (reinsurance_SK)
-    REFERENCES dm.DimReinsurance(reinsurane_SK)
+    REFERENCES dm.DimReinsurance(reinsurance_SK)
 go
 
 ALTER TABLE dm.FactCededCashFlow ADD CONSTRAINT RefDimAdjuster102 
