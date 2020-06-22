@@ -8,6 +8,7 @@
 	[sectionReferenceNumber] [varchar](64) NULL,
 	[retentionInd] [varchar](64) NULL,
 	[entrydate] [date] NULL,
+	[valuationDate]  [date] NULL,
 	[CashFlowBatchID] [int] NULL,
 	[creditProvisionPercent] [decimal](14, 2) NULL,
 	[reinsurerName] [varchar](64) NULL,
