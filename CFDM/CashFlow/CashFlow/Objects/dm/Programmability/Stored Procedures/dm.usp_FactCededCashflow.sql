@@ -150,11 +150,7 @@ SELECT
 FROM
 	[stg].[Reinsurance] R
 	LEFT JOIN dm.DimClaim C ON R.claimNumber = C.claimNo
-	LEFT JOIN dm.DimExposure e ON R.claimNumber = SUBSTRING(
-		e.claimExposureNo,
-		0,
-		CHARINDEX('-', e.claimExposureNo)
-	)
+	LEFT JOIN dm.DimExposure e ON R.claimNumber = e.claimNumber
 	AND RIGHT(e.claimExposureNo, 4) = R.exposure_No
 	LEFT JOIN stg.Exposure SE ON SE.claimNumber = R.claimNumber
 	AND SE.exposure_No = R.exposure_No
