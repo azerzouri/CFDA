@@ -7,7 +7,7 @@
  DatabASe: CAShFlow_DM (DEV, QA AND PRD)
  Date: 06/01/2020
  Author: Ragulan Vithurpan
- Change Log:
+ Change Log: Updated the join to use existing persistant column
  Date		By		ReASon			
  Validated
  ************************************************************************************************************
