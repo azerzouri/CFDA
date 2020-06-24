@@ -244,7 +244,6 @@
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_CF_Ceded_workMatterReopenDate_SK.sql" />
     <Build Include="Objects\dm\Tables\Indexes\dm.ndx_DerivedClaimNumber_DimExposure.sql" />
     <Build Include="Objects\stg\Tables\Indexes\stg.ndx_DerivedClaimNumber_FactCashflow.sql" />
-    <Build Include="Objects\stg\Tables\Indexes\stg.ndx_stg_CashFlow_HashKey.sql" />
     <Build Include="Objects\stg\Tables\Indexes\stg.ndx_stg_CededFactsHashKey.sql" />
     <Build Include="Objects\stg\Tables\stg.claimSegmentation.sql" />
   </ItemGroup>

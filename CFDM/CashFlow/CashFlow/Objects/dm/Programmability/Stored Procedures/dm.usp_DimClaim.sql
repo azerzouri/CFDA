@@ -62,13 +62,7 @@ with claimCTE AS(
         [stg].[FactActuals]
     UNION
     SELECT
-        DISTINCT (
-            SUBSTRING (
-                claim_Exposure_No,
-                0,
-                CHARINDEX('-', claim_Exposure_No)
-            )
-        ) claimno
+        DISTINCT [claimNumber] as claimno
     FROM
         [stg].[FactCashflow]
 )
