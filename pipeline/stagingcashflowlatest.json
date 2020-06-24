@@ -29,21 +29,21 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "WorkMatter",
-									"type": "String"
-								},
-								"sink": {
-									"name": "workMatterNumber",
-									"type": "String"
-								}
-							},
-							{
-								"source": {
 									"name": "Exposure",
 									"type": "String"
 								},
 								"sink": {
 									"name": "claimExposureNo",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "WorkMatter",
+									"type": "String"
+								},
+								"sink": {
+									"name": "workMatterNumber",
 									"type": "String"
 								}
 							},
@@ -63,7 +63,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "cashflowProjectionsfFor",
+									"name": "cashFlowProjectionsfFor",
 									"type": "DateTime"
 								}
 							},
