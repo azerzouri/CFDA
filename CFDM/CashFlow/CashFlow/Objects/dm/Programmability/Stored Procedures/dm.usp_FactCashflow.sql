@@ -139,7 +139,7 @@ from
     left join stg.Exposure SE on SE.claim_Exposure_No = F.claimExposureNo
     left join dm.DimWorkmatter w on F.workmatternumber = w.workmatternumber
     left join stg.Workmatter SW on SW.workmatternumber = F.workmatternumber
-    left join Policynumber PA on F.claimExposureNo = pa.claim_Exposure_No
+    left join Policynumber PA on F.claimExposureNo = pa.claimExposureNo
     left join Dm.DimPolicy p on pa.policy_No = p.policyNumber
     and pa.portfolio_Cd = p.portfolioCode
     and pa.[NAIC_Cd] = p.NAICCode
