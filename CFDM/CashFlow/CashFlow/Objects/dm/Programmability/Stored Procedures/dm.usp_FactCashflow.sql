@@ -67,7 +67,7 @@ WMAdjuster as (
 ),
 Policynumber as (
     select
-        distinct f.claim_Exposure_No,
+        distinct f.claimExposureNo,
         fa.policy_No,
         fa.portfolio_Cd,
         fa.Business_Type_Cd,
@@ -76,7 +76,7 @@ Policynumber as (
         fa.Policy_Expiration_Dt
     from
         [stg].[FactCashflow] f
-        left join [stg].FactActuals fa on f.claim_Exposure_No = fa.claim_Exposure_No
+        left join [stg].FactActuals fa on f.claimExposureNo = fa.claim_Exposure_No
 )
 INSERT INTO
     [dm].[FactCashFlow](
@@ -134,16 +134,12 @@ select
     1 AS [Is_active]
 from
     stg.FactCashflow F
-    left join dm.DimClaim C on SUBSTRING (
-        F.claim_Exposure_No,
-        0,
-        CHARINDEX('-', F.claim_Exposure_No)
-    ) = c.claimNo
-    left join dm.DimExposure e on f.claim_Exposure_No = e.claimExposureNo
-    left join stg.Exposure SE on SE.claim_Exposure_No = F.claim_Exposure_No
+    left join dm.DimClaim C ON F.[claimNumber] = c.claimNo
+    left join dm.DimExposure e on F.claimExposureNo = e.claimExposureNo
+    left join stg.Exposure SE on SE.claim_Exposure_No = F.claimExposureNo
     left join dm.DimWorkmatter w on F.workmatternumber = w.workmatternumber
     left join stg.Workmatter SW on SW.workmatternumber = F.workmatternumber
-    left join Policynumber PA on f.claim_Exposure_No = pa.claim_Exposure_No
+    left join Policynumber PA on F.claimExposureNo = pa.claim_Exposure_No
     left join Dm.DimPolicy p on pa.policy_No = p.policyNumber
     and pa.portfolio_Cd = p.portfolioCode
     and pa.[NAIC_Cd] = p.NAICCode
@@ -160,7 +156,7 @@ from
     LEFT JOIN [dm].[DimDate] Dt7 ON SW.workmattercloseddate = Dt7.datefull
     LEFT JOIN [dm].[DimDate] Dt8 ON SW.workmatterreopendate = Dt8.datefull
     LEFT JOIN [dm].[DimDate] Dt9 ON F.cashflowentryperiod = Dt9.datefull
-    LEFT JOIN [dm].[DimDate] Dt10 ON F.cashflowProjectionsfor = Dt10.datefull
+    LEFT JOIN [dm].[DimDate] Dt10 ON F.[cashFlowProjectionsfFor] = Dt10.datefull
 END TRY BEGIN CATCH DECLARE @ErrorMessage NVARCHAR(2000) = ERROR_MESSAGE();
 
 --Raise error

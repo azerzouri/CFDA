@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "DECLARE @currenQ DATE,\n@mEnddate DATE\nSELECT\n    @currenQ = CAST(\n        DateAdd(\n            day,\n            -1,\n            dateadd(qq, DateDiff(qq, 0, GETDATE()), 0)\n        ) AS DATE\n    )\nSELECT\n    @mEnddate = CAST(MAX(EndTime) AS DATE)\nFROM\n    [Prod_CashFlow].[reporting].[CashFlowEntry]\nWHERE\n    EndTime IS NOT NULL;\n\nWITH CashFlowRaw AS (\n    SELECT\n        [WorkMatter],\n        [Exposure],\n        [ValueName],\n        [Amount],\n        [EndUser],\n        [EndTime],\n        @currenQ as Cashflowentryperiod,\n        EOMONTH(\n            CAST(\n                (\n                    RIGHT('00' + CONVERT(VARCHAR, (Quarter * 3)), 2) + '-' + RIGHT('00' + CONVERT(VARCHAR, 5), 2) + '-' + CONVERT(VARCHAR, [YEAR])\n                ) as Date\n            )\n        ) as CFProjectionsfor,\n        DateDIFF(\n            quarter,\n            @currenQ,\n            EOMONTH(\n                CAST(\n                    (\n                        RIGHT('00' + CONVERT(VARCHAR, (Quarter * 3)), 2) + '-' + RIGHT('00' + CONVERT(VARCHAR, 5), 2) + '-' + CONVERT(VARCHAR, [YEAR])\n                    ) as Date\n                )\n            )\n        ) as datediff\n    FROM\n        [Prod_CashFlow].[reporting].[CashFlowEntry]\n    where\n        (\n            CAST(EndTime AS DATE) IS NULL\n            or CAST(EndTime AS DATE) = @mEnddate\n        )\n        and Year != 0\n        and DateDIFF(\n            quarter,\n            @currenQ,\n            EOMONTH(\n                CAST(\n                    (\n                        RIGHT('00' + CONVERT(VARCHAR, (Quarter * 3)), 2) + '-' + RIGHT('00' + CONVERT(VARCHAR, 5), 2) + '-' + CONVERT(VARCHAR, [YEAR])\n                    ) as Date\n                )\n            )\n        ) in ('1', '2', '3', '4', '5', '6')\n    union\n    SELECT\n        [WorkMatter],\n        [Exposure],\n        [ValueName],\n        [Amount],\n        [EndUser],\n        [EndTime],\n        @currenQ as Cashflowentryperiod,\n        NULL as CFProjectionsfor,\n        '9999' as datediff\n    FROM\n        [Prod_CashFlow].[reporting].[CashFlowEntry]\n    where\n        (\n            CAST(EndTime AS DATE) IS NULL\n            or CAST(EndTime AS DATE) = @mEnddate\n        )\n        and Year = 0\n),\npivotdata as (\n    select\n        *\n    from\n        (\n            SELECT\n                [WorkMatter],\n                [Exposure],\n                Cashflowentryperiod,\n                CFProjectionsfor,\n                [ValueName],\n                [Amount],\n                [EndUser],\n                [EndTime]\n            FROM\n                CashFlowRaw\n        ) AS SourceTable PIVOT (\n            sum(Amount) FOR ValueName IN (Loss, DefExp, CovDJ)\n        ) AS PivotData\n)\nselect\n    distinct p.[WorkMatter],\n    [Exposure],\n    Cashflowentryperiod,\n    CFProjectionsfor,\n    Sum(Loss) AS Loss,\n    sum(DefExp) AS DefExp,\n    sum(CovDJ) AS CovDJ,\n    CONVERT(\n        VARCHAR(32),\n        HashBytes(\n            'MD5',\n            CONCAT(\n                [Exposure],\n                ' ',\n                p.[WorkMatter],\n                ' ',\n                CAST([cashFlowEntryPeriod] AS VARCHAR),\n                ' ',\n                CAST([CFProjectionsfor] AS VARCHAR),\n                ' ',\n                CAST(Sum(Loss) AS VARCHAR),\n                ' ',\n                CAST(sum(DefExp) AS VARCHAR),\n                ' ',\n                CAST(sum(CovDJ) AS VARCHAR)\n            )\n        ),\n        2\n    ) as CashFlowHashKey\nfrom\n    pivotdata P\n    join [Prod_CashFlow].[reporting].[WorkMatters] w on p.WorkMatter = w.WorkMatter\n    join [Prod_CashFlow].[reporting].[Exposures] e on p.WorkMatter = e.WorkMatter\n    and p.Exposure = e.ExpID --where p.WorkMatter='WM000122741'\ngroup by\n    p.[WorkMatter],\n    [Exposure],\n    Cashflowentryperiod,\n    CFProjectionsfor",
+						"sqlReaderQuery": "DECLARE @currenQ DATE,\n@mEnddate DATE\nSELECT\n    @currenQ = CAST(\n        DateAdd(\n            day,\n            -1,\n            dateadd(qq, DateDiff(qq, 0, GETDATE()), 0)\n        ) AS DATE\n    )\nSELECT\n    @mEnddate = CAST(MAX(EndTime) AS DATE)\nFROM\n    [Prod_CashFlow].[reporting].[CashFlowEntry]\nWHERE\n    EndTime IS NOT NULL;\n\n\n\nWITH CashFlowRaw AS (\n    SELECT\n        [WorkMatter],\n        [Exposure],\n        [ValueName],\n        [Amount],\n        [EndUser],\n        [EndTime],\n        @currenQ as Cashflowentryperiod,\n        EOMONTH(\n            CAST(\n                (\n                    RIGHT('00' + CONVERT(VARCHAR, (Quarter * 3)), 2) + '-' + RIGHT('00' + CONVERT(VARCHAR, 5), 2) + '-' + CONVERT(VARCHAR, [YEAR])\n                ) as Date\n            )\n        ) as CFProjectionsfor,\n        DateDIFF(\n            quarter,\n            @currenQ,\n            EOMONTH(\n                CAST(\n                    (\n                        RIGHT('00' + CONVERT(VARCHAR, (Quarter * 3)), 2) + '-' + RIGHT('00' + CONVERT(VARCHAR, 5), 2) + '-' + CONVERT(VARCHAR, [YEAR])\n                    ) as Date\n                )\n            )\n        ) as datediff\n    FROM\n        [Prod_CashFlow].[reporting].[CashFlowEntry]\n    where\n        (\n            CAST(EndTime AS DATE) IS NULL\n            or CAST(EndTime AS DATE) = @mEnddate\n        )\n        and Year != 0\n        and DateDIFF(\n            quarter,\n            @currenQ,\n            EOMONTH(\n                CAST(\n                    (\n                        RIGHT('00' + CONVERT(VARCHAR, (Quarter * 3)), 2) + '-' + RIGHT('00' + CONVERT(VARCHAR, 5), 2) + '-' + CONVERT(VARCHAR, [YEAR])\n                    ) as Date\n                )\n            )\n        ) in ('1', '2', '3', '4', '5', '6')\n    union\n    SELECT\n        [WorkMatter],\n        [Exposure],\n        [ValueName],\n        [Amount],\n        [EndUser],\n        [EndTime],\n        @currenQ as Cashflowentryperiod,\n        NULL as CFProjectionsfor,\n        '9999' as datediff\n    FROM\n        [Prod_CashFlow].[reporting].[CashFlowEntry]\n    where\n        (\n            CAST(EndTime AS DATE) IS NULL\n            or CAST(EndTime AS DATE) = @mEnddate\n        )\n        and Year = 0\n),\npivotdata as (\n    select\n        *\n    from\n        (\n            SELECT\n                [WorkMatter],\n                [Exposure],\n                Cashflowentryperiod,\n                CFProjectionsfor,\n                [ValueName],\n                [Amount],\n                [EndUser],\n                [EndTime]\n            FROM\n                CashFlowRaw\n        ) AS SourceTable PIVOT (\n            sum(Amount) FOR ValueName IN (Loss, DefExp, CovDJ)\n        ) AS PivotData\n)\nselect\n    distinct p.[WorkMatter],\n    [Exposure],\n    Cashflowentryperiod,\n    CFProjectionsfor,\n    Sum(Loss) AS Loss,\n    sum(DefExp) AS DefExp,\n    sum(CovDJ) AS CovDJ\nfrom\n    pivotdata P\n    join [Prod_CashFlow].[reporting].[WorkMatters] w on p.WorkMatter = w.WorkMatter\n    join [Prod_CashFlow].[reporting].[Exposures] e on p.WorkMatter = e.WorkMatter\n    and p.Exposure = e.ExpID \ngroup by\n    p.[WorkMatter],\n    [Exposure],\n    Cashflowentryperiod,\n    CFProjectionsfor",
 						"queryTimeout": "02:00:00"
 					},
 					"sink": {
@@ -33,7 +33,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "claim_Exposure_No",
+									"name": "claimExposureNo",
 									"type": "String"
 								}
 							},
@@ -43,7 +43,7 @@
 									"type": "String"
 								},
 								"sink": {
-									"name": "workmatternumber",
+									"name": "workMatterNumber",
 									"type": "String"
 								}
 							},
@@ -53,7 +53,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "cashflowentryperiod",
+									"name": "cashFlowEntryPeriod",
 									"type": "DateTime"
 								}
 							},
@@ -63,7 +63,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "cashflowProjectionsfor",
+									"name": "cashFlowProjectionsfFor",
 									"type": "DateTime"
 								}
 							},
