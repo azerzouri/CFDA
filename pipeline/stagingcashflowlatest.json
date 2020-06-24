@@ -29,21 +29,21 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "Exposure",
+									"name": "WorkMatter",
 									"type": "String"
 								},
 								"sink": {
-									"name": "claim_Exposure_No",
+									"name": "workMatterNumber",
 									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"name": "WorkMatter",
+									"name": "Exposure",
 									"type": "String"
 								},
 								"sink": {
-									"name": "workmatternumber",
+									"name": "claimExposureNo",
 									"type": "String"
 								}
 							},
@@ -53,7 +53,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "cashflowentryperiod",
+									"name": "cashFlowEntryPeriod",
 									"type": "DateTime"
 								}
 							},
@@ -63,7 +63,7 @@
 									"type": "DateTime"
 								},
 								"sink": {
-									"name": "cashflowProjectionsfor",
+									"name": "cashflowProjectionsfFor",
 									"type": "DateTime"
 								}
 							},
@@ -95,6 +95,16 @@
 								"sink": {
 									"name": "projectedTotalPaidDefExpense",
 									"type": "Decimal"
+								}
+							},
+							{
+								"source": {
+									"name": "CashFlowHashKey",
+									"type": "String"
+								},
+								"sink": {
+									"name": "factCashFlowHashKey",
+									"type": "String"
 								}
 							}
 						]
