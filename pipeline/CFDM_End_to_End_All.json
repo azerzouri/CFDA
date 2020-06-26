@@ -1,7 +1,0 @@
-{
-	"name": "CFDM_End_to_End_All",
-	"properties": {
-		"description": "this is the one and only end to pipeline to load all of cashflow dims and facts",
-		"annotations": []
-	}
-}
