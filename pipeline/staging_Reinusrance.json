@@ -222,6 +222,73 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "on_Stg_Reinsurance_Error",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Reinsurance_staging",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"message": "@{activity('stg_factactuals').error.message}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}"
+
+					}
+
+				}
+			},
+			{
+				"name": "stgReinsuranceLoad_Completion",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Reinsurance_staging",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-20.eastus2.logic.azure.com:443/workflows/d388a3be879a4a2c8e55e95a9d4fce26/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Gp6eGx2LNep2SU_asbY9QiirT2OF2Nl7LGYMVfhoefg",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"value": "{\n   \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n   \"PipelineName\": \"@{pipeline().Pipeline}\",\n   \"Subject\": \"STGReinsurance pipeline Completed Successfuly!\",\n   \"Message\": \"The STGReinsurance  pipeline Successfully!\",\n   \n}",
+						"type": "Expression"
+
+					}
+
+				}
 			}
 		],
 		"annotations": []
