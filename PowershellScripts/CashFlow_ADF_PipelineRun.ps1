@@ -3,7 +3,9 @@ param
     #path to json file to save the azure profile. 
     #This prevents for entering Azure login details every time script is run
     [Parameter(Mandatory=$true)]
-    [string] $Env = "DEV"
+    [string] $Env = "DEV",
+    [Parameter(Mandatory=$true)]
+    [bool] $runAll = $false
 )
 
 if ($Env -eq "DEV"){
@@ -11,7 +13,12 @@ if ($Env -eq "DEV"){
 $resourceGroupName="rg_NPRD-DEV"
 $dataFactoryName = "e2nprddfcf"
 #ADF Pipeline to run the end to end data load from Miosoft output to Asbestos DM
-$pipelineName= "stgclaim" #EntAsbestos_Datamart_End_to_End
+if ($runAll) {
+     $pipelineName= "CFDM_End_to_End_All"
+ } else {
+     $pipelineName= "CFDM_End_to_End_Actuals"
+ } 
+# $pipelineName= "Truncate_STG_DM" 
 $outputFile = "D:\Powershell\Output\Output.txt"
 # Connect to Azure using Active Directory Service Principal Authentication 
 $passwd = Get-Content "D:\Powershell\Creds\azure_cred.properties" | ConvertTo-SecureString -AsPlainText -Force
@@ -24,8 +31,12 @@ elseif ($Env -eq "TEST"){
 $resourceGroupName="rg_TEST"
 $dataFactoryName = "e2testdfcf"
 #ADF Pipeline to run the end to end data load from Miosoft output to Asbestos DM
-# $pipelineName= "stgclaim" #EntAsbestos_Datamart_End_to_End
-$pipelineName= "CFDM_End_to_End" #EntAsbestos_Datamart_End_to_End
+if ($runAll) {
+     $pipelineName= "CFDM_End_to_End_All"
+ } else {
+     $pipelineName= "CFDM_End_to_End_Actuals"
+ } 
+# $pipelineName= "Truncate_STG_DM" 
 $outputFile = "D:\Powershell\Output\Output.txt"
 # Connect to Azure using Active Directory Service Principal Authentication 
 $passwd = Get-Content "D:\Powershell\Creds\azure_cred_test.properties" | ConvertTo-SecureString -AsPlainText -Force
@@ -37,7 +48,12 @@ elseif ($Env -eq "PROD"){
 $resourceGroupName="rg_PROD"
 $dataFactoryName = "e2proddfcf"
 #ADF Pipeline to run the end to end data load from Miosoft output to Asbestos DM
-$pipelineName= "CFDM_End_to_End" #EntAsbestos_Datamart_End_to_End
+if ($runAll) {
+     $pipelineName= "CFDM_End_to_End_All"
+ } else {
+     $pipelineName= "CFDM_End_to_End_Actuals"
+ } 
+# $pipelineName= "Truncate_STG_DM"
 #$pipelineName= "emailTest"
 $outputFile = "D:\Powershell\Output\Output.txt"
 # Connect to Azure using Active Directory Service Principal Authentication 
