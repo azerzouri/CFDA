@@ -28,7 +28,7 @@
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Execute_cf_staging",
+						"activity": "Execute_stg_reinsurance",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -65,6 +65,46 @@
 						"value": "{\n   \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n   \"PipelineName\": \"@{pipeline().Pipeline}\",\n   \"Subject\": \"The CFDM_END_TO_END pipeline started!\",\n   \"Message\": \"The CFDM_END_TO_END pipeline started!\",\n   \n}",
 						"type": "Expression"
 					}
+				}
+			},
+			{
+				"name": "Execute_CashFlowLatest",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute_cf_staging",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "stagingcashflowlatest",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Execute_stg_reinsurance",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute_CashFlowLatest",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "staging_Reinusrance",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
 				}
 			}
 		],
