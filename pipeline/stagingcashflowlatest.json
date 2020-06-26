@@ -114,13 +114,17 @@
 				]
 			},
 			{
-				"name": "on_Stg_factCashFlow_Error",
+
+				"name": "slg_FactCashFlow_Completion",
+
 				"type": "WebActivity",
 				"dependsOn": [
 					{
 						"activity": "stgfactcashflowlatest",
 						"dependencyConditions": [
-							"Failed"
+
+							"Succeeded"
+
 						]
 					}
 				],
@@ -133,28 +137,31 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
+
+					"url": "https://prod-20.eastus2.logic.azure.com:443/workflows/d388a3be879a4a2c8e55e95a9d4fce26/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Gp6eGx2LNep2SU_asbY9QiirT2OF2Nl7LGYMVfhoefg",
+
 					"method": "POST",
 					"headers": {
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"message": "@{activity('stg_factactuals').error.message}",
-						"dataFactoryName": "@{pipeline().DataFactory}",
-						"pipelineName": "@{pipeline().Pipeline}"
-					},
-					"linkedServices": [],
-					"datasets": []
+
+						"value": "{\n   \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n   \"PipelineName\": \"@{pipeline().Pipeline}\",\n   \"Subject\": \"STGCashFlow pipeline Completed Successfuly!\",\n   \"Message\": \"STGCashFlow pipeline Successfully!\",\n   \n}",
+						"type": "Expression"
+					}
 				}
 			},
 			{
-				"name": "slg_FactCashFlow_Completion",
+				"name": "on_Stg_factCashFlow_Error",
+
 				"type": "WebActivity",
 				"dependsOn": [
 					{
 						"activity": "stgfactcashflowlatest",
 						"dependencyConditions": [
-							"Succeeded"
+
+							"Failed"
+
 						]
 					}
 				],
@@ -167,17 +174,20 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"url": "https://prod-20.eastus2.logic.azure.com:443/workflows/d388a3be879a4a2c8e55e95a9d4fce26/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=Gp6eGx2LNep2SU_asbY9QiirT2OF2Nl7LGYMVfhoefg",
+
+					"url": "https://prod-24.eastus2.logic.azure.com:443/workflows/eaaed2f555c848569c66f4bddd9650ee/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YfZfaCBag5j8z3BEyO5MIkSLTbdQiR09hzKcVOUQZz0",
+
 					"method": "POST",
 					"headers": {
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"value": "{\n   \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n   \"PipelineName\": \"@{pipeline().Pipeline}\",\n   \"Subject\": \"STGCashFlow pipeline Completed Successfuly!\",\n   \"Message\": \"STGCashFlow pipeline Successfully!\",\n   \n}",
-						"type": "Expression"
-					},
-					"linkedServices": [],
-					"datasets": []
+
+						"message": "@{activity('stg_factactuals').error.message}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}"
+					}
+
 				}
 			}
 		],

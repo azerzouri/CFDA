@@ -1,7 +1,9 @@
 {
 	"name": "CFDM_End_to_End_All",
 	"properties": {
-		"description": "this is the one and only end to pipeline to load all of cashflow dims and all facts",
+
+		"description": "this is the one and only end to pipeline to load all of cashflow dims and facts",
+
 		"activities": [
 			{
 				"name": "Execute_cf_staging",
@@ -68,11 +70,13 @@
 				}
 			},
 			{
-				"name": "Execute_stg_reinsurance",
+
+				"name": "Execute_CashFlowLatest",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Execute_CashFlowLatest",
+						"activity": "Execute_cf_staging",
+
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -81,18 +85,22 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "staging_Reinusrance",
+
+						"referenceName": "stagingcashflowlatest",
+
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
 				}
 			},
 			{
-				"name": "Execute_CashFlowLatest",
+
+				"name": "Execute_stg_reinsurance",
 				"type": "ExecutePipeline",
 				"dependsOn": [
 					{
-						"activity": "Execute_cf_staging",
+						"activity": "Execute_CashFlowLatest",
+
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -101,7 +109,9 @@
 				"userProperties": [],
 				"typeProperties": {
 					"pipeline": {
-						"referenceName": "stagingcashflowlatest",
+
+						"referenceName": "staging_Reinusrance",
+
 						"type": "PipelineReference"
 					},
 					"waitOnCompletion": true
