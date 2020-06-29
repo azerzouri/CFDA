@@ -5,7 +5,7 @@ param
     [Parameter(Mandatory=$true)]
     [string] $Env = "DEV",
     [Parameter(Mandatory=$true)]
-    [bool] $runAll = $false
+    [bool] $runAll = $false  # 0 for false and 1 for true
 )
 
 if ($Env -eq "DEV"){
@@ -32,9 +32,9 @@ $resourceGroupName="rg_TEST"
 $dataFactoryName = "e2testdfcf"
 #ADF Pipeline to run the end to end data load from Miosoft output to Asbestos DM
 if ($runAll) {
-     $pipelineName= "CFDM_End_to_End_All"
+     $pipelineName= "CFDM_End_to_End_All"     
  } else {
-     $pipelineName= "CFDM_End_to_End_Actuals"
+     $pipelineName= "CFDM_End_to_End_Actuals"     
  } 
 # $pipelineName= "Truncate_STG_DM" 
 $outputFile = "D:\Powershell\Output\Output.txt"
