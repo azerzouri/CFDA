@@ -66,6 +66,37 @@
 						"type": "Expression"
 					}
 				}
+			},
+			{
+				"name": "OnEnd_SendMail",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Execute_cfdm_load",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://prod-60.eastus2.logic.azure.com:443/workflows/5c99221f57854e92a3bf4bdd91ae53ab/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=LSK1lK31_tNDD8CfhFGqQaTtF0VTJKY1wstBuWmq76E",
+					"method": "POST",
+					"headers": {
+						"Content-Type": "application/json"
+					},
+					"body": {
+						"value": "{\n   \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n   \"PipelineName\": \"@{pipeline().Pipeline}\",\n   \"Subject\": \"The CFDM_END_TO_END Actuals Only pipeline  Successfully finished!\",\n   \"Message\": \"The CFDM_END_TO_END Actuals Only pipeline  Successfully finished!\",\n   \n}\n",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"annotations": []
