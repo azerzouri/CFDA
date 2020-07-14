@@ -1,4 +1,5 @@
-﻿  IF(NOT EXISTS(SELECT TOP 1 1 FROM [stg].[Date]))
+﻿ -- test
+ IF(NOT EXISTS(SELECT TOP 1 1 FROM [stg].[Date]))
     BEGIN
 		 
 		Exec [stg].[usp_loadDate]
