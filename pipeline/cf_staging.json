@@ -162,7 +162,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "select \ndistinct Policy_No,Policy_Effective_Dt,Policy_Expiration_Dt,Portfolio_Cd,NAIC_Cd,Business_Type_Cd\nFROM [Prod_RS_ODS].[pol].[Policy_Period]",
+						"sqlReaderQuery": "SELECT distinct Policy_No,Policy_Effective_Dt,Policy_Expiration_Dt,Portfolio_Cd,NAIC_Cd,Business_Type_Cd \nFROM pol.Policy_Period AS PP\nJOIN dbo.Dw_Max_Policy_Version AS DMPV ON DMPV.PolicyVersion = PP.PolicyVersion AND DMPV.Policy_Period_Id = PP.Policy_Period_Id",
 						"queryTimeout": "02:00:00"
 					},
 					"sink": {
