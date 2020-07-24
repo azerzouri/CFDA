@@ -249,12 +249,10 @@
 						"Content-Type": "application/json"
 					},
 					"body": {
-						"message": "@{activity('stg_factactuals').error.message}",
+						"message": "@{activity('Reinsurance_staging').error.message}",
 						"dataFactoryName": "@{pipeline().DataFactory}",
 						"pipelineName": "@{pipeline().Pipeline}"
-
 					}
-
 				}
 			},
 			{
@@ -285,9 +283,7 @@
 					"body": {
 						"value": "{\n   \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n   \"PipelineName\": \"@{pipeline().Pipeline}\",\n   \"Subject\": \"STGReinsurance pipeline Completed Successfuly!\",\n   \"Message\": \"The STGReinsurance  pipeline Successfully!\",\n   \n}",
 						"type": "Expression"
-
 					}
-
 				}
 			}
 		],
