@@ -8,6 +8,6 @@
 	[projectedPaidCoverageDJExpense] [decimal](14, 2) NULL,
 	[projectedTotalPaidDefExpense] [decimal](14, 2) NULL,
 	[claimNumber]  AS (substring([claimExposureNo],(0),charindex('-',[claimExposureNo]))) PERSISTED,
-	[Insert_Date] [datetime] NOT NULL,
+	[Insert_Date] [datetime] DEFAULT (getdate()) NOT NULL,
     CONSTRAINT PK_stg_factcashflow PRIMARY KEY CLUSTERED (factcashflow_ID)
 )
