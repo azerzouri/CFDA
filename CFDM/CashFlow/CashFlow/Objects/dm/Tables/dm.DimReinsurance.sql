@@ -12,6 +12,7 @@ CREATE TABLE dm.DimReinsurance(
     sapiensBatchID            varchar(50)     NULL,
     sectionReferenceNumber    varchar(50)     NULL,
 	poolName                  varchar(64)     NULL,
+	retentionInd			  char(1)         NULL,
     audit_Insert_Dt           datetime        DEFAULT GetDate() NULL,
     audit_Update_Dt           datetime        DEFAULT GetDate() NULL,
     ins_Proc_ID               int             NULL,
