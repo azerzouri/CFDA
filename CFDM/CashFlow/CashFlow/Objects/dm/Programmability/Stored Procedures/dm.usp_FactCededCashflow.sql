@@ -170,7 +170,7 @@ FROM
 	AND COALESCE(DR.sapiensBrokerID, -9999) = COALESCE(R.sapiensBrokerID, -9999)
 	AND COALESCE(DR.sapiensPoolID, -9999) = COALESCE(R.sapiensPoolID, -9999)
 	AND COALESCE(DR.sectionReferenceNumber, '') = COALESCE(R.sectionReferenceNumber, '')
-
+	AND COALESCE(DR.[retentionInd], '') = COALESCE(R.[retentionInd], '')
 
 	LEFT JOIN WMAdjuster A ON A.workmatternumber = WN.workmatternumber
 	LEFT JOIN dm.DimAdjuster DA ON A.adjustedName = DA.adjusterName

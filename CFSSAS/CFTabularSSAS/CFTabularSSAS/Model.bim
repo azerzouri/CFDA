@@ -1,0 +1,1660 @@
+{
+  "name": "SemanticModel",
+  "compatibilityLevel": 1400,
+  "model": {
+    "culture": "en-US",
+    "dataSources": [
+      {
+        "type": "structured",
+        "name": "SQL/e2nprdsql01 3aeed8d8043d database windows net;CashFlow_DM_DEV",
+        "connectionDetails": {
+          "protocol": "tds",
+          "address": {
+            "server": "e2nprdsql01.3aeed8d8043d.database.windows.net",
+            "database": "CashFlow_DM_DEV"
+          },
+          "authentication": null,
+          "query": null
+        },
+        "options": {},
+        "credential": {
+          "AuthenticationKind": "OAuth2",
+          "Expires": "Mon, 14 Sep 2020 16:08:03 GMT",
+          "RefreshToken": "********"
+        }
+      }
+    ],
+    "tables": [
+      {
+        "name": "dm FactCededCashFlow",
+        "columns": [
+          {
+            "name": "factCededCashflowID",
+            "dataType": "int64",
+            "sourceColumn": "factCededCashflowID"
+          },
+          {
+            "name": "policy_SK",
+            "dataType": "int64",
+            "sourceColumn": "policy_SK"
+          },
+          {
+            "name": "policyEffectiveDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "policyEffectiveDate_SK"
+          },
+          {
+            "name": "policyExpirationDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "policyExpirationDate_SK"
+          },
+          {
+            "name": "reinsurance_SK",
+            "dataType": "int64",
+            "sourceColumn": "reinsurance_SK"
+          },
+          {
+            "name": "adjuster_SK",
+            "dataType": "int64",
+            "sourceColumn": "adjuster_SK"
+          },
+          {
+            "name": "claim_SK",
+            "dataType": "int64",
+            "sourceColumn": "claim_SK"
+          },
+          {
+            "name": "Exposure_SK",
+            "dataType": "int64",
+            "sourceColumn": "Exposure_SK"
+          },
+          {
+            "name": "workMatter_SK",
+            "dataType": "int64",
+            "sourceColumn": "workMatter_SK"
+          },
+          {
+            "name": "workmatterOpenDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "workmatterOpenDate_SK"
+          },
+          {
+            "name": "workmatterClosedDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "workmatterClosedDate_SK"
+          },
+          {
+            "name": "workmatterReopenDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "workmatterReopenDate_SK"
+          },
+          {
+            "name": "exposureReopenDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "exposureReopenDate_SK"
+          },
+          {
+            "name": "exposureClosedDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "exposureClosedDate_SK"
+          },
+          {
+            "name": "exposureOpenDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "exposureOpenDate_SK"
+          },
+          {
+            "name": "entryDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "entryDate_SK"
+          },
+          {
+            "name": "relatedClaimNumber",
+            "dataType": "string",
+            "sourceColumn": "relatedClaimNumber"
+          },
+          {
+            "name": "cededProjectedTotalPaid",
+            "dataType": "double",
+            "sourceColumn": "cededProjectedTotalPaid"
+          },
+          {
+            "name": "projectedCededPaidCoverageDJExpense",
+            "dataType": "double",
+            "sourceColumn": "projectedCededPaidCoverageDJExpense"
+          },
+          {
+            "name": "projectedCededTotalPaidDefExpense",
+            "dataType": "double",
+            "sourceColumn": "projectedCededTotalPaidDefExpense"
+          },
+          {
+            "name": "projectedCededTotalPaidLossExInLimits",
+            "dataType": "double",
+            "sourceColumn": "projectedCededTotalPaidLossExInLimits"
+          },
+          {
+            "name": "creditProvisionPercent",
+            "dataType": "double",
+            "sourceColumn": "creditProvisionPercent"
+          },
+          {
+            "name": "audit_Insert_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Insert_Dt"
+          },
+          {
+            "name": "audit_Update_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Update_Dt"
+          },
+          {
+            "name": "ins_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "ins_Proc_ID"
+          },
+          {
+            "name": "upd_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "upd_Proc_ID"
+          },
+          {
+            "name": "is_Deleted",
+            "dataType": "boolean",
+            "sourceColumn": "is_Deleted"
+          },
+          {
+            "name": "is_Active",
+            "dataType": "boolean",
+            "sourceColumn": "is_Active"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/e2nprdsql01 3aeed8d8043d database windows net;CashFlow_DM_DEV\",",
+                "    dm_FactCededCashFlow = Source{[Schema=\"dm\",Item=\"FactCededCashFlow\"]}[Data]",
+                "in",
+                "    dm_FactCededCashFlow"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dm FactCashFlow",
+        "columns": [
+          {
+            "name": "factCashflowID",
+            "dataType": "int64",
+            "sourceColumn": "factCashflowID"
+          },
+          {
+            "name": "notification_SK",
+            "dataType": "int64",
+            "sourceColumn": "notification_SK"
+          },
+          {
+            "name": "policy_SK",
+            "dataType": "int64",
+            "sourceColumn": "policy_SK"
+          },
+          {
+            "name": "policyEffectiveDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "policyEffectiveDate_SK"
+          },
+          {
+            "name": "policyExpirationDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "policyExpirationDate_SK"
+          },
+          {
+            "name": "adjuster_SK",
+            "dataType": "int64",
+            "sourceColumn": "adjuster_SK"
+          },
+          {
+            "name": "claim_SK",
+            "dataType": "int64",
+            "sourceColumn": "claim_SK"
+          },
+          {
+            "name": "Exposure_SK",
+            "dataType": "int64",
+            "sourceColumn": "Exposure_SK"
+          },
+          {
+            "name": "workMatter_SK",
+            "dataType": "int64",
+            "sourceColumn": "workMatter_SK"
+          },
+          {
+            "name": "workMatterOpenDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "workMatterOpenDate_SK"
+          },
+          {
+            "name": "workMatterClosedDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "workMatterClosedDate_SK"
+          },
+          {
+            "name": "workMatterReopenDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "workMatterReopenDate_SK"
+          },
+          {
+            "name": "exposureReopenDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "exposureReopenDate_SK"
+          },
+          {
+            "name": "exposureClosedDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "exposureClosedDate_SK"
+          },
+          {
+            "name": "exposureOpenDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "exposureOpenDate_SK"
+          },
+          {
+            "name": "entryDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "entryDate_SK"
+          },
+          {
+            "name": "projectionDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "projectionDate_SK"
+          },
+          {
+            "name": "projectedPaidCoverageDJExpense",
+            "dataType": "double",
+            "sourceColumn": "projectedPaidCoverageDJExpense"
+          },
+          {
+            "name": "projectedPaidLossExInLimits",
+            "dataType": "double",
+            "sourceColumn": "projectedPaidLossExInLimits"
+          },
+          {
+            "name": "projectedTotalPaid",
+            "dataType": "double",
+            "sourceColumn": "projectedTotalPaid"
+          },
+          {
+            "name": "projectedTotalPaidDefExpense",
+            "dataType": "double",
+            "sourceColumn": "projectedTotalPaidDefExpense"
+          },
+          {
+            "name": "audit_Insert_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Insert_Dt"
+          },
+          {
+            "name": "audit_Update_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Update_Dt"
+          },
+          {
+            "name": "ins_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "ins_Proc_ID"
+          },
+          {
+            "name": "upd_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "upd_Proc_ID"
+          },
+          {
+            "name": "is_Deleted",
+            "dataType": "boolean",
+            "sourceColumn": "is_Deleted"
+          },
+          {
+            "name": "is_Active",
+            "dataType": "boolean",
+            "sourceColumn": "is_Active"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/e2nprdsql01 3aeed8d8043d database windows net;CashFlow_DM_DEV\",",
+                "    dm_FactCashFlow = Source{[Schema=\"dm\",Item=\"FactCashFlow\"]}[Data]",
+                "in",
+                "    dm_FactCashFlow"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dm FactActuals",
+        "columns": [
+          {
+            "name": "factActualsID",
+            "dataType": "int64",
+            "sourceColumn": "factActualsID"
+          },
+          {
+            "name": "policy_SK",
+            "dataType": "int64",
+            "sourceColumn": "policy_SK"
+          },
+          {
+            "name": "policyEffectiveDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "policyEffectiveDate_SK"
+          },
+          {
+            "name": "policyExpirationDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "policyExpirationDate_SK"
+          },
+          {
+            "name": "adjuster_SK",
+            "dataType": "int64",
+            "sourceColumn": "adjuster_SK"
+          },
+          {
+            "name": "claim_SK",
+            "dataType": "int64",
+            "sourceColumn": "claim_SK"
+          },
+          {
+            "name": "Exposure_SK",
+            "dataType": "int64",
+            "sourceColumn": "Exposure_SK"
+          },
+          {
+            "name": "exposureClosedDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "exposureClosedDate_SK"
+          },
+          {
+            "name": "exposureOpenDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "exposureOpenDate_SK"
+          },
+          {
+            "name": "exposureReopenDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "exposureReopenDate_SK"
+          },
+          {
+            "name": "workMatter_SK",
+            "dataType": "int64",
+            "sourceColumn": "workMatter_SK"
+          },
+          {
+            "name": "workMatterOpenDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "workMatterOpenDate_SK"
+          },
+          {
+            "name": "workMatterClosedDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "workMatterClosedDate_SK"
+          },
+          {
+            "name": "workMatterReopenDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "workMatterReopenDate_SK"
+          },
+          {
+            "name": "valuationDate_SK",
+            "dataType": "int64",
+            "sourceColumn": "valuationDate_SK"
+          },
+          {
+            "name": "caseAdjustingExpense",
+            "dataType": "double",
+            "sourceColumn": "caseAdjustingExpense"
+          },
+          {
+            "name": "caseCoverageDJExpense",
+            "dataType": "double",
+            "sourceColumn": "caseCoverageDJExpense"
+          },
+          {
+            "name": "caseLoss",
+            "dataType": "double",
+            "sourceColumn": "caseLoss"
+          },
+          {
+            "name": "paidAdjustingExpense",
+            "dataType": "double",
+            "sourceColumn": "paidAdjustingExpense"
+          },
+          {
+            "name": "paidCoverageDJExpense",
+            "dataType": "double",
+            "sourceColumn": "paidCoverageDJExpense"
+          },
+          {
+            "name": "paidExpenseInLimits",
+            "dataType": "double",
+            "sourceColumn": "paidExpenseInLimits"
+          },
+          {
+            "name": "paidLoss",
+            "dataType": "double",
+            "sourceColumn": "paidLoss"
+          },
+          {
+            "name": "recoveryDeductibleLoss",
+            "dataType": "double",
+            "sourceColumn": "recoveryDeductibleLoss"
+          },
+          {
+            "name": "recoverySalvage",
+            "dataType": "double",
+            "sourceColumn": "recoverySalvage"
+          },
+          {
+            "name": "recoverySubrogationExpense",
+            "dataType": "double",
+            "sourceColumn": "recoverySubrogationExpense"
+          },
+          {
+            "name": "recoverySubrogationLoss",
+            "dataType": "double",
+            "sourceColumn": "recoverySubrogationLoss"
+          },
+          {
+            "name": "totalCase",
+            "dataType": "double",
+            "sourceColumn": "totalCase"
+          },
+          {
+            "name": "totalPaid",
+            "dataType": "double",
+            "sourceColumn": "totalPaid"
+          },
+          {
+            "name": "totalPaidDefExpense",
+            "dataType": "double",
+            "sourceColumn": "totalPaidDefExpense"
+          },
+          {
+            "name": "totalPaidLossExInLimits",
+            "dataType": "double",
+            "sourceColumn": "totalPaidLossExInLimits"
+          },
+          {
+            "name": "audit_Insert_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Insert_Dt"
+          },
+          {
+            "name": "audit_Update_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Update_Dt"
+          },
+          {
+            "name": "ins_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "ins_Proc_ID"
+          },
+          {
+            "name": "upd_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "upd_Proc_ID"
+          },
+          {
+            "name": "is_Deleted",
+            "dataType": "boolean",
+            "sourceColumn": "is_Deleted"
+          },
+          {
+            "name": "is_Active",
+            "dataType": "boolean",
+            "sourceColumn": "is_Active"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/e2nprdsql01 3aeed8d8043d database windows net;CashFlow_DM_DEV\",",
+                "    dm_FactActuals = Source{[Schema=\"dm\",Item=\"FactActuals\"]}[Data]",
+                "in",
+                "    dm_FactActuals"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dm DimAdjuster",
+        "columns": [
+          {
+            "name": "adjuster_SK",
+            "dataType": "int64",
+            "sourceColumn": "adjuster_SK"
+          },
+          {
+            "name": "adjusterName",
+            "dataType": "string",
+            "sourceColumn": "adjusterName"
+          },
+          {
+            "name": "adjusterTRGUname",
+            "dataType": "string",
+            "sourceColumn": "adjusterTRGUname"
+          },
+          {
+            "name": "emailAddress",
+            "dataType": "string",
+            "sourceColumn": "emailAddress"
+          },
+          {
+            "name": "managerName",
+            "dataType": "string",
+            "sourceColumn": "managerName"
+          },
+          {
+            "name": "groupManagerName",
+            "dataType": "string",
+            "sourceColumn": "groupManagerName"
+          },
+          {
+            "name": "department",
+            "dataType": "string",
+            "sourceColumn": "department"
+          },
+          {
+            "name": "audit_Insert_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Insert_Dt"
+          },
+          {
+            "name": "audit_Update_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Update_Dt"
+          },
+          {
+            "name": "ins_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "ins_Proc_ID"
+          },
+          {
+            "name": "upd_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "upd_Proc_ID"
+          },
+          {
+            "name": "is_Deleted",
+            "dataType": "boolean",
+            "sourceColumn": "is_Deleted"
+          },
+          {
+            "name": "is_Active",
+            "dataType": "boolean",
+            "sourceColumn": "is_Active"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/e2nprdsql01 3aeed8d8043d database windows net;CashFlow_DM_DEV\",",
+                "    dm_DimAdjuster = Source{[Schema=\"dm\",Item=\"DimAdjuster\"]}[Data]",
+                "in",
+                "    dm_DimAdjuster"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dm DimClaim",
+        "columns": [
+          {
+            "name": "claim_SK",
+            "dataType": "int64",
+            "sourceColumn": "claim_SK"
+          },
+          {
+            "name": "claimNo",
+            "dataType": "string",
+            "sourceColumn": "claimNo"
+          },
+          {
+            "name": "actuarialSegment",
+            "dataType": "string",
+            "sourceColumn": "actuarialSegment"
+          },
+          {
+            "name": "fairfaxSegment",
+            "dataType": "string",
+            "sourceColumn": "fairfaxSegment"
+          },
+          {
+            "name": "claimSegment",
+            "dataType": "string",
+            "sourceColumn": "claimSegment"
+          },
+          {
+            "name": "handlingSegment",
+            "dataType": "string",
+            "sourceColumn": "handlingSegment"
+          },
+          {
+            "name": "audit_Insert_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Insert_Dt"
+          },
+          {
+            "name": "audit_Update_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Update_Dt"
+          },
+          {
+            "name": "ins_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "ins_Proc_ID"
+          },
+          {
+            "name": "upd_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "upd_Proc_ID"
+          },
+          {
+            "name": "is_Deleted",
+            "dataType": "boolean",
+            "sourceColumn": "is_Deleted"
+          },
+          {
+            "name": "is_Active",
+            "dataType": "boolean",
+            "sourceColumn": "is_Active"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/e2nprdsql01 3aeed8d8043d database windows net;CashFlow_DM_DEV\",",
+                "    dm_DimClaim = Source{[Schema=\"dm\",Item=\"DimClaim\"]}[Data]",
+                "in",
+                "    dm_DimClaim"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dm DimDate",
+        "columns": [
+          {
+            "name": "Date_SK",
+            "dataType": "int64",
+            "sourceColumn": "Date_SK"
+          },
+          {
+            "name": "DateKey",
+            "dataType": "int64",
+            "sourceColumn": "DateKey"
+          },
+          {
+            "name": "DateFull",
+            "dataType": "dateTime",
+            "sourceColumn": "DateFull"
+          },
+          {
+            "name": "DateFullName",
+            "dataType": "string",
+            "sourceColumn": "DateFullName"
+          },
+          {
+            "name": "Year",
+            "dataType": "int64",
+            "sourceColumn": "Year"
+          },
+          {
+            "name": "Quarter",
+            "dataType": "int64",
+            "sourceColumn": "Quarter"
+          },
+          {
+            "name": "QuarterKey",
+            "dataType": "int64",
+            "sourceColumn": "QuarterKey"
+          },
+          {
+            "name": "QuarterShortName",
+            "dataType": "string",
+            "sourceColumn": "QuarterShortName"
+          },
+          {
+            "name": "QuarterFullName",
+            "dataType": "string",
+            "sourceColumn": "QuarterFullName"
+          },
+          {
+            "name": "Month",
+            "dataType": "int64",
+            "sourceColumn": "Month"
+          },
+          {
+            "name": "MonthKey",
+            "dataType": "int64",
+            "sourceColumn": "MonthKey"
+          },
+          {
+            "name": "MonthShortName",
+            "dataType": "string",
+            "sourceColumn": "MonthShortName"
+          },
+          {
+            "name": "MonthFullName",
+            "dataType": "string",
+            "sourceColumn": "MonthFullName"
+          },
+          {
+            "name": "MonthYearShortName",
+            "dataType": "string",
+            "sourceColumn": "MonthYearShortName"
+          },
+          {
+            "name": "MonthYearFullName",
+            "dataType": "string",
+            "sourceColumn": "MonthYearFullName"
+          },
+          {
+            "name": "DayOfMonth",
+            "dataType": "int64",
+            "sourceColumn": "DayOfMonth"
+          },
+          {
+            "name": "DayOfYear",
+            "dataType": "int64",
+            "sourceColumn": "DayOfYear"
+          },
+          {
+            "name": "WeekOfYear",
+            "dataType": "int64",
+            "sourceColumn": "WeekOfYear"
+          },
+          {
+            "name": "WeekOfYearKey",
+            "dataType": "int64",
+            "sourceColumn": "WeekOfYearKey"
+          },
+          {
+            "name": "WeekDay",
+            "dataType": "int64",
+            "sourceColumn": "WeekDay"
+          },
+          {
+            "name": "WeekDayName",
+            "dataType": "string",
+            "sourceColumn": "WeekDayName"
+          },
+          {
+            "name": "IsWorkDay",
+            "dataType": "boolean",
+            "sourceColumn": "IsWorkDay"
+          },
+          {
+            "name": "WorkDayDescription",
+            "dataType": "string",
+            "sourceColumn": "WorkDayDescription"
+          },
+          {
+            "name": "YTDStartDate",
+            "dataType": "dateTime",
+            "sourceColumn": "YTDStartDate"
+          },
+          {
+            "name": "Audit_Insert_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "Audit_Insert_Dt"
+          },
+          {
+            "name": "Audit_Update_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "Audit_Update_Dt"
+          },
+          {
+            "name": "Ins_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "Ins_Proc_ID"
+          },
+          {
+            "name": "Upd_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "Upd_Proc_ID"
+          },
+          {
+            "name": "Is_Deleted",
+            "dataType": "boolean",
+            "sourceColumn": "Is_Deleted"
+          },
+          {
+            "name": "Is_Active",
+            "dataType": "boolean",
+            "sourceColumn": "Is_Active"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/e2nprdsql01 3aeed8d8043d database windows net;CashFlow_DM_DEV\",",
+                "    dm_DimDate = Source{[Schema=\"dm\",Item=\"DimDate\"]}[Data]",
+                "in",
+                "    dm_DimDate"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dm DimExposure",
+        "columns": [
+          {
+            "name": "exposure_SK",
+            "dataType": "int64",
+            "sourceColumn": "exposure_SK"
+          },
+          {
+            "name": "claimExposureNo",
+            "dataType": "string",
+            "sourceColumn": "claimExposureNo"
+          },
+          {
+            "name": "insuredName",
+            "dataType": "string",
+            "sourceColumn": "insuredName"
+          },
+          {
+            "name": "exposureStatus",
+            "dataType": "string",
+            "sourceColumn": "exposureStatus"
+          },
+          {
+            "name": "claimNumber",
+            "dataType": "string",
+            "sourceColumn": "claimNumber"
+          },
+          {
+            "name": "audit_Insert_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Insert_Dt"
+          },
+          {
+            "name": "audit_Update_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Update_Dt"
+          },
+          {
+            "name": "ins_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "ins_Proc_ID"
+          },
+          {
+            "name": "upd_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "upd_Proc_ID"
+          },
+          {
+            "name": "is_Deleted",
+            "dataType": "boolean",
+            "sourceColumn": "is_Deleted"
+          },
+          {
+            "name": "is_Active",
+            "dataType": "boolean",
+            "sourceColumn": "is_Active"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/e2nprdsql01 3aeed8d8043d database windows net;CashFlow_DM_DEV\",",
+                "    dm_DimExposure = Source{[Schema=\"dm\",Item=\"DimExposure\"]}[Data]",
+                "in",
+                "    dm_DimExposure"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dm DimPolicy",
+        "columns": [
+          {
+            "name": "policy_SK",
+            "dataType": "int64",
+            "sourceColumn": "policy_SK"
+          },
+          {
+            "name": "policyNumber",
+            "dataType": "string",
+            "sourceColumn": "policyNumber"
+          },
+          {
+            "name": "portfolioCode",
+            "dataType": "string",
+            "sourceColumn": "portfolioCode"
+          },
+          {
+            "name": "NAICCode",
+            "dataType": "string",
+            "sourceColumn": "NAICCode"
+          },
+          {
+            "name": "businessTypeCode",
+            "dataType": "string",
+            "sourceColumn": "businessTypeCode"
+          },
+          {
+            "name": "audit_Insert_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Insert_Dt"
+          },
+          {
+            "name": "audit_Update_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Update_Dt"
+          },
+          {
+            "name": "ins_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "ins_Proc_ID"
+          },
+          {
+            "name": "upd_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "upd_Proc_ID"
+          },
+          {
+            "name": "is_Deleted",
+            "dataType": "boolean",
+            "sourceColumn": "is_Deleted"
+          },
+          {
+            "name": "is_Active",
+            "dataType": "boolean",
+            "sourceColumn": "is_Active"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/e2nprdsql01 3aeed8d8043d database windows net;CashFlow_DM_DEV\",",
+                "    dm_DimPolicy = Source{[Schema=\"dm\",Item=\"DimPolicy\"]}[Data]",
+                "in",
+                "    dm_DimPolicy"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dm DimWorkmatter",
+        "columns": [
+          {
+            "name": "workMatter_SK",
+            "dataType": "int64",
+            "sourceColumn": "workMatter_SK"
+          },
+          {
+            "name": "workmatternumber",
+            "dataType": "string",
+            "sourceColumn": "workmatternumber"
+          },
+          {
+            "name": "workmatterDescription",
+            "dataType": "string",
+            "sourceColumn": "workmatterDescription"
+          },
+          {
+            "name": "workmatterTypeDescription",
+            "dataType": "string",
+            "sourceColumn": "workmatterTypeDescription"
+          },
+          {
+            "name": "workmatterStatus",
+            "dataType": "string",
+            "sourceColumn": "workmatterStatus"
+          },
+          {
+            "name": "specialtrackinggroup",
+            "dataType": "string",
+            "sourceColumn": "specialtrackinggroup"
+          },
+          {
+            "name": "account",
+            "dataType": "string",
+            "sourceColumn": "account"
+          },
+          {
+            "name": "audit_Insert_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Insert_Dt"
+          },
+          {
+            "name": "audit_Update_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Update_Dt"
+          },
+          {
+            "name": "ins_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "ins_Proc_ID"
+          },
+          {
+            "name": "upd_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "upd_Proc_ID"
+          },
+          {
+            "name": "is_Deleted",
+            "dataType": "boolean",
+            "sourceColumn": "is_Deleted"
+          },
+          {
+            "name": "is_Active",
+            "dataType": "boolean",
+            "sourceColumn": "is_Active"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/e2nprdsql01 3aeed8d8043d database windows net;CashFlow_DM_DEV\",",
+                "    dm_DimWorkmatter = Source{[Schema=\"dm\",Item=\"DimWorkmatter\"]}[Data]",
+                "in",
+                "    dm_DimWorkmatter"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dm DimNotifications",
+        "columns": [
+          {
+            "name": "notification_SK",
+            "dataType": "int64",
+            "sourceColumn": "notification_SK"
+          },
+          {
+            "name": "workMatterNo",
+            "dataType": "string",
+            "sourceColumn": "workMatterNo"
+          },
+          {
+            "name": "Comments",
+            "dataType": "string",
+            "sourceColumn": "Comments"
+          },
+          {
+            "name": "fiscalYearConfidencerating",
+            "dataType": "string",
+            "sourceColumn": "fiscalYearConfidencerating"
+          },
+          {
+            "name": "remainingConfidencerating",
+            "dataType": "string",
+            "sourceColumn": "remainingConfidencerating"
+          },
+          {
+            "name": "insuredLocation",
+            "dataType": "string",
+            "sourceColumn": "insuredLocation"
+          },
+          {
+            "name": "Status",
+            "dataType": "string",
+            "sourceColumn": "Status"
+          },
+          {
+            "name": "audit_Insert_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Insert_Dt"
+          },
+          {
+            "name": "audit_Update_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Update_Dt"
+          },
+          {
+            "name": "ins_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "ins_Proc_ID"
+          },
+          {
+            "name": "upd_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "upd_Proc_ID"
+          },
+          {
+            "name": "is_Deleted",
+            "dataType": "boolean",
+            "sourceColumn": "is_Deleted"
+          },
+          {
+            "name": "is_Active",
+            "dataType": "boolean",
+            "sourceColumn": "is_Active"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/e2nprdsql01 3aeed8d8043d database windows net;CashFlow_DM_DEV\",",
+                "    dm_DimNotifications = Source{[Schema=\"dm\",Item=\"DimNotifications\"]}[Data]",
+                "in",
+                "    dm_DimNotifications"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "dm DimReinsurance",
+        "columns": [
+          {
+            "name": "reinsurance_SK",
+            "dataType": "int64",
+            "sourceColumn": "reinsurance_SK"
+          },
+          {
+            "name": "reinsurerName",
+            "dataType": "string",
+            "sourceColumn": "reinsurerName"
+          },
+          {
+            "name": "sapiensReinsurerID",
+            "dataType": "int64",
+            "sourceColumn": "sapiensReinsurerID"
+          },
+          {
+            "name": "brokerName",
+            "dataType": "string",
+            "sourceColumn": "brokerName"
+          },
+          {
+            "name": "sapiensBrokerID",
+            "dataType": "int64",
+            "sourceColumn": "sapiensBrokerID"
+          },
+          {
+            "name": "sapiensPoolID",
+            "dataType": "int64",
+            "sourceColumn": "sapiensPoolID"
+          },
+          {
+            "name": "sapiensBatchID",
+            "dataType": "string",
+            "sourceColumn": "sapiensBatchID"
+          },
+          {
+            "name": "sectionReferenceNumber",
+            "dataType": "string",
+            "sourceColumn": "sectionReferenceNumber"
+          },
+          {
+            "name": "poolName",
+            "dataType": "string",
+            "sourceColumn": "poolName"
+          },
+          {
+            "name": "retentionInd",
+            "dataType": "string",
+            "sourceColumn": "retentionInd"
+          },
+          {
+            "name": "audit_Insert_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Insert_Dt"
+          },
+          {
+            "name": "audit_Update_Dt",
+            "dataType": "dateTime",
+            "sourceColumn": "audit_Update_Dt"
+          },
+          {
+            "name": "ins_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "ins_Proc_ID"
+          },
+          {
+            "name": "upd_Proc_ID",
+            "dataType": "int64",
+            "sourceColumn": "upd_Proc_ID"
+          },
+          {
+            "name": "is_Deleted",
+            "dataType": "boolean",
+            "sourceColumn": "is_Deleted"
+          },
+          {
+            "name": "is_Active",
+            "dataType": "boolean",
+            "sourceColumn": "is_Active"
+          }
+        ],
+        "partitions": [
+          {
+            "name": "Partition",
+            "dataView": "full",
+            "source": {
+              "type": "m",
+              "expression": [
+                "let",
+                "    Source = #\"SQL/e2nprdsql01 3aeed8d8043d database windows net;CashFlow_DM_DEV\",",
+                "    dm_DimReinsurance = Source{[Schema=\"dm\",Item=\"DimReinsurance\"]}[Data]",
+                "in",
+                "    dm_DimReinsurance"
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "relationships": [
+      {
+        "name": "d6af6aaa-5053-4d2a-86b1-bfcbd57fb647",
+        "fromTable": "dm FactCededCashFlow",
+        "fromColumn": "adjuster_SK",
+        "toTable": "dm DimAdjuster",
+        "toColumn": "adjuster_SK"
+      },
+      {
+        "name": "086b3759-18fe-48a3-a4ca-431d17405a4d",
+        "fromTable": "dm FactCededCashFlow",
+        "fromColumn": "claim_SK",
+        "toTable": "dm DimClaim",
+        "toColumn": "claim_SK"
+      },
+      {
+        "name": "467f9ad5-2793-4191-929a-a0c3e04d17b7",
+        "fromTable": "dm FactCededCashFlow",
+        "fromColumn": "entryDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "d595ab74-3c79-4fad-85bb-9c6626f1978e",
+        "fromTable": "dm FactCededCashFlow",
+        "fromColumn": "exposureClosedDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "8af5c9d2-cbae-4f15-8701-20e25b923bd3",
+        "fromTable": "dm FactCededCashFlow",
+        "fromColumn": "exposureOpenDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "4fa6b121-d6e6-47fa-8af8-9b27d4172596",
+        "fromTable": "dm FactCededCashFlow",
+        "fromColumn": "exposureReopenDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "09653019-41a1-4404-98a4-689bbb6f2fd8",
+        "fromTable": "dm FactCededCashFlow",
+        "fromColumn": "policyExpirationDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "24801155-5e2d-4289-85e1-e08857c90a6e",
+        "fromTable": "dm FactCededCashFlow",
+        "fromColumn": "workmatterClosedDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "45e225e6-9174-4d14-b758-0c3189af3735",
+        "fromTable": "dm FactCededCashFlow",
+        "fromColumn": "workmatterOpenDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "764a6b17-f2e7-45f8-a58b-abc95a2fba57",
+        "fromTable": "dm FactCededCashFlow",
+        "fromColumn": "workmatterReopenDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "e69f19ef-222c-45a8-b136-663d462f0f6f",
+        "fromTable": "dm FactCededCashFlow",
+        "fromColumn": "Exposure_SK",
+        "toTable": "dm DimExposure",
+        "toColumn": "exposure_SK"
+      },
+      {
+        "name": "3d936576-53c5-46c5-8471-77f6710102bf",
+        "fromTable": "dm FactCededCashFlow",
+        "fromColumn": "policy_SK",
+        "toTable": "dm DimPolicy",
+        "toColumn": "policy_SK"
+      },
+      {
+        "name": "3b9ddd92-d972-44ef-b5c7-e612c11f6f57",
+        "fromTable": "dm FactCededCashFlow",
+        "fromColumn": "workMatter_SK",
+        "toTable": "dm DimWorkmatter",
+        "toColumn": "workMatter_SK"
+      },
+      {
+        "name": "d3fe910d-ec7e-43bc-a5df-19d53d9763e4",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "adjuster_SK",
+        "toTable": "dm DimAdjuster",
+        "toColumn": "adjuster_SK"
+      },
+      {
+        "name": "d5a3380e-ee73-4ac3-bdfd-b2848f6835d5",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "entryDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "bd0641eb-09ec-48bc-be92-3c85e486364e",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "exposureClosedDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "7f293b39-f241-446a-9cb1-614971b481ed",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "exposureOpenDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "45c458c2-2774-4cf4-9817-390d477269c6",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "exposureReopenDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "ea52eae1-a10a-4bdf-be94-7421c8bfe316",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "policyEffectiveDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK"
+      },
+      {
+        "name": "6c3a60ba-cfb3-4de5-bfea-d8f01482aa23",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "policyExpirationDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "638129eb-fba1-41f5-a64f-7676129323e1",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "projectionDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "2192e621-6d41-4efb-9c91-9d00948ab6c4",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "workMatterClosedDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "097a3c4d-afc1-4b03-b8c9-672b9a85c21a",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "workMatterOpenDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "e01525c9-e108-4b45-9fd9-6c776efc3726",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "workMatterReopenDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "2858e6b0-bd2a-4e94-96a9-f533314491cb",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "Exposure_SK",
+        "toTable": "dm DimExposure",
+        "toColumn": "exposure_SK"
+      },
+      {
+        "name": "15b1bc82-93f3-4b1b-ac46-28f51b0a5774",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "policy_SK",
+        "toTable": "dm DimPolicy",
+        "toColumn": "policy_SK"
+      },
+      {
+        "name": "86262dfe-ff36-4e41-9b8d-b9ca80fc1703",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "workMatter_SK",
+        "toTable": "dm DimWorkmatter",
+        "toColumn": "workMatter_SK"
+      },
+      {
+        "name": "28158021-517d-4134-a630-b04e1c693aea",
+        "fromTable": "dm FactActuals",
+        "fromColumn": "claim_SK",
+        "toTable": "dm DimClaim",
+        "toColumn": "claim_SK"
+      },
+      {
+        "name": "163fd9f6-03a9-4319-b131-44d36fe92728",
+        "fromTable": "dm FactActuals",
+        "fromColumn": "exposureClosedDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "b1389df5-95a2-4e94-a4f6-a9b343a06c61",
+        "fromTable": "dm FactActuals",
+        "fromColumn": "exposureOpenDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "fa4a8f28-3e5a-430c-9a84-3915a7770a5e",
+        "fromTable": "dm FactActuals",
+        "fromColumn": "exposureReopenDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "9fe1ccbf-cf8e-44e6-aa18-526ee528f644",
+        "fromTable": "dm FactActuals",
+        "fromColumn": "policyEffectiveDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK"
+      },
+      {
+        "name": "3cd77a4d-cd90-439e-b604-3999b63b423a",
+        "fromTable": "dm FactActuals",
+        "fromColumn": "policyExpirationDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "37490271-a242-45fc-aebe-d7f53c54e78c",
+        "fromTable": "dm FactActuals",
+        "fromColumn": "valuationDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "8cf491d4-87bf-4e3c-bf39-fb15830e51cb",
+        "fromTable": "dm FactActuals",
+        "fromColumn": "workMatterClosedDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "805207ee-ba5d-487d-ad63-dcb0b908bd6e",
+        "fromTable": "dm FactActuals",
+        "fromColumn": "workMatterOpenDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "7946419c-9a8b-40ce-b351-21147df2c240",
+        "fromTable": "dm FactActuals",
+        "fromColumn": "workMatterReopenDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK",
+        "isActive": false
+      },
+      {
+        "name": "9def48fa-0e41-4e02-bfac-f77179311af4",
+        "fromTable": "dm FactActuals",
+        "fromColumn": "Exposure_SK",
+        "toTable": "dm DimExposure",
+        "toColumn": "exposure_SK"
+      },
+      {
+        "name": "67eafc1f-921a-4355-81a9-25f9f5f3391f",
+        "fromTable": "dm FactActuals",
+        "fromColumn": "policy_SK",
+        "toTable": "dm DimPolicy",
+        "toColumn": "policy_SK"
+      },
+      {
+        "name": "e2f33308-3249-44a4-8cac-153793f8f70e",
+        "fromTable": "dm FactActuals",
+        "fromColumn": "workMatter_SK",
+        "toTable": "dm DimWorkmatter",
+        "toColumn": "workMatter_SK"
+      },
+      {
+        "name": "abeea736-2175-4dfd-a15a-09412b670a90",
+        "fromTable": "dm FactCededCashFlow",
+        "fromColumn": "policyEffectiveDate_SK",
+        "toTable": "dm DimDate",
+        "toColumn": "Date_SK"
+      },
+      {
+        "name": "66ae7bae-f99b-46a9-96d8-1ca53d8d0cd7",
+        "fromTable": "dm FactCededCashFlow",
+        "fromColumn": "reinsurance_SK",
+        "toTable": "dm DimReinsurance",
+        "toColumn": "reinsurance_SK"
+      },
+      {
+        "name": "f2c88802-85f8-4e45-a4dd-0bee7de926cc",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "claim_SK",
+        "toTable": "dm DimClaim",
+        "toColumn": "claim_SK"
+      },
+      {
+        "name": "43dcf521-48a3-4e45-8062-9953dcb7dd3c",
+        "fromTable": "dm FactCashFlow",
+        "fromColumn": "notification_SK",
+        "toTable": "dm DimNotifications",
+        "toColumn": "notification_SK"
+      },
+      {
+        "name": "63e104a1-8154-4338-9347-264f22bf775e",
+        "fromTable": "dm FactActuals",
+        "fromColumn": "adjuster_SK",
+        "toTable": "dm DimAdjuster",
+        "toColumn": "adjuster_SK"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "ClientCompatibilityLevel",
+        "value": "500"
+      }
+    ]
+  },
+  "id": "SemanticModel"
+}
