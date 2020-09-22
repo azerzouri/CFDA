@@ -7,8 +7,7 @@
 		},
 		"parameters": {
 			"TableName": {
-				"type": "string",
-				"defaultValue": "CFADATANew"
+				"type": "string"
 			}
 		},
 		"annotations": [],
