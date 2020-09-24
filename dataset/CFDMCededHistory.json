@@ -5,11 +5,19 @@
 			"referenceName": "CFDMCededHistory",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"TableName": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "AzureTable",
 		"schema": [],
 		"typeProperties": {
-			"tableName": "CFADATANew"
+			"tableName": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
 		}
 	}
 }
