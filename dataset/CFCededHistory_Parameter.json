@@ -1,0 +1,16 @@
+{
+	"name": "CFCededHistory_Parameter",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "CashflowDMDev",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlMITable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "wrk",
+			"table": "pipeline_parameter"
+		}
+	}
+}
