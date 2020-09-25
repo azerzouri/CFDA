@@ -25,7 +25,7 @@
 						"type": "AzureTableSink",
 						"azureTableInsertType": "merge",
 						"azureTableDefaultPartitionKeyValue": {
-							"value": "@pipeline().parameters.Partition",
+							"value": "@formatDateTime(utcnow(),'yyyy-MM-dd hh:mm:ss')",
 							"type": "Expression"
 						},
 						"writeBatchSize": 10000
