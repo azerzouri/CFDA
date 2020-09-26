@@ -61,10 +61,6 @@
 			}
 		],
 		"parameters": {
-			"Partition": {
-				"type": "string",
-				"defaultValue": "2020-09-22"
-			},
 			"TableName": {
 				"type": "string",
 				"defaultValue": "CFADATANew"
