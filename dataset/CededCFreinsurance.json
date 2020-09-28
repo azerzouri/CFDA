@@ -1,0 +1,13 @@
+{
+	"name": "CededCFreinsurance",
+	"properties": {
+		"description": "CededCFreinsurance",
+		"linkedServiceName": {
+			"referenceName": "MIGODSE2E03",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": []
+	}
+}
