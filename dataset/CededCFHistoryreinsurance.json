@@ -6,6 +6,14 @@
 			"referenceName": "MIGODSE2E03",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"Schema": {
+				"type": "string"
+			},
+			"StoredProc": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "SqlServerTable",
 		"schema": []
