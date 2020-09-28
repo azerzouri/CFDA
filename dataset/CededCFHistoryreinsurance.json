@@ -1,7 +1,7 @@
 {
-	"name": "CededCFreinsurance",
+	"name": "CededCFHistoryreinsurance",
 	"properties": {
-		"description": "CededCFreinsurance",
+		"description": "CededCFHistoryreinsurance",
 		"linkedServiceName": {
 			"referenceName": "MIGODSE2E03",
 			"type": "LinkedServiceReference"
