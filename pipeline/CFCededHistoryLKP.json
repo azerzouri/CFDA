@@ -46,7 +46,8 @@
 					"isSequential": false,
 					"activities": [
 						{
-							"name": "Copy data to azure table storage",
+							"name": "Copy_CededCF_History_DATA",
+							"description": "Copy ceded history data to azure table storage",
 							"type": "Copy",
 							"dependsOn": [],
 							"policy": {
