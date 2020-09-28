@@ -62,7 +62,7 @@
 								"source": {
 									"type": "SqlServerSource",
 									"sqlReaderStoredProcedureName": {
-										"value": "@concat(item().TABLE_CATALOG,'.',item().SQLtext)",
+										"value": "@concat(item().TABLE_CATALOG,'.',item().SQLtxt)",
 										"type": "Expression"
 									},
 									"queryTimeout": "02:00:00",
@@ -89,7 +89,7 @@
 											"type": "Expression"
 										},
 										"StoredProc": {
-											"value": "@item().SQLtext",
+											"value": "@item().SQLtxt",
 											"type": "Expression"
 										}
 									}
