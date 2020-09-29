@@ -10,3 +10,4 @@ Post-Deployment Script Template
 --------------------------------------------------------------------------------------
 */
 :r .\Script.loadStgDateTable.sql
+:r .\Script.loadwrkPipelineParametsTable.sql
