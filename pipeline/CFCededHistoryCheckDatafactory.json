@@ -1,0 +1,35 @@
+{
+	"name": "CFCededHistoryCheckDatafactory",
+	"properties": {
+		"activities": [
+			{
+				"name": "checkdatafactoryname",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(pipeline().DataFactory,'e2nprddfcf')",
+						"type": "Expression"
+					},
+					"ifTrueActivities": [
+						{
+							"name": "Executecopydata",
+							"type": "ExecutePipeline",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"pipeline": {
+									"referenceName": "CFCededHistoryLKP",
+									"type": "PipelineReference"
+								},
+								"waitOnCompletion": true
+							}
+						}
+					]
+				}
+			}
+		],
+		"annotations": []
+	}
+}
