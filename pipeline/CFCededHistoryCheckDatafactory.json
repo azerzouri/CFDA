@@ -14,16 +14,112 @@
 					},
 					"ifTrueActivities": [
 						{
-							"name": "Executecopydata",
-							"type": "ExecutePipeline",
+							"name": "CededHistorylookup",
+							"type": "Lookup",
 							"dependsOn": [],
+							"policy": {
+								"timeout": "7.00:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
 							"userProperties": [],
 							"typeProperties": {
-								"pipeline": {
-									"referenceName": "CFCededHistoryLKP",
-									"type": "PipelineReference"
+								"source": {
+									"type": "SqlMISource",
+									"partitionOption": "None"
 								},
-								"waitOnCompletion": true
+								"dataset": {
+									"referenceName": "CFCededHistory_Parameter",
+									"type": "DatasetReference"
+								},
+								"firstRowOnly": false
+							}
+						},
+						{
+							"name": "CededHistoryForEach",
+							"type": "ForEach",
+							"dependsOn": [
+								{
+									"activity": "CededHistorylookup",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"userProperties": [],
+							"typeProperties": {
+								"items": {
+									"value": "@activity('CededHistorylookup').output.value",
+									"type": "Expression"
+								},
+								"isSequential": false,
+								"activities": [
+									{
+										"name": "Copy_CededCF_History_DATA",
+										"description": "Copy ceded history data to azure table storage",
+										"type": "Copy",
+										"dependsOn": [],
+										"policy": {
+											"timeout": "7.00:00:00",
+											"retry": 0,
+											"retryIntervalInSeconds": 30,
+											"secureOutput": false,
+											"secureInput": false
+										},
+										"userProperties": [],
+										"typeProperties": {
+											"source": {
+												"type": "SqlServerSource",
+												"sqlReaderStoredProcedureName": {
+													"value": "@concat(item().TABLE_CATALOG,'.',item().SQLtxt)",
+													"type": "Expression"
+												},
+												"queryTimeout": "02:00:00",
+												"partitionOption": "None"
+											},
+											"sink": {
+												"type": "AzureTableSink",
+												"azureTableInsertType": "merge",
+												"azureTableDefaultPartitionKeyValue": {
+													"value": "@formatDateTime(convertFromUtc(utcnow(),'Eastern Standard Time','F') ,'yyyy-MM-dd H:mm:ss')",
+													"type": "Expression"
+												},
+												"writeBatchSize": 10000
+											},
+											"enableStaging": false
+										},
+										"inputs": [
+											{
+												"referenceName": "CededCFHistoryreinsurance",
+												"type": "DatasetReference",
+												"parameters": {
+													"Schema": {
+														"value": "@item().TABLE_CATALOG",
+														"type": "Expression"
+													},
+													"StoredProc": {
+														"value": "@item().SQLtxt",
+														"type": "Expression"
+													}
+												}
+											}
+										],
+										"outputs": [
+											{
+												"referenceName": "CFDMCededHistory",
+												"type": "DatasetReference",
+												"parameters": {
+													"TableName": {
+														"value": "@{item().Table_Name}",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									}
+								]
 							}
 						}
 					]
