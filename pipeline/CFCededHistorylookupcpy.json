@@ -20,7 +20,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"variableName": "Copydata",
-								"value": "NO"
+								"value": "Select * from wrk.pipeline_parameter where year(InsertedDate) = 2019"
 							}
 						}
 					],
