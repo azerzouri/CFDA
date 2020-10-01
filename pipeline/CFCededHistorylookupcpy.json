@@ -1,11 +1,54 @@
 {
-	"name": "CFCededHistoryLKP",
+	"name": "CFCededHistorylookupcpy",
 	"properties": {
 		"activities": [
 			{
+				"name": "checkdatafactoryname",
+				"type": "IfCondition",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(pipeline().DataFactory,'e2nprddfcf')",
+						"type": "Expression"
+					},
+					"ifFalseActivities": [
+						{
+							"name": "setcopydatatoFalse",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "Copydata",
+								"value": "Select * from wrk.pipeline_parameter where [ID] = -1"
+							}
+						}
+					],
+					"ifTrueActivities": [
+						{
+							"name": "Setcopydatatotrue",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "Copydata",
+								"value": "Select * from wrk.pipeline_parameter"
+							}
+						}
+					]
+				}
+			},
+			{
 				"name": "CededHistorylookup",
 				"type": "Lookup",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "checkdatafactoryname",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -17,6 +60,10 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlMISource",
+						"sqlReaderQuery": {
+							"value": "@variables('Copydata')",
+							"type": "Expression"
+						},
 						"partitionOption": "None"
 					},
 					"dataset": {
@@ -112,6 +159,12 @@
 				}
 			}
 		],
+		"variables": {
+			"Copydata": {
+				"type": "String",
+				"defaultValue": "Select * from wrk.pipeline_parameter"
+			}
+		},
 		"annotations": []
 	}
 }
