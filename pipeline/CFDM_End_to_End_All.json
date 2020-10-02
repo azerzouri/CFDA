@@ -112,7 +112,7 @@
 				"type": "WebActivity",
 				"dependsOn": [
 					{
-						"activity": "Execute_cfdm_load",
+						"activity": "ArchiveCFCededData",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -136,6 +136,26 @@
 						"value": "{\n   \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n   \"PipelineName\": \"@{pipeline().Pipeline}\",\n   \"Subject\": \"The CFDM_END_TO_END Actuals, CashFlow and Reisurance pipelines  Successfully finished!\",\n   \"Message\": \"The CFDM_END_TO_END Actuals, CashFlow and Reisurance pipelines  Successfully finished!\",\n   \n}\n",
 						"type": "Expression"
 					}
+				}
+			},
+			{
+				"name": "ArchiveCFCededData",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute_cfdm_load",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "CFCededHistorylookupcpy",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
 				}
 			}
 		],
