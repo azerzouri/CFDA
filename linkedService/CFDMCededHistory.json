@@ -1,18 +1,19 @@
 {
 	"name": "CFDMCededHistory",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "AzureTableStorage",
 		"typeProperties": {
-			"connectionString": {
+			"connectionString": "DefaultEndpointsProtocol=https;AccountName=e2nprdadls01;EndpointSuffix=core.windows.net;",
+			"accountKey": {
 				"type": "AzureKeyVaultSecret",
 				"store": {
-					"referenceName": "AzureKeyVault1",
+					"referenceName": "AsbestosKeyVault",
 					"type": "LinkedServiceReference"
 				},
-				"secretName": "E2NPRDKV01"
+				"secretName": "E2NPRDADLS01"
 			}
 		}
-	},
-	"type": "Microsoft.DataFactory/factories/linkedservices"
+	}
 }
