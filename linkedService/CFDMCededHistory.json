@@ -6,7 +6,7 @@
 		"annotations": [],
 		"type": "AzureTableStorage",
 		"typeProperties": {
-			"connectionString": "DefaultEndpointsProtocol=https;AccountName=e2nprdadls01;EndpointSuffix=core.windows.net;",
+			"connectionString": "DefaultEndpointsProtocol=https;AccountName=e2testadls01;EndpointSuffix=core.windows.net;",
 			"accountKey": {
 				"type": "AzureKeyVaultSecret",
 				"store": {
@@ -15,6 +15,10 @@
 				},
 				"secretName": "E2TESTADLS01"
 			}
+		},
+		"connectVia": {
+			"referenceName": "SelfhostedruntimeCF",
+			"type": "IntegrationRuntimeReference"
 		}
 	}
 }
