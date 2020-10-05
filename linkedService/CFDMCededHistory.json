@@ -15,6 +15,10 @@
 				},
 				"secretName": "E2TESTADLS01"
 			}
+		},
+		"connectVia": {
+			"referenceName": "SelfhostedruntimeCF",
+			"type": "IntegrationRuntimeReference"
 		}
 	}
 }
