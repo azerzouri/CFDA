@@ -5,8 +5,8 @@
 		"annotations": [],
 		"type": "AzureTableStorage",
 		"typeProperties": {
-			"connectionString": "DefaultEndpointsProtocol=https;AccountName=sqlvav5baqnty6yngg;EndpointSuffix=core.windows.net;",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkUyTlBSRERGQ0ZfZDgzNTY3ZjYtY2FkYS00YzdhLWIwODEtZmVmZmFhNmFiMmNmIg0KfQ=="
+			"connectionString": "DefaultEndpointsProtocol=https;AccountName=e2nprdadls01;EndpointSuffix=core.windows.net;",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkUyTlBSRERGQ0ZfZjVhMzBiOGMtOGIwNi00Yzk0LTliOGMtODQ0ZTQyNTQ4NzI4Ig0KfQ=="
 		}
 	}
 }
