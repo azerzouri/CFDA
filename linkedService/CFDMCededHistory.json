@@ -2,7 +2,6 @@
 	"name": "CFDMCededHistory",
 	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
-		"description": "dev storage",
 		"annotations": [],
 		"type": "AzureTableStorage",
 		"typeProperties": {
