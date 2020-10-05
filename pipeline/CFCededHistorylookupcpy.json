@@ -9,7 +9,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@equals(pipeline().DataFactory,'e2proddfcf')",
+						"value": "@equals(pipeline().DataFactory,'e2testdfcf')",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
