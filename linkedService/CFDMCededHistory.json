@@ -12,7 +12,7 @@
 					"referenceName": "AsbestosKeyVault",
 					"type": "LinkedServiceReference"
 				},
-				"secretName": "E2NPRDADLS01"
+				"secretName": "E2PRODADLS01"
 			}
 		},
 		"connectVia": {
