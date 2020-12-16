@@ -2,7 +2,7 @@
 	"name": "BIASRC01",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "RDM_QA",
+			"referenceName": "BIASRC01",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
