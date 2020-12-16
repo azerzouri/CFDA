@@ -2,11 +2,8 @@
 	"name": "BIASRC01",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "BIASRC01",
-			"type": "LinkedServiceReference",
-			"parameters": {
-				"secret_name": "BIASRC01prodrs"
-			}
+			"referenceName": "RDM_QA",
+			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
 		"type": "SqlServerTable",
