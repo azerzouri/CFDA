@@ -1,0 +1,18 @@
+
+ServicePrincipalNames : {6b9fe6b5-f683-4391-98f3-abb5de1da265}
+ApplicationId         : 6b9fe6b5-f683-4391-98f3-abb5de1da265
+ObjectType            : ServicePrincipal
+DisplayName           : ServicePrincipalName
+Id                    : 50e2145a-8784-420d-8b95-d23b87e6a3dd
+Type                  : ServicePrincipal
+DeletionTimestamp     : 
+AdditionalProperties  : 
+
+---------------------
+Tenant.Id
+b021b60e-450a-4b52-b33c-00e902806286
+
+
+Doc
+
+https://docs.microsoft.com/en-us/powershell/azure/create-azure-service-principal-azureps?view=azps-6.2.1

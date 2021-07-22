@@ -1,0 +1,42 @@
+$displayName = "synapses1App"
+$password = "BerberAziz#2264"
+$app = New-AzureRmADApplication –DisplayName $displayName  –Password $password
+New-AzureADServicePrincipal –ApplicationId $app.ApplicationId
+
+New-AzureRoleAssignment –RoleDefinitionName Contributor –ServicePrincipalName $app.ApplicationId
+
+
+
+
+$username = "YourUserName"
+$pass = ConvertTo-SecureString "YourPassword" -AsPlainText –Force
+$cred = New-Object -TypeName pscredential –ArgumentList $username, $pass
+$tenant = (Get-AzureRmSubscription).TenantId
+Login-AzAccount -Credential $cred -ServicePrincipal –TenantId $tenant
+Save-AzureProfile -Path c:\AzureLoginToken.json
+
+Next time you want to login, just load the ProfilePermalink
+Select-AzurProfile -Path c:\AzureLoginToken.json
+
+
+
+
+
+---------------------------------
+#1. Login to AzurePermalink
+Login-AzureAccount
+#2. Create certificatePermalink
+$cert = New-SelfSignedCertificate -CertStoreLocation "cert:\CurrentUser\My" -Subject "CN=exampleapp" -KeySpec KeyExchange
+$keyValue = [System.Convert]::ToBase64String($cert.GetRawCertData())
+#3. Create AD ApplicationPermalink
+$azureAdApplication = New-AzureRmADApplication -DisplayName "exampleapp" -HomePage "https://www.contoso.org" -IdentifierUris "https://www.contoso.org/example" -KeyValue $keyValue -KeyType AsymmetricX509Cert -EndDate $cert.NotAfter -StartDate $cert.NotBefore      
+#4. Create Service PrincipalPermalink
+New-AzureADServicePrincipal -ApplicationId $azureAdApplication.ApplicationId
+#5. Assign roles to Service PrincipalPermalink
+New-AzureRoleAssignment -RoleDefinitionName Contributor -ServicePrincipalName $azureAdApplication.ApplicationId.Guid
+
+
+
+Plan Source Email
+
+cobra.arpa@plansource.com
